@@ -41,8 +41,8 @@ class StoreController extends Controller
         $data['message'] = $request->message;
         Contact::create($data);
 
-        return redirect()->route('main.index.contacts');;
-    //    return response()->json(['success'=>'Form is successfully submitted!']);
+    //    return redirect()->route('main.index');
+        return response()->json(['success'=>'Form is successfully submitted!']);
 
     }
 }

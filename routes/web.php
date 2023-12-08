@@ -23,7 +23,7 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => 'setLoc
 
     Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
         Route::get('/', 'IndexController')->name('main.index');
-        Route::get('/#contacts', 'IndexController')->name('main.index.contacts');
+        Route::get('/#contact', 'IndexController')->name('main.index.contacts');
     });
 
     Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {
