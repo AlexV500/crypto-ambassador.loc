@@ -10,11 +10,7 @@ class IndexController extends SiteController{
 
     public function __invoke(){
 
-        $getLocale = $this->getLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $isAdmin = $this->isAdmin();
         $posts = Post::where('lang', '=', $this->getCurrentLocale())->get()->take(8);
-        return view('main.index', compact('posts', 'getLocale', 'getLocaleName', 'locales', 'isAdmin'));
+        return view('main.index', compact('posts'));
     }
 }

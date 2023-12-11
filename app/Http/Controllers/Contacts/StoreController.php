@@ -16,7 +16,7 @@ class StoreController extends Controller
 //            'name' => ['required', 'string', 'max:255'],
 //            'email' => ['required', 'string', 'email', 'max:255'],
 //            'subject' => ['required', 'string', 'max:255'],
-//            'mobile_number' => ['required', 'string', 'max:255'],
+//            'mobile_number' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10'],
             'g-recaptcha-response' => ['required',
                 function (string $attribute, mixed $value, Closure $fail) {
                     $gResponse = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [

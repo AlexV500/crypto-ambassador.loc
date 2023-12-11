@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="js">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js">
 
 <!-- Mirrored from demo.themenio.com/appsland/index-half-header.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 02 Oct 2023 09:50:40 GMT -->
 <head>
@@ -23,7 +23,7 @@
     <link href="{{asset('assets/css/LineIcons.2.0.css')}}" rel="stylesheet">
     <link href="{{asset('assets/fonts/fontawesome/css/all.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
-
+{{--    @livewireStyles--}}
 {{--    <link href="{{asset('assets/js/particlesJS/particles.min.js')}}" rel="stylesheet">--}}
 {{--    <link href="{{asset('assets/js/particlesJS/app.js')}}" rel="stylesheet">--}}
 
@@ -37,103 +37,9 @@
 
     <!-- stats - count particles -->
 
-<header class="header navbar-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="index-2.html">
-                        <img src="assets/img/logo.svg" alt="Logo">
-                    </a>
-
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                        <ul id="nav" class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="page-scroll active" href="#home">{{__('lang.Home')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#about">{{__('lang.About')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#blog">{{__('lang.Blog')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#partnership">{{__('lang.Partnership')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#ambassadors">{{__('lang.Ambassadors')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#roadmap">{{__('lang.Roadmap')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#contact">{{__('lang.Contact')}}</a>
-                            </li>
-
-                            @guest()
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('login')}}">Login</a>
-                                </li>
-                            @endguest
-                            @auth()
-                            <li class="">
-                            <div class="dropdown">
-                                <a class="btn dropdown-nav-theme-btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="lni lni-user"></i>
-                                 </a>
-
-                                <ul class="dropdown-menu">
-
-                                    @if($isAdmin)
-                                        <li class="dropdown-item">
-                                            <a class="nav-link" href="{{route('admin')}}">Admin Panel</a>
-                                        </li>
-                                    @endif
-                                        <li class="dropdown-item">
-                                            Welcome, {{ auth()->user()->name }}
-                                        </li>
-                                    <li class="dropdown-item">
-                                        <a class="nav-link" href="{{route('personal.main.index')}}">Personal Cabinet</a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <input class="btn btn-sm btn-primary" type="submit" value="Logout">
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                            </li>
-                            @endauth
-                            <li class="">
-                                <div class="dropdown">
-                                    <a class="btn dropdown-nav-theme-btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{ $getLocaleName }}
-                                    </a>
-
-                                    <ul class="dropdown-menu">
-                                        @foreach ($locales as $index => $localeName)
-                                        <li class="dropdown-item">
-                                            <a class="nav-link" href="{{ UrlLocal::localize($index) }}">{{ $localeName }}</a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
-
+<x-header></x-header>
 
 @yield('content')
-
 
 <footer class="footer pt-100 img-bg" style="background-image: url({{asset('assets/img/common-bg.jpg')}})">
     <div class="container">
@@ -232,10 +138,11 @@
     <!-- Core theme JS-->
 {{--    <script src="{{asset('assets/js/scripts.js')}}js/scripts.js"></script>--}}
 
-<script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site_key')}}"></script>
+{{--<script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site_key')}}"></script>--}}
     <script src="{{asset('assets/bootstrap/dist/js/bootstrap.bundle.js')}}"></script>
 
     <script src="{{asset('assets/js/main.js')}}"></script>
+{{--    @livewireScripts--}}
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

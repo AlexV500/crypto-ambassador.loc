@@ -1,5 +1,5 @@
 <form id="contactForm" class="contact-form">
-
+    @csrf
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <input type="text" id="name" name="name" placeholder="Name">
@@ -40,38 +40,48 @@
     </div>
     <button id="submit" class="g-recaptcha theme-btn theme-btn-2">SEND MESSAGE</button>
 </form>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
 <script>
-    $('#contactForm').on('submit',function(e){
+    $('#contactForm').on('submit', async function(event){
 
-        e.preventDefault();
-        let name = $('#name').val();
-        let email = $('#email').val();
-        let mobile_number = $('#mobile_number').val();
-        let subject = $('#subject').val();
-        let message = $('#message').val();
+        let token = document.querySelector(‘meta[name=”csrftoken”]’).getAttribute(‘content’);//Select input values with the data you want to send
+        let name = document.querySelector(‘input[name=”name”]’).value;
+        let number = document.querySelector(‘input[name=”number”]’).value;//Define your post url
+        let url = '/admin/part/store';//Define redirect if needed
+        let redirect = '/admin/part/list';//Select your form to clear data after sucessful post
+        let form = document.querySelector('#addPart');
 
-        grecaptcha.ready(function () {
-            grecaptcha.execute('{{config('services.recaptcha.site_key')}}', {action: 'contacts'}).then(function (token) {
-                document.getElementById("g-recaptcha-response").value = token;
-                $.ajax({
-                    url: "{{route('contacts.store')}}",
-                    type:"POST",
-                    data:{
-                        "_token": "{{ csrf_token() }}",
-                        name:name,
-                        email:email,
-                        mobile_number:mobile_number,
-                        subject:subject,
-                        message:message,
-                    },
-                    success:function(response){
-                        console.log(response);
-                    },
-                });
-                document.getElementById("contact-form").submit();
+        event.preventDefault();
+        fetch(url, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-TOKEN": token
+            },
+            method: 'post',
+            credentials: "same-origin",
+            body: JSON.stringify({
+                name: name,
+                number: number
+            })
+        })
+            .then((data) => {
+                form.reset();
+                window.location.href = redirect;
+            })
+            .catch(function(error) {
+                console.log(error);
             });
-        });
+    }
+
+        {{--grecaptcha.ready(function () {--}}
+        {{--    grecaptcha.execute('{{config('services.recaptcha.site_key')}}', {action: 'contacts'}).then(function (token) {--}}
+        {{--        document.getElementById("g-recaptcha-response").value = token;--}}
+
+        {{--        document.getElementById("contact-form").submit();--}}
+        {{--    });--}}
+        {{--});--}}
 
 
     });

@@ -15,15 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::group(['prefix' => LocalizationService::locale(), 'middleware' => 'setLocale'], function () {
 
+    Route::get('/', 'App\Livewire\ContactForm');
+ //   Route::post('/', 'App\Livewire\ContactForm');
     Route::group(['namespace' => 'App\Http\Controllers\Contacts', 'prefix' => 'contacts'], function () {
-        Route::post('/', 'StoreController')->name('contacts.store');
+        Route::post('/contacts', 'StoreController')->name('contacts.store');
     });
+
 
     Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
         Route::get('/', 'IndexController')->name('main.index');
-        Route::get('/#contact', 'IndexController')->name('main.index.contacts');
+
+    //    Route::get('/contact', ContactForm::class)->name('main.index.contacts');
     });
 
     Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {

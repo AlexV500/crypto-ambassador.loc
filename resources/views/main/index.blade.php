@@ -182,7 +182,8 @@
                 <div class="col-xl-11 col-lg-11">
                     <div class="contact-wrapper mb-30">
                     {!! Snippet::getSnippet('Contacts') !!}
-                        <x-contacts></x-contacts>
+{{--                        <x-contacts></x-contacts>--}}
+                        @livewire('contact-form')
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-5">
