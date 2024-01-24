@@ -223,8 +223,24 @@
 {{--</footer>--}}
 
 <!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+<footer class="footer pt-100 img-bg" style="background-image: url({{asset('assets/img/common-bg.jpg')}})">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="footer-widget mb-60 wow fadeInLeft" data-wow-delay=".2s">
+                    <a href="index-2.html" class="logo mb-40"><img src="{{asset('assets/img/logo.svg')}}" alt></a>
+                    <p class="mb-30">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dianonumy eirmod
+                        tempor invidunt ut labore.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <p class="mb-0 text-white text-center">Designed and Developed By <a href="https://uideck.com/"
+                                                                                rel="nofollow"
+                                                                                target="_blank">UIdeck</a></p>
+        </div>
+    </div>
 </footer>
 <!-- Bootstrap core JS-->
 <script src="{{asset('assets/bootstrap/dist/js/bootstrap.bundle.js')}}"></script>

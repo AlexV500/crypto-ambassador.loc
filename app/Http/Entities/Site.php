@@ -25,22 +25,26 @@ class Site{
 
     public function getLocalizedURL($index, $cname){
 
-        $url = request()->fullUrl();
+//        $url = request()->fullUrl();
+//
+//        if($index == $this->getDefaultLocale()){
+//            if($cname == ''){
+//                $url = url('/');
+//            } else {
+//                $url = url('/'.$cname);
+//            }
+//
+//        } else {
+//            if($cname == ''){
+//                $url = url('/'.$index);
+//            } else {
+//                $url = url('/'.$index.'/'.$cname);
+//            }
+//        }
 
-        if($index == $this->getDefaultLocale()){
-            if($cname == ''){
-                $url = url('/');
-            } else {
-                $url = url('/'.$cname);
-            }
+        $localePrefix = $index === $this->getDefaultLocale() ? '' : '/' . $index;
+        $cnameSegment = $cname !== '' ? '/' . $cname : '';
 
-        } else {
-            if($cname == ''){
-                $url = url('/'.$index);
-            } else {
-                $url = url('/'.$index.'/'.$cname);
-            }
-        }
 
 
 //        $url = request()->fullUrl();
@@ -99,7 +103,7 @@ class Site{
 //        $url = rtrim($url, '/');
 //        $parsed_url['path'] = rtrim($parsed_url['path'], '/');
 
-        return $url;
+        return url($localePrefix . $cnameSegment);
     }
 
     protected function unparseUrl($parsed_url)
@@ -136,14 +140,20 @@ class Site{
         return false;
     }
 
-    public function setlocale(){
+    public function setlocale() : self{
+
         $this->locale = '';
-        $locale = request()->segment('1', '');
-        if($locale && array_key_exists($locale, $this->getAllLocalizations()) && $locale !== $this->getConfigLocale()){
-            $this->locale = $locale;
-        } return $this;
+        $requestedLocale = request()->segment('1', '');
+        $availableLocales = $this->getAllLocalizations();
+
+        if ($requestedLocale && array_key_exists($requestedLocale, $availableLocales) && $requestedLocale !== $this->getConfigLocale()) {
+            $this->locale = $requestedLocale;
+        }
+
+        return $this;
+
     }
-    public function setCurrentlocale(){
+    public function setCurrentlocale() : self{
         $this->currentLocale = $this->getDefaultLocale();
         $locale = request()->segment('1', '');
         if($locale && array_key_exists($locale, $this->getAllLocalizations()) && $locale !== $this->getDefaultLocale()){
@@ -174,12 +184,7 @@ class Site{
         return $this;
     }
 
-//    public function setCurrentLocale(){
-//
-//        if(trim(empty($this->getLocale()))){
-//            $this->currentLocale = $this->getConfigLocale();
-//        } return $this;
-//    }
+
 
     public function setCurrentLocaleName(){
 
@@ -236,7 +241,4 @@ class Site{
 
         return config('app.locales');
     }
-
-
-
 }

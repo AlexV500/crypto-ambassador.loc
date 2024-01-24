@@ -7,9 +7,9 @@ use App\Models\Contact;
 
 class DeleteController extends Controller{
 
-    public function __invoke(Contact $category){
+    public function __invoke(Contact $contact){
 
-        $category->delete();
+        $contact->delete();
         return redirect()->route('admin.contacts.index');
     }
 }

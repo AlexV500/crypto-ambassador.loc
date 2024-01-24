@@ -1,0 +1,3 @@
+<div>
+    Comments ({{ $count }})
+</div>

@@ -18,7 +18,7 @@ class AdminBlogController extends SiteController{
         return Category::where('lang', '=', $this->getCurrentLocale())->get();
     }
     public function getPosts(){
-        return Post::where('lang', '=', $this->getCurrentLocale())->paginate(5);
+        return Post::where('lang', '=', $this->getCurrentLocale())->paginate(20);
     }
     public function getTags(){
         return Tag::where('lang', '=', $this->getCurrentLocale())->get();

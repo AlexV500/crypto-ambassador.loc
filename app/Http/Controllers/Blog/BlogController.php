@@ -17,7 +17,7 @@ class BlogController extends SiteController
          return Category::where('lang', '=', $this->getCurrentLocale())->get();
     }
     public function getPosts(){
-        return Post::where('published', '=', 1)->where('lang', '=', $this->getCurrentLocale())->orderBy('created_at', 'DESC')->paginate(6);
+        return Post::where('published', '=', 1)->where('lang', '=', $this->getCurrentLocale())->orderBy('created_at', 'DESC')->paginate(12);
     }
     public function getTagPosts($tag)
     {

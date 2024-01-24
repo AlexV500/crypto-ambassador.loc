@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin\Main;
 
 use App\Http\Controllers\Admin\Blog\AdminBlogController;
-use App\Models\Blog\Category;
-use App\Models\Blog\Post;
-use App\Models\Blog\Tag;
 use App\Models\User;
 
 class IndexController extends AdminBlogController{

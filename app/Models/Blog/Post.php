@@ -7,13 +7,44 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Tags\Url;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     protected $table = 'posts';
     protected $guarded = false;
+
+    public $casts = [
+        'published' => 'integer',
+        'posted_at' => 'date'
+    ];
+
+    /**
+     * @var array
+     */
+    public $dates = [
+        'created_at'
+    ];
+
+    /**
+     * @var array
+     */
+//    public $fillable = [
+//        'title',
+//        'uri',
+//        'meta_keywords',
+//        'meta_description',
+//        'content',
+//        'published',
+//        'created_at',
+//    ];
 
     protected $withCount = ['LikedUsers'];
     protected $with = ['categories', 'tags'];
@@ -40,5 +71,32 @@ class Post extends Model
     public function getDateAsCarbonAttribute(){
 
         return Carbon::parse($this->custom_date);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('post-images');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
+
+    public function toSitemapTag(): Url | string | array
+    {
+        return Url::create('/blog/posts/'.$this->uri)
+            ->setLastModificationDate(Carbon::create($this->created_at))
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+            ->setPriority(0.1);
+
+//        return Url::create(route('blog.post.show', $this))
+//            ->setLastModificationDate(Carbon::create($this->created_at))
+//            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+//            ->setPriority(0.1);
     }
 }

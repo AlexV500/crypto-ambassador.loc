@@ -31,6 +31,7 @@
                   or ($routeName == 'admin.blog.post.create')
                   or ($routeName == 'admin.blog.post.edit')
                   or ($routeName == 'admin.blog.post.show')
+                  or ($routeName == 'admin.blog.post.update')
                   or ($routeName == 'admin.blog.category.index')
                   or ($routeName == 'admin.blog.category.create')
                   or ($routeName == 'admin.blog.category.edit')
@@ -52,6 +53,7 @@
                          @if(($routeName == 'admin.blog.post.index')
                           or($routeName == 'admin.blog.post.create')
                           or($routeName == 'admin.blog.post.edit')
+                          or($routeName == 'admin.blog.post.update')
                           or($routeName == 'admin.blog.post.show'))
                           active @endif">
                             <i class="nav-icon far fa-circle"></i>
@@ -98,7 +100,10 @@
             </li>
 
             <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('admin.contacts.index')}}" class="nav-link
+                         @if(($routeName == 'admin.contacts.index')
+                          or($routeName == 'admin.contacts.show'))
+                    active @endif">
                     <i class="nav-icon far fa-envelope"></i>
                     <p>
                         Контакти

@@ -12,6 +12,7 @@ class IndexController extends BlogController{
         $categories = $this->getCategories();
         $carbon = $this->getCarbon();
         $posts = $this->getPosts();
+     //   dd($posts);
         $likedPosts = $this->getLikedPosts();
         $tags = $this->getTags();
         $getLocale = $this->getLocale();

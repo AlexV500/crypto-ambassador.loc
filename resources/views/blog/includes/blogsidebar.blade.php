@@ -25,20 +25,6 @@
                     </ul>
                 </div>
 
-{{--                <div class="col-sm-6 categories-widget">--}}
-{{--                    <ul class="list-group mb-0">--}}
-{{--                        @foreach ($categories->chunk(ceil($categories->count() / 2))->first() as $category)--}}
-{{--                            <li class="list-group-item"><a href="{{ route('category.post.index', $category->id) }}">{{ $category->title }}</a></li>--}}
-{{--                        @endforeach--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--                <div class="col-sm-6 categories-widget">--}}
-{{--                    <ul class="list-unstyled mb-0">--}}
-{{--                        @foreach ($categories->chunk(ceil($categories->count() / 2))->last() as $category)--}}
-{{--                            <li><a href="{{ route('category.post.index', $category->id) }}">{{ $category->title }}</a></li>--}}
-{{--                        @endforeach--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
             </div>
         </div>
     </div>
@@ -77,12 +63,12 @@
                     <div class="col-3 col-xl-3 col-md-5 col-sm-2">
                         <a href="{{route('blog.post.show', $likedPost->uri)}}"><img src="{{asset(Storage::url($likedPost->preview_image))}}" height="60" width="60" class="" alt="..."/></a>
                     </div>
-                    <div class="col-9 col-xl-7 col-md-7 col-sm-10">
+                    <div class="col-9 col-xl-9 col-md-7 col-sm-10">
 
-                        <h6><a href="{{route('blog.post.show', $likedPost->uri)}}" class="text-reset fw-bold">{{ $likedPost->title }}</a></h6>
+                        <a href="{{route('blog.post.show', $likedPost->uri)}}" class="">{{ $likedPost->title }}</a>
 {{--                        <div class="small mt-1">May 17, 2022</div>--}}
 
-                            <div class="text-muted small">{{$likedPost->category->title}}</div>
+                            <div class="mt-1"><h6>{{$likedPost->category->title}}</h6></div>
                             <div class="text-muted small"><i
                                     class="fa-solid fa-clock"></i> {{ $likedPost->dateAsCarbon->diffForHumans() }}
 

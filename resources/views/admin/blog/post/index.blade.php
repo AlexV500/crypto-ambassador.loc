@@ -30,19 +30,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <div class="card">
 
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th width="5%">ID</th>
-                                    <th width="26%">Назва</th>
-                                    <th width="26%">URI</th>
-                                    <th width="10%">Cтатус</th>
+                                    <th width="3%">ID</th>
+                                    <th width="44%">Назва</th>
                                     <th width="10%">Дата</th>
-                                    <th width="12%" colspan="3" class="text-center">Дія</th>
+                                    <th width="8%">Cтатус</th>
+                                    <th width="14%">+ Переклад</th>
+                                    <th width="10%" colspan="3" class="text-center">Дія</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,9 +50,9 @@
                                     <tr>
                                         <td>{{$post->id}}</td>
                                         <td>{{$post->title}}</td>
-                                        <td>{{$post->uri}}</td>
-                                        <td>@if($post->published == '1') Опубліковано @else Не опубліковано @endif</td>
                                         <td>{{$post->custom_date}}</td>
+                                        <td>@if($post->published == '1') <span class="badge bg-success">Опубліковано</span> @else <span class="badge bg-warning">Не опубліковано</span> @endif</td>
+                                        <td><x-language-selector></x-language-selector></td>
                                         <td class="text-center"><a href="{{route('admin.blog.post.show', $post->id)}}"><i class="far fa-eye"></i></a></td>
                                         <td class="text-center"><a href="{{route('admin.blog.post.edit', $post->id)}}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                         <td class="text-center">

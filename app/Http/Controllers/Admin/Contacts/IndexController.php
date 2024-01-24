@@ -9,7 +9,8 @@ class IndexController extends SiteController{
 
     public function __invoke(){
 
-        $contacts = Contact::all();
-        return view('admin.contacts.index', compact('contacts'));
+        $contacts = Contact::orderBy('created_at', 'DESC')->paginate(20);
+        $getLocaleName = $this->getLocaleName();
+        return view('admin.contacts.index', compact('contacts', 'getLocaleName'));
     }
 }

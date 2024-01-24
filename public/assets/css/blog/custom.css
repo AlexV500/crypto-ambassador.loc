@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&amp;display=swap");
+
 body {
     font-family: "Poppins", sans-serif;
     font-weight: normal;
@@ -51,6 +53,10 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 5px;
     position: relative;
     transition: all 0.3s ease-out 0s;
+}
+
+.badge{
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -323,7 +329,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .article-area .card-header {
     color: #fff;
-    font-weight: 700;
+    /*font-weight: 700;*/
     background-color: #6c757d;
 }
 
@@ -343,7 +349,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .comments-area .card-header{
     color: #fff;
-    font-weight: 700;
+    /*font-weight: 700;*/
     /*background-color: #6c757d;*/
     /*background-color: #294ad8;*/
     background-image: linear-gradient(to right, #365ae1 0%, #6286eb 50%, #365ae1 100%);
@@ -368,7 +374,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .relposts-area .card-header{
     color: #fff;
-    font-weight: 700;
+    /*font-weight: 700;*/
     background-color: #6c757d;
 }
 
@@ -385,7 +391,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .side-widgets .card-header {
     color: #fff;
-    font-weight: 700;
+    /*font-weight: 700;*/
     /*background-color: #294ad8;*/
     background-image: linear-gradient(to right, #365ae1 0%, #6286eb 50%, #365ae1 100%);
 }
@@ -395,13 +401,21 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 3px solid #5579e8;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+
 }
 
 .p-post-widget .card-body{
     padding: 8px 0;
+    line-height: 20px;
 }
 
 .p-post-widget h6{
+    color: #65677E;
+    font-weight: 500;
+    font-size: 0.83rem;
+    /*color: #5579e8;*/
+}
+.p-post-widget a {
     /*color: #616970;*/
     color: #5579e8;
 }
@@ -416,19 +430,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .categories-widget-link{
     color: #616970;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .categories-widget-link-active{
     /*color: #0c5cd5;*/
     color: #5579e8;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .categories-widget-link:hover{
     /*color: #0c5cd5;*/
     color: #5579e8;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .relposts-area a{
@@ -449,15 +463,16 @@ h1, h2, h3, h4, h5, h6 {
     /*color: #0c5cd5;*/
     /*color: #5579e8;*/
     color: #65677E;
-    font-size: 0.9rem;
+    font-size: 0.83rem;
 }
 
 .relposts-area .card-title{
     /*color: #0c5cd5;*/
     /*color: #3d4270;*/
     color: #486ce5;
-    font-weight: 700;
+    /*font-weight: 700;*/
     font-size: 1.1rem;
+    line-height: 20px;
 }
 
 .relposts-area .card-title-container{
@@ -474,7 +489,7 @@ h1, h2, h3, h4, h5, h6 {
 .posted-time {
     /*color: #3559df;*/
     color: #65677E;
-    font-size: 0.9rem;
+    font-size: 0.83rem;
 }
 
 .atf-blog-area .atf-single-blog {

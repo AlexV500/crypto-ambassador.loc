@@ -20,25 +20,30 @@ class PostService{
                 $tagIds = $data['tag_ids'];
                 unset($data['tag_ids']);
             }
-            if( isset($data['preview_image'])) {
-                $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
-            }
-            if( isset($data['main_image'])) {
-                $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
-            }
+//            if( isset($data['preview_image'])) {
+//                $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
+//            }
+//            if( isset($data['main_image'])) {
+//                $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
+//            }
             //    dd($data);
             $post = Post::firstOrCreate($data);
+
             if( isset($categoryIds)) {
                 $post->categories()->attach($categoryIds);
             }
             if( isset($tagIds)) {
                 $post->tags()->attach($tagIds);
             }
+
+            $post->addMediaFromRequest('main_image')
+                 ->toMediaCollection();
             DB::commit();
         } catch (\Exception $exception){
             DB::rollBack();
             abort(500);
         }
+        return $post;
     }
 
     public function update($data, $post){
@@ -53,12 +58,12 @@ class PostService{
                 $tagIds = $data['tag_ids'];
                 unset($data['tag_ids']);
             }
-            if( isset($data['preview_image'])) {
-                $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
-            }
-            if( isset($data['main_image'])) {
-                $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
-            }
+//            if( isset($data['preview_image'])) {
+//                $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
+//            }
+//            if( isset($data['main_image'])) {
+//                $data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
+//            }
             // dd($data);
             $post->update($data);
             if( isset($categoryIds)) {
@@ -67,6 +72,11 @@ class PostService{
             if( isset($tagIds)) {
                 $post->tags()->sync($tagIds);
             }
+            $post->addMediaFromRequest('main_image')
+                ->toMediaCollection('post-images');
+
+            $post->addMediaFromRequest('preview_image')
+                ->toMediaCollection('post-images');
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();

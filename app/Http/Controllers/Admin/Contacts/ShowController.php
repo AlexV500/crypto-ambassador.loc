@@ -7,9 +7,10 @@ use App\Models\Contact;
 
 class ShowController extends SiteController{
 
-    public function __invoke(Category $category){
+    public function __invoke(Contact $contact){
 
 //        $categories = Category::all();
-        return view('admin.blog.category.show', compact('category'));
+        $getLocaleName = $this->getLocaleName();
+        return view('admin.contacts.show', compact('contact', 'getLocaleName'));
     }
 }

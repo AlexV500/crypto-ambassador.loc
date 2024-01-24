@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\View\Components\Admin\MenuBreadcrumbs;
 use App\View\Components\Admin\MenuWidgetItems;
+use App\View\Components\Admin\AdminNavbar;
+use App\View\Components\Admin\LanguageSelector;
+use App\View\Components\Blog\Posts;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component(MenuBreadcrumbs::class, 'menu-breadcrumbs');
         Blade::component(MenuWidgetItems::class, 'menu-widget-items');
+        Blade::component(AdminNavbar::class, 'admin-navbar');
+        Blade::component(LanguageSelector::class, 'language-selector');
+        Blade::component(Posts::class, 'posts');
+
         Paginator::useBootstrapFive();
     }
 }

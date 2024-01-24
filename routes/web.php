@@ -99,17 +99,6 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => 'setLoc
         Route::get('/login/facebook/callback', 'FacebookController@facebookCallback')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
     });
 
-    Route::group(['namespace' => 'App\Http\Controllers\Socialite'], function () {
-        Route::get('/auth/linkedin', 'LinkedinController@linkedinRedirect')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/linkedin/callback', 'LinkedinController@linkedinCallback')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/twitter', 'TwitterController@twitterRedirect')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/twitter/callback', 'TwitterController@twitterCallback')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/google', 'GoogleController@googleRedirect')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/google/callback', 'GoogleController@googleCallback')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/facebook', 'FacebookController@facebookRedirect')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-        Route::get('/auth/facebook/callback', 'FacebookController@facebookCallback')->where('social', 'twitter|facebook|linkedin|google|github|bitbucket');
-    });
-
     Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 
         Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function () {
@@ -160,6 +149,12 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => 'setLoc
                 });
             });
 
+            Route::group(['namespace' => 'Contacts', 'prefix' => 'contacts'], function () {
+                Route::get('/', 'IndexController')->name('admin.contacts.index');
+                Route::get('/{contact}', 'ShowController')->name('admin.contacts.show');
+                Route::delete('/{contact}', 'DeleteController')->name('admin.contacts.delete');
+            });
+
             Route::group(['namespace' => 'Menu'], function () {
 
                 Route::group(['namespace' => 'MenuWidget', 'prefix' => 'menuwidgets'], function () {
@@ -171,7 +166,6 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => 'setLoc
                     Route::patch('/{menuWidget}', 'UpdateController')->name('admin.menu.menuwidget.update');
                     Route::delete('/{menuWidget}', 'DeleteController')->name('admin.menu.menuwidget.delete');
                 });
-
 
                 Route::group(['namespace' => 'MenuItem', 'prefix' => 'menuitems'], function () {
                     Route::get('/{menuWidget}', 'IndexController')->name('admin.menu.menuitem.index');

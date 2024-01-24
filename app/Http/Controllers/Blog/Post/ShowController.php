@@ -27,6 +27,7 @@ class ShowController extends BlogController{
         $getLocaleName = $this->getLocaleName();
         $locales = $this->getAllLocalizations();
         $relatedPosts = $this->getRelatedPosts($post);
+    //    dd($relatedPosts);
         return view('blog.post.show', compact('post',
             'carbon',
             'date',

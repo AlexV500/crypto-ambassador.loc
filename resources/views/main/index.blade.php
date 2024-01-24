@@ -52,12 +52,10 @@
                 <div class="card-body">
                     <div class="card-title-container">
                     <a class="card-title" href="{{route('blog.post.show', $post->uri)}}" class="">{{$post->title}}</a>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class=""><h6>{{$post->category->title}}</h6></div>
-                        <div class=""><a href="{{route('blog.post.show', $post->uri)}}" class=""></a></div>
-                        <div class="posted-time"><i
-                                class="fa-solid fa-clock"></i> {{ $post->dateAsCarbon->diffForHumans() }}</div>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class=""><h6>{{$post->category->title}}</h6></div>&nbsp;
+                        <div class="posted-time"><i class="fa-solid fa-clock"></i> {{ $post->dateAsCarbon->diffForHumans() }}</div>
                     </div>
                 </div>
             </div>
