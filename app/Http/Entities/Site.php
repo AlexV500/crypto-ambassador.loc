@@ -4,6 +4,7 @@ namespace App\Http\Entities;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\App;
 
 class Site{
 
@@ -216,6 +217,10 @@ class Site{
     public function getConfigLocale(){
 
         return config('app.locale');
+    }
+    public function getConfigLocales(){
+
+        return config('app.locales');
     }
     public function getDefaultLocale(){
 

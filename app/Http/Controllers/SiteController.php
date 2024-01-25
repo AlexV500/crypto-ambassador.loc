@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Entities\Site;
 
+
 class SiteController extends Controller{
 
     public $localization;

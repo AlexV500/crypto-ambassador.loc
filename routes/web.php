@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['prefix' => LocalizationService::locale(), 'middleware' => 'setLocale'], function () {
+Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLocale', 'LocaleRedirect']], function () {
 
     Route::get('/', 'App\Livewire\ContactForm');
  //   Route::post('/', 'App\Livewire\ContactForm');
