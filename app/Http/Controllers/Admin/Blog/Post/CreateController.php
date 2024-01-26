@@ -24,4 +24,6 @@ class CreateController extends AdminBlogController{
             'getLocaleName',
             'locales'));
     }
+
+    private function getOriginalContent(){}
 }

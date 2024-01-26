@@ -106,6 +106,9 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
             Route::group(['namespace' => 'Main'], function () {
                 Route::get('/', 'IndexController')->name('admin');
             });
+            Route::group(['namespace' => 'Translate', 'prefix' => 'translate'], function () {
+                Route::post('/', 'TranslateContentController')->name('admin.translate.content');
+            });
 
             Route::group(['namespace' => 'Snippets', 'prefix' => 'snippets'], function () {
                 Route::get('/', 'IndexController')->name('admin.snippets.index');

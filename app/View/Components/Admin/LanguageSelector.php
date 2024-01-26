@@ -9,15 +9,26 @@ use App\Http\Entities\Site;
 
 class LanguageSelector extends Component
 {
+    public $contentId;
+    public $contentTitle;
+    public $route;
     public $siteEntity;
     public $locales;
     public $getLocaleName;
-    public function __construct()
+    public $getCurrentLocale;
+    public $getDefaultLocale;
+    public function __construct($contentId, $contentTitle, $route)
     {
+        $this->contentId = $contentId;
+        $this->contentTitle = $contentTitle;
+        $this->route = $route;
         $this->siteEntity = new Site();
         $this->getLocaleName = $this->getLocaleName();
+        $this->getCurrentLocale = $this->getCurrentLocale();
+        $this->getDefaultLocale = $this->getDefaultLocale();
         $this->locales = $this->getAllLocalizations();
     }
+
     public function render(): View|Closure|string
     {
         return view('components.admin.language-selector');
@@ -25,11 +36,32 @@ class LanguageSelector extends Component
 
     public function getAllLocalizations(){
 
-        return $this->siteEntity->getAllLocalizations();
+        return $this->cutCurrentLocale($this->siteEntity->getAllLocalizations());
     }
 
     public function getLocaleName(){
 
         return $this->siteEntity->getCurrentLocaleName();
+    }
+
+    public function getCurrentLocale(){
+
+        return $this->siteEntity->getCurrentLocale();
+    }
+
+    public function getDefaultLocale(){
+
+        return $this->siteEntity->getDefaultLocale();
+    }
+
+    public function getRoute(){
+
+        return $this->route;
+    }
+
+    private function cutCurrentLocale($locales){
+        return array_filter($locales, function($k) {
+            return (($k !== $this->getCurrentLocale) or ($k !== $this->getDefaultLocale));
+        }, ARRAY_FILTER_USE_KEY);
     }
 }
