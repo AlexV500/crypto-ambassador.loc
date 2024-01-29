@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('meta_keywords');
             $table->text('meta_description');
             $table->text('content');
+            $table->unsignedBigInteger('original_content_id')->nullable();
+        //    $table->text('translation_ids');
             $table->string('lang');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();

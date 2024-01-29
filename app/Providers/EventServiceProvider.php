@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Admin\Blog\Post\CreatePostEvent;
 use App\Events\Admin\MenuItem\CreatedMenuItemEvent;
 use App\Events\Admin\MenuWidget\CreatedMenuWidgetEvent;
+use App\Listeners\Admin\Blog\Post\CreatePost;
 use App\Listeners\Admin\MenuItem\CreateItem;
 use App\Listeners\Admin\MenuWidget\CreateWidget;
 use Illuminate\Auth\Events\Registered;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CreatedMenuItemEvent::class => [
             CreateItem::class,
+        ],
+        CreatePostEvent::class => [
+            CreatePost::class,
         ],
     ];
 

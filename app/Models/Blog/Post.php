@@ -2,6 +2,7 @@
 
 namespace App\Models\Blog;
 
+use App\Events\Admin\Blog\Post\CreatePostEvent;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,6 +49,15 @@ class Post extends Model implements HasMedia
 
     protected $withCount = ['LikedUsers'];
     protected $with = ['categories', 'tags'];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::created(fn(Post $model) => event(new CreatePostEvent($model)),
+        );
+
+    }
 
     public function tags(){
         return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');

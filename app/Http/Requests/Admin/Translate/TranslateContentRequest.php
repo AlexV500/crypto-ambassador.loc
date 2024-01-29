@@ -23,6 +23,7 @@ class TranslateContentRequest extends FormRequest
     {
         return [
             'contentId' => 'required|integer',
+            'contentTitle' => 'required|string',
             'route' => 'required|string',
             'locale' => 'required|string',
         ];
