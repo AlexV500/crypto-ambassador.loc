@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'content' => 'required|string',
+            'original_content_id' => 'required|integer',
             'preview_image' => 'required|file',
             'main_image' => 'required|file',
             'category_id' => 'required|integer',

@@ -29,6 +29,7 @@ class UpdateRequest extends FormRequest
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'content' => 'required|string',
+            'original_content_id' => 'required|integer',
             'preview_image' => 'nullable|file',
             'main_image' => 'nullable|file',
             'category_id' => 'required|integer',

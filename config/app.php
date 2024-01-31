@@ -189,6 +189,7 @@ return [
         App\Providers\MenuServiceProvider::class,
         App\Providers\MenuHelperServiceProvider::class,
         App\Providers\BreadcrumbsServiceProvider::class,
+        App\Providers\TranslateContentCreationServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -209,6 +210,7 @@ return [
         'UrlLocal' => App\Helpers\Localization\UrlLocal::class,
         'Snippet' => App\Helpers\Localization\Snippet::class,
         'MenuService' => App\Services\Admin\MenuService::class,
+        'TranslateContentCreationService' => App\Services\Admin\TranslateContentCreationService::class,
         'MenuHelper' => App\Helpers\Menu\MenuHelper::class,
         'BreadcrumbsHelper' => App\Helpers\Breadcrumbs\BreadcrumbsHelper::class,
     ])->toArray(),

@@ -155,6 +155,7 @@ class Site{
 
     }
     public function setCurrentlocale() : self{
+
         $this->currentLocale = $this->getDefaultLocale();
         $locale = request()->segment('1', '');
         if($locale && array_key_exists($locale, $this->getAllLocalizations()) && $locale !== $this->getDefaultLocale()){
@@ -225,6 +226,11 @@ class Site{
     public function getDefaultLocale(){
 
         return config('app.defaultLocale');
+    }
+
+    public function checkDefaultLocale() : bool{
+
+        return $this->getCurrentLocale() === $this->getDefaultLocale();
     }
 
     public function __call($name, $arguments) {

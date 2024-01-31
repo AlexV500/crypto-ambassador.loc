@@ -4,6 +4,7 @@ namespace App\Services\Admin\Blog;
 
 use App\Models\Blog\Post;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class PostService{
@@ -84,4 +85,5 @@ class PostService{
         }
         return $post;
     }
+
 }

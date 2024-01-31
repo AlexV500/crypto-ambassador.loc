@@ -11,7 +11,7 @@ class StoreController extends BaseController{
 
         $data = $request->validated();
         $this->service->store($data);
-
+        $this->createTranslationService->forgetSessionData();
         return redirect()->route('admin.blog.post.index');
     }
 }

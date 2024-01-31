@@ -7,28 +7,31 @@ use App\Http\Entities\Site;
 
 class TranslateContentCreationService {
 
-    public function getOriginalContentTitle($model) : string{
+    public function getOriginalContentTitle($siteEntity) : string {
 
-        if (Session::has('originalContentTitle')) {
-            $originalContentTitle = Session::get('originalContentTitle');
-            Session::remove('locale');
-            return $originalContentTitle;
-        } else return "";
+        $originalContentTitle = '';
+        if(!$siteEntity->checkDefaultLocale()){
+            if (Session::has('originalContentTitle')) {
+                $originalContentTitle = Session::get('originalContentTitle');
+            }
+        } return $originalContentTitle;
     }
 
-    public function getContentTranlationIds($model){
+    public function getOriginalContentId($siteEntity): int  {
 
-        if (Session::has('originalContentId')) {
-            $originalContentId = Session::get('originalContentId');
-            $originalContent = $model::find($originalContentId);
-            $translatedContents = $model::where('original_content_id', '=', $originalContentId)->get();
-            $translatedContentIds = $translatedContents->map(function ($content) {
-                return json_decode($content->translation_ids);
-            });
+        $originalContentId = 0;
+        if (!$siteEntity->checkDefaultLocale()) {
+            if (Session::has('originalContentId')) {
+                $originalContentId = Session::get('originalContentId');
+            }
         }
-
+        return $originalContentId;
     }
 
+    public function forgetSessionData() : void{
+
+        Session::forget(['originalContentTitle', 'originalContentId']);
+    }
 
 
 }

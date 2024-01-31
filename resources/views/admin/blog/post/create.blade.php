@@ -17,9 +17,11 @@
                         <li class="breadcrumb-item active">Створення Поста</li>
                     </ol>
                 </div><!-- /.col -->
+                @if($originalContentTitle !== "")
                 <div class="col-sm-6">
-                    <h1 class="m-0">Пост оригіналу: ({{$originalContentTitle}})</h1>
+                    <h5 class="m-0">Пост оригіналу: ({{$originalContentTitle}})</h5>
                 </div><!-- /.col -->
+                @endif
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -35,6 +37,7 @@
                         @csrf
                         <div class="form-group w-25">
                             <input type="hidden" name="lang" value="{{ $getCurrentLocale }}">
+                            <input type="hidden" name="original_content_id" value="{{ $originalContentId }}">
                         </div>
                         <div class="form-group w-25">
                             <label for="exampleInputFile">Назва</label>
