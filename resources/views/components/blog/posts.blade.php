@@ -3,7 +3,7 @@
         <div class="col-xl-4 col-md-4 col-sm-6 col-xs-6">
             <div class="card shadow-custom-1">
                 <a href="{{route('blog.post.show', $post->uri)}}">
-                    {{ $media }}
+{{--                    {{ $media }}--}}
                     <img src="{{asset(Storage::url($post->preview_image))}}"
                                                                        height="200" class="card-img-top" alt="..."/>
                 </a>
