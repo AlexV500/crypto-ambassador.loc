@@ -3,40 +3,52 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\SiteController;
-use App\Models\Blog\Category;
-use App\Models\Blog\Post;
-use App\Models\Blog\Tag;
+use App\Repositories\Blog\Category\Interface\BlogCategoryRepositoryInterface;
+use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
+use App\Repositories\Blog\Tag\Interface\BlogTagRepositoryInterface;
 use Carbon\Carbon;
 
 class BlogController extends SiteController
 {
+
+    protected object $blogCategoryRepository;
+    protected object $blogPostRepository;
+    protected object $blogTagRepository;
+
+    public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository,
+                                BlogPostRepositoryInterface $blogPostRepository,
+                                BlogTagRepositoryInterface $blogTagRepository){
+
+        $this->blogCategoryRepository = $blogCategoryRepository;
+        $this->blogPostRepository = $blogPostRepository;
+        $this->blogTagRepository = $blogTagRepository;
+        parent::__construct();
+    }
     public function getCarbon(){
         return new Carbon;
     }
     public function getCategories(){
-         return Category::where('lang', '=', $this->getCurrentLocale())->get();
+        return $this->blogCategoryRepository->getCategories($this->getCurrentLocale());
     }
     public function getPosts(){
-        return Post::where('published', '=', 1)->where('lang', '=', $this->getCurrentLocale())->orderBy('created_at', 'DESC')->paginate(12);
+        return $this->blogPostRepository->getPosts($this->getCurrentLocale(), 12, true);
     }
     public function getTagPosts($tag)
     {
-        return $tag->tagPosts()->where('published', '=', 1)->paginate(5);
+        return $this->blogTagRepository->tagPosts($tag, 5, true);
     }
     public function getCategoryPosts($category)
     {
-        return $category->categoryPosts()->where('published', '=', 1)->paginate(5);
+        return $this->blogCategoryRepository->getCategoryPosts($category, 5, true);
     }
-    public function getLikedPosts(){
-        return Post::where('published', '=', 1)->where('lang', '=', $this->getCurrentLocale())->withCount('likedUsers')->orderBy('liked_users_count', 'DESC')->get()->take(4);
+    public function getLikedPosts()
+    {
+        return $this->blogPostRepository->getLikedPosts($this->getCurrentLocale(), 4, true);
     }
     public function getRelatedPosts($post){
-        return Post::where('category_id', $post->category_id)
-            ->where('id', '!=', $post->id)->where('lang', '=', $this->getCurrentLocale())
-            ->get()
-            ->take(3);
+        return $this->blogPostRepository->getRelatedPosts($post, $this->getCurrentLocale(), 3, true);
     }
     public function getTags(){
-        return Tag::where('lang', '=', $this->getCurrentLocale())->get();
+        return $this->blogTagRepository->getTags($this->getCurrentLocale());
     }
 }

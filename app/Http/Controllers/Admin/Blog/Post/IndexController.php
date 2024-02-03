@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Blog\Post;
 
-use App\Http\Controllers\Admin\Blog\AdminBlogController;
-use App\Models\Blog\Post;
 
-class IndexController extends AdminBlogController{
+class IndexController extends BaseController{
 
     public function __invoke(){
 

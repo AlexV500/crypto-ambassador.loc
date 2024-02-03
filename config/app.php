@@ -190,6 +190,7 @@ return [
         App\Providers\MenuHelperServiceProvider::class,
         App\Providers\BreadcrumbsServiceProvider::class,
         App\Providers\TranslateContentCreationServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
     ])->toArray(),
 
     /*

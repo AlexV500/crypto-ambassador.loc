@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Blog\Category;
 
-use App\Http\Controllers\Admin\Blog\AdminBlogController;
-use App\Http\Controllers\SiteController;
-use App\Models\Blog\Category;
-
-class IndexController extends AdminBlogController{
+class IndexController extends BaseController{
 
     public function __invoke(){
 

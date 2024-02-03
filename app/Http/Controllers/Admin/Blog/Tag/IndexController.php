@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Blog\Tag;
 
-use App\Http\Controllers\Admin\Blog\AdminBlogController;
-
-class IndexController extends AdminBlogController{
+class IndexController extends BaseController{
 
     public function __invoke(){
 

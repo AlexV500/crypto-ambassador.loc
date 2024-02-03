@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\MediaLibrary\HasMedia;
@@ -76,6 +77,16 @@ class Post extends Model implements HasMedia
 
     public function comments(){
         return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+    public function scopePublished(Builder $query)
+    {
+        return $query->where('published', '=' ,1);
+    }
+
+    public function scopeLocale(Builder $query, string $lang)
+    {
+        return $query->where('lang', '=', $lang);
     }
 
     public function getDateAsCarbonAttribute(){
