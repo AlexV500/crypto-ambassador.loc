@@ -34,10 +34,12 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
 
     Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog'], function () {
 
-        Route::get('/', 'IndexController')->name('blog.index');
+        Route::group(['namespace' => 'Main'], function () {
+             Route::get('/', 'IndexController')->name('blog.index');
+        });
 
         Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
-            Route::get('/', 'IndexController')->name('category.index');
+        //    Route::get('/', 'IndexController')->name('category.index');
 
             Route::group(['namespace' => 'Post', 'prefix' => '{category:uri}/posts'], function () {
                 Route::get('/', 'IndexController')->name('category.post.index');

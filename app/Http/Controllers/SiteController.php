@@ -7,16 +7,28 @@ use App\Http\Entities\Site;
 
 class SiteController extends Controller{
 
-    public $localization;
-    public $siteEntity;
+    private array $viewVariablesArray = [];
+    private object $siteEntity;
 
     public function __construct(){
 
         $this->siteEntity = new Site();
+        $this->addViewVariables('siteEntity', $this->getSiteEntity())
+             ->addViewVariables('getLocale', $this->getLocale())
+             ->addViewVariables('getLocaleName', $this->getLocaleName())
+             ->addViewVariables('locales', $this->getAllLocalizations())
+             ->addViewVariables('isAdmin', $this->isAdmin());
+
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return Site::isAdmin();
+    }
+
+    private function getSiteEntity()
+    {
+        return $this->siteEntity;
     }
     public function getAllLocalizations(){
 
@@ -41,5 +53,21 @@ class SiteController extends Controller{
     public function getCurrentLocale(){
 
         return $this->siteEntity->getCurrentLocale();
+    }
+
+    public function addViewVariables($name, $value)
+    {
+        $this->viewVariablesArray[$name] = $value;
+        return $this;
+    }
+
+    public function mergeViewVariables(array $addViewVariables): array
+    {
+        return array_merge($this->getViewVariables(), $addViewVariables);
+    }
+
+    public function getViewVariables(): array
+    {
+        return $this->viewVariablesArray;
     }
 }

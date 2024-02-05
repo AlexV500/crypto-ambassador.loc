@@ -15,6 +15,10 @@ class BlogPostRepository implements BlogPostRepositoryInterface
         return Post::locale($lang)->orderBy('created_at', 'DESC')->paginate($paginate);
     }
 
+    public function takePosts($lang, $take){
+        return Post::locale($lang)->get()->take($take);
+    }
+
     public function getLikedPosts($lang, $take, $publishedOnly = false)
     {
         if ($publishedOnly) {

@@ -11,12 +11,13 @@ class LanguageSwitcher extends Component
 {
 
     public $content;
-    public $contentModel;
+    public $repository;
     public $siteEntity;
 
-    public function __construct($content, $contentModel){
+    public function __construct($content, $repository){
 
         $this->content = $content;
+        $this->repository = $repository;
         $this->siteEntity = new Site();
     }
 

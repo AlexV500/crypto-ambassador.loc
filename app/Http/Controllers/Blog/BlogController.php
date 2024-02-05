@@ -10,45 +10,57 @@ use Carbon\Carbon;
 
 class BlogController extends SiteController
 {
-
     protected object $blogCategoryRepository;
     protected object $blogPostRepository;
     protected object $blogTagRepository;
 
     public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository,
-                                BlogPostRepositoryInterface $blogPostRepository,
-                                BlogTagRepositoryInterface $blogTagRepository){
-
+                                BlogPostRepositoryInterface     $blogPostRepository,
+                                BlogTagRepositoryInterface      $blogTagRepository)
+    {
         $this->blogCategoryRepository = $blogCategoryRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogTagRepository = $blogTagRepository;
         parent::__construct();
     }
-    public function getCarbon(){
+
+    public function getCarbon()
+    {
         return new Carbon;
     }
-    public function getCategories(){
+
+    public function getCategories()
+    {
         return $this->blogCategoryRepository->getCategories($this->getCurrentLocale());
     }
-    public function getPosts(){
+
+    public function getPosts()
+    {
         return $this->blogPostRepository->getPosts($this->getCurrentLocale(), 12, true);
     }
+
     public function getTagPosts($tag)
     {
-        return $this->blogTagRepository->tagPosts($tag, 5, true);
+        return $this->blogTagRepository->getTagPosts($tag, 5, true);
     }
+
     public function getCategoryPosts($category)
     {
         return $this->blogCategoryRepository->getCategoryPosts($category, 5, true);
     }
+
     public function getLikedPosts()
     {
         return $this->blogPostRepository->getLikedPosts($this->getCurrentLocale(), 4, true);
     }
-    public function getRelatedPosts($post){
+
+    public function getRelatedPosts($post)
+    {
         return $this->blogPostRepository->getRelatedPosts($post, $this->getCurrentLocale(), 3, true);
     }
-    public function getTags(){
+
+    public function getTags()
+    {
         return $this->blogTagRepository->getTags($this->getCurrentLocale());
     }
 }

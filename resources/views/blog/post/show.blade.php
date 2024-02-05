@@ -14,7 +14,7 @@
                         <!-- Post meta content-->
                         <div class="text-muted fst-italic mb-2">Posted on {{$date->format('F')}} {{$date->day}} {{$date->year}} {{$date->format('H:i')}} / {{$post->comments->count()}} Comments</div>
                         <!-- Post categories-->
-                        @foreach($postTags as $tag)
+                        @foreach($post->tags as $tag)
                             <a class="badge text-decoration-none link-light" style="background-color: {{ $tag->color }}" href="{{ route('tag.post.index', $tag->id) }}">{{ $tag->title }}</a>
                         @endforeach
                     </header>

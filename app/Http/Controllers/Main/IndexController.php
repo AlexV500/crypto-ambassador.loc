@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\SiteController;
-use App\Http\Entities\Site;
-use App\Models\Blog\Post;
+use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
 
 class IndexController extends SiteController{
 
-    public function __invoke(){
+    public function __invoke(BlogPostRepositoryInterface $blogPostRepository){
 
-        $posts = Post::where('lang', '=', $this->getCurrentLocale())->get()->take(8);
-        return view('main.index', compact('posts'));
+        $addViewVariables = [
+            'posts' => $blogPostRepository->takePosts($this->getCurrentLocale(), 8),
+        ];
+
+        return view('main.index', $this->mergeViewVariables($addViewVariables));
     }
 }

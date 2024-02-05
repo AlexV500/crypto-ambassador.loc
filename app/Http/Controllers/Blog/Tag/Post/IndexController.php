@@ -9,19 +9,14 @@ class IndexController extends BlogController{
 
     public function __invoke(Tag $tag){
 
-        $categories = $this->getCategories();
-        $carbon = $this->getCarbon();
-        $tags = $this->getTags();
-        $posts = $this->getTagPosts($tag);
-        $likedPosts = $this->getLikedPosts();
-        $getLocale = $this->getLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $isAdmin = $this->isAdmin();
+        $addViewVariables = [
+            'tag' => $tag,
+            'tags' => $this->getTags(),
+            'categories' => $this->getCategories(),
+            'posts' => $this->getTagPosts($tag),
+            'likedPosts' => $this->getLikedPosts(),
+        ];
 
-        return view('blog.tag.post.index', compact('posts', 'carbon', 'tags', 'tag', 'likedPosts', 'categories', 'getLocale',
-            'getLocaleName',
-            'locales',
-            'isAdmin'));
+        return view('blog.tag.post.index', $this->mergeViewVariables($addViewVariables));
     }
 }

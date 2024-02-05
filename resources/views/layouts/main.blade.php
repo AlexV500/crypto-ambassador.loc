@@ -37,7 +37,7 @@
 
     <!-- stats - count particles -->
 
-<x-header></x-header>
+<x-header :siteEntity="$siteEntity"></x-header>
 
 @yield('content')
 

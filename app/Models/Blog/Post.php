@@ -79,6 +79,10 @@ class Post extends Model implements HasMedia
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
+
+
+
+
     public function scopePublished(Builder $query)
     {
         return $query->where('published', '=' ,1);
@@ -99,7 +103,6 @@ class Post extends Model implements HasMedia
         $this
             ->addMediaCollection('post-images');
     }
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this

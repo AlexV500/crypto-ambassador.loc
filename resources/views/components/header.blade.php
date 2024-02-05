@@ -34,6 +34,7 @@
                                 <a class="page-scroll" href="#contact">{{__('lang.Contact')}}</a>
                             </li>
 
+
                             @guest()
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('login')}}">Login</a>
@@ -69,6 +70,7 @@
                                     </div>
                                 </li>
                             @endauth
+
                             <li class="">
                                 <div class="dropdown">
                                     <a class="btn dropdown-nav-theme-btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
