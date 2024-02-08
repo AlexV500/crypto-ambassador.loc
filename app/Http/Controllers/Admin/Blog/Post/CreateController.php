@@ -10,24 +10,14 @@ class CreateController extends BaseController{
 
     public function __invoke(){
 
-        $categories = $this->getCategories();
-        $tags = $this->getTags();
-        $customDate = Carbon::now();
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $originalContentId = $this->createTranslationService->getOriginalContentId($this->siteEntity);
-        $originalContentTitle = $this->createTranslationService->getOriginalContentTitle($this->siteEntity);
-
-        return view('admin.blog.post.create', compact(
-            'originalContentId',
-            'originalContentTitle',
-            'categories',
-            'customDate',
-            'tags',
-            'getCurrentLocale',
-            'getLocaleName',
-            'locales'));
+        $addViewVariables = [
+            'categories' => $this->getCategories(),
+            'tags' => $this->getTags(),
+            'customDate' => Carbon::now(),
+            'originalContentId' => $this->createTranslationService->getOriginalContentId($this->getSiteEntity()),
+            'originalContentTitle' => $this->createTranslationService->getOriginalContentTitle($this->getSiteEntity()),
+        ];
+        return view('admin.blog.post.create', $this->mergeViewVariables($addViewVariables));
     }
 
     private function getOriginalContent(){}

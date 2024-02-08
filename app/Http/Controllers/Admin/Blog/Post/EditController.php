@@ -9,18 +9,12 @@ class EditController extends AdminBlogController{
 
     public function __invoke(Post $post){
 
-        $categories = $this->getCategories();
-        $tags = $this->getTags();
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
+        $addViewVariables = [
+            'categories' => $this->getCategories(),
+            'tags' => $this->getTags(),
+            'post' => $post,
+        ];
 
-        return view('admin.blog.post.edit', compact(
-            'post',
-            'categories',
-            'tags',
-            'getCurrentLocale',
-            'getLocaleName',
-            'locales'));
+        return view('admin.blog.post.edit', $this->mergeViewVariables($addViewVariables));
     }
 }

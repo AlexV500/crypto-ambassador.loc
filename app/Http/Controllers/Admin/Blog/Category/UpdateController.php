@@ -11,10 +11,9 @@ class UpdateController extends SiteController{
     public function __invoke(UpdateRequest $request, Category $category){
 
         $data = $request->validated();
-        $category->update($data);
-        $getLocale = $this->getLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.category.show', compact('category', 'locales', 'getLocale', 'getLocaleName'));
+        $addViewVariables = [
+            'category' => $category->update($data),
+        ];
+        return view('admin.blog.category.show', $this->mergeViewVariables($addViewVariables));
     }
 }

@@ -7,15 +7,30 @@ use App\Repositories\Blog\Category\Interface\BlogCategoryRepositoryInterface;
 
 class BlogCategoryRepository implements BlogCategoryRepositoryInterface
 {
-    public function getCategories($lang){
+    public function countCategories($lang, $publishedOnly = false)
+    {
+        return Category::locale($lang)->count();
+    }
+
+    public function getCategories($lang, $publishedOnly = false)
+    {
         return Category::locale($lang)->get();
     }
 
-    public function getCategoryPosts($category, $paginate, $publishedOnly = false)
+    public function countCategoryPosts(Category $category, $paginate, $publishedOnly = false)
     {
-        if($publishedOnly){
+        if ($publishedOnly) {
+            return $category->categoryPosts()->published()->count();
+        }
+        return $category->categoryPosts()->count();
+    }
+
+    public function getCategoryPosts(Category $category, $paginate, $publishedOnly = false)
+    {
+        if ($publishedOnly) {
             return $category->categoryPosts()->published()->paginate($paginate);
         }
         return $category->categoryPosts()->paginate($paginate);
     }
+
 }

@@ -7,6 +7,11 @@ use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
 
 class BlogPostRepository implements BlogPostRepositoryInterface
 {
+
+    public function countPosts($lang, $publishedOnly = false){
+        return Post::locale($lang)->count();
+    }
+
     public function getPosts($lang, $paginate, $publishedOnly = false)
     {
         if ($publishedOnly) {

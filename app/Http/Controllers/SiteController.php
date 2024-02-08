@@ -26,7 +26,7 @@ class SiteController extends Controller{
         return Site::isAdmin();
     }
 
-    private function getSiteEntity()
+    public function getSiteEntity()
     {
         return $this->siteEntity;
     }

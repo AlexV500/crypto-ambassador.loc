@@ -9,8 +9,9 @@ class ShowController extends SiteController{
 
     public function __invoke(Category $category){
 
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.category.show', compact('category', 'locales', 'getLocaleName'));
+        $addViewVariables = [
+            'category' => $category,
+        ];
+        return view('admin.blog.category.show', $this->mergeViewVariables($addViewVariables));
     }
 }

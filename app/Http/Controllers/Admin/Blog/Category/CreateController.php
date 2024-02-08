@@ -8,9 +8,6 @@ class CreateController extends SiteController{
 
     public function __invoke(){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.category.create', compact( 'locales', 'getCurrentLocale', 'getLocaleName'));
+        return view('admin.blog.category.create', $this->getViewVariables());
     }
 }

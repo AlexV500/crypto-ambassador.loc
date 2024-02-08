@@ -11,6 +11,10 @@ class BlogTagRepository implements BlogTagRepositoryInterface
         return Tag::locale($lang)->get();
     }
 
+    public function countTags($lang){
+        return Tag::locale($lang)->count();
+    }
+
     public function getTagPosts($tag, $paginate, $publishedOnly = false)
     {
         if($publishedOnly){

@@ -9,11 +9,9 @@ class ShowController extends AdminBlogController{
 
     public function __invoke(Post $post){
 
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.post.show', compact(
-            'post',
-                    'getLocaleName',
-                    'locales'));
+        $addViewVariables = [
+            'post' => $post,
+        ];
+        return view('admin.blog.post.show', $this->mergeViewVariables($addViewVariables));
     }
 }

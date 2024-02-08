@@ -7,12 +7,9 @@ class IndexController extends BaseController{
 
     public function __invoke(){
 
-        $posts = $this->getPosts();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.post.index', compact(
-            'posts',
-            'getLocaleName',
-            'locales'));
+        $addViewVariables = [
+            'posts' => $this->getPosts(),
+        ];
+        return view('admin.blog.post.index', $this->mergeViewVariables($addViewVariables));
     }
 }

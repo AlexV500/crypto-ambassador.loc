@@ -9,9 +9,9 @@ class EditController extends SiteController{
 
     public function __invoke(Category $category){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.category.edit', compact('category', 'locales', 'getCurrentLocale', 'getLocaleName'));
+        $addViewVariables = [
+            'category' => $category,
+        ];
+        return view('admin.blog.category.edit', $this->mergeViewVariables($addViewVariables));
     }
 }
