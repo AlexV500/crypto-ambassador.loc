@@ -9,12 +9,10 @@ class CreateController extends BaseController{
 
     public function __invoke(){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $defaultLocale = $this->getDefaultLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $snippets = $this->getSnippetsWhithDefaultLocale();
+        $addViewVariables = [
+            'snippets' => $this->getSnippetsWhithDefaultLocale()
+        ];
 
-        return view('admin.snippets.create', compact( 'snippets','locales', 'getCurrentLocale', 'getLocaleName', 'defaultLocale'));
+        return view('admin.snippets.create', $this->mergeViewVariables($addViewVariables));
     }
 }

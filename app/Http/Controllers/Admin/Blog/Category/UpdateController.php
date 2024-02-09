@@ -11,8 +11,9 @@ class UpdateController extends SiteController{
     public function __invoke(UpdateRequest $request, Category $category){
 
         $data = $request->validated();
+        $category->update($data);
         $addViewVariables = [
-            'category' => $category->update($data),
+            'category' => $category,
         ];
         return view('admin.blog.category.show', $this->mergeViewVariables($addViewVariables));
     }

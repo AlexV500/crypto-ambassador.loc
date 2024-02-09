@@ -8,11 +8,6 @@ class CreateController extends AdminBlogController{
 
     public function __invoke(){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.tag.create', compact('getCurrentLocale',
-            'getLocaleName',
-            'locales'));
+        return view('admin.blog.tag.create', $this->getViewVariables());
     }
 }

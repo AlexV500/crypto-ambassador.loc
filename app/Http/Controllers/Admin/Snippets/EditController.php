@@ -9,10 +9,10 @@ class EditController extends BaseController{
 
     public function __invoke(Snippet $snippet){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
+        $addViewVariables = [
+            'snippet' => $snippet,
+        ];
 
-        return view('admin.snippets.edit', compact('snippet', 'locales', 'getCurrentLocale', 'getLocaleName'));
+        return view('admin.snippets.edit', $this->mergeViewVariables($addViewVariables));
     }
 }

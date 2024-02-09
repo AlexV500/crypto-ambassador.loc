@@ -9,11 +9,9 @@ class EditController extends AdminBlogController{
 
     public function __invoke(Tag $tag){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.tag.edit', compact('tag', 'getCurrentLocale',
-            'getLocaleName',
-            'locales'));
+        $addViewVariables = [
+            'tag' => $tag,
+        ];
+        return view('admin.blog.tag.edit', $this->mergeViewVariables($addViewVariables));
     }
 }

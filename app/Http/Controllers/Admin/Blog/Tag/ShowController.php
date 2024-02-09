@@ -9,11 +9,9 @@ class ShowController extends SiteController{
 
     public function __invoke(Tag $tag){
 
-        $getLocale = $this->getLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.tag.show', compact('tag', 'getLocale',
-            'getLocaleName',
-            'locales'));
+        $addViewVariables = [
+            'tag' => $tag,
+        ];
+        return view('admin.blog.tag.show', $this->mergeViewVariables($addViewVariables));
     }
 }

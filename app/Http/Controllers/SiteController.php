@@ -16,6 +16,7 @@ class SiteController extends Controller{
         $this->addViewVariables('siteEntity', $this->getSiteEntity())
              ->addViewVariables('getLocale', $this->getLocale())
              ->addViewVariables('getLocaleName', $this->getLocaleName())
+             ->addViewVariables('getCurrentLocale', $this->getCurrentLocale())
              ->addViewVariables('locales', $this->getAllLocalizations())
              ->addViewVariables('isAdmin', $this->isAdmin());
 

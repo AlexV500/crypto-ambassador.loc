@@ -8,10 +8,11 @@ use App\Models\Snippet;
 class IndexController extends BaseController{
 
     public function __invoke(){
+                
+        $addViewVariables = [
+            'snippets' => $this->getSnippets()
+        ];
 
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $snippets = $this->getSnippets();
-        return view('admin.snippets.index', compact('snippets', 'locales', 'getLocaleName'));
+        return view('admin.snippets.index', $this->mergeViewVariables($addViewVariables));
     }
 }

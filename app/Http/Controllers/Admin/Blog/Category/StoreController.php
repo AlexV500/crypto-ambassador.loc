@@ -9,8 +9,8 @@ use App\Models\Blog\Category;
 class StoreController extends Controller{
 
     public function __invoke(StoreRequest $request){
-        $data = $request->validated();
 
+        $data = $request->validated();
         Category::firstOrCreate($data);
         return redirect()->route('admin.blog.category.index');
     }

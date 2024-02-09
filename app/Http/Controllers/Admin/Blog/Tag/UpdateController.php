@@ -8,14 +8,13 @@ use App\Models\Blog\Tag;
 
 class UpdateController extends SiteController{
 
-    public function __invoke(UpdateRequest $request, Tag $tag){
-
+    public function __invoke(UpdateRequest $request, Tag $tag)
+    {
         $data = $request->validated();
         $tag->update($data);
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        return view('admin.blog.tag.show', compact('tag',
-            'getLocaleName',
-            'locales'));
+        $addViewVariables = [
+            'tag' => $tag,
+        ];
+        return view('admin.blog.tag.show', $this->mergeViewVariables($addViewVariables));
     }
 }

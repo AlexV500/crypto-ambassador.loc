@@ -4,26 +4,22 @@ namespace App\Http\Controllers\Admin\Blog\Category;
 
 use App\Http\Controllers\Admin\Blog\AdminBlogController;
 use App\Repositories\Blog\Category\Interface\BlogCategoryRepositoryInterface;
+use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
+use App\Repositories\Blog\Tag\Interface\BlogTagRepositoryInterface;
+use App\Services\Admin\TranslateContentCreationService;
 
 class BaseController extends AdminBlogController
 {
-
     protected object $blogCategoryRepository;
 
-    public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository)
+    public function __construct(
+        TranslateContentCreationService $createTranslationService,
+        BlogCategoryRepositoryInterface $blogCategoryRepository,
+        BlogPostRepositoryInterface     $blogPostRepository,
+        BlogTagRepositoryInterface      $blogTagRepository
+    )
     {
-        $this->blogCategoryRepository = $blogCategoryRepository;
-        parent::__construct();
-    }
-
-    public function getCategories()
-    {
-        return $this->blogCategoryRepository->getCategories($this->getCurrentLocale());
-    }
-
-    public function getCategoryPosts($category)
-    {
-        return $this->blogCategoryRepository->getCategoryPosts($category, 5, $publishedOnly = false);
+        parent::__construct($createTranslationService, $blogCategoryRepository, $blogPostRepository, $blogTagRepository);
     }
 
 }
