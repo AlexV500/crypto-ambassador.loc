@@ -8,7 +8,7 @@ use App\Models\Snippet;
 class IndexController extends BaseController{
 
     public function __invoke(){
-                
+
         $addViewVariables = [
             'snippets' => $this->getSnippets()
         ];

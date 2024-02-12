@@ -20,7 +20,7 @@
 
                                     <div class="d-flex justify-content-between align-items-center">
                                         @foreach ($post->categories as $postCategory)
-                                            @if(request()->url() == route('category.post.index', $postCategory->uri))
+                                            @if(request()->url() == route('blog.category.post.index', $postCategory->uri))
                                                 <h6>{{$postCategory->title}}</h6>
                                             @endif
                                         @endforeach

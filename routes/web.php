@@ -38,25 +38,26 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
              Route::get('/', 'IndexController')->name('blog.index');
         });
 
-        Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
-        //    Route::get('/', 'IndexController')->name('category.index');
+    });
 
-            Route::group(['namespace' => 'Post', 'prefix' => '{category:uri}/posts'], function () {
-                Route::get('/', 'IndexController')->name('category.post.index');
-            });
-        });
 
-        Route::group(['namespace' => 'Tag', 'prefix' => 'tags'], function () {
-//        Route::get('/', 'IndexController')->name('tag.index');
+    Route::group(['namespace' => 'App\Http\Controllers\Blog\Category', 'prefix' => 'category'], function () {
 
-            Route::group(['namespace' => 'Post', 'prefix' => '{tag:uri}/posts'], function () {
-                Route::get('/', 'IndexController')->name('tag.post.index');
-            });
+        Route::group(['namespace' => 'Post', 'prefix' => '{category:uri}'], function () {
+            Route::get('/', 'IndexController')->name('blog.category.post.index');
         });
     });
 
 
-    Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'blog/post'], function () {
+    Route::group(['namespace' => 'App\Http\Controllers\Blog\Tag', 'prefix' => 'tag'], function () {
+
+        Route::group(['namespace' => 'Post', 'prefix' => '{tag:uri}'], function () {
+            Route::get('/', 'IndexController')->name('blog.tag.post.index');
+        });
+    });
+
+
+    Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => 'post'], function () {
         Route::group(['namespace' => 'Post'], function () {
             Route::get('/{post:uri}', 'ShowController')->name('blog.post.show');
         });

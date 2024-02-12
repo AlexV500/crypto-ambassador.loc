@@ -19,7 +19,18 @@ class SiteController extends Controller{
              ->addViewVariables('getCurrentLocale', $this->getCurrentLocale())
              ->addViewVariables('locales', $this->getAllLocalizations())
              ->addViewVariables('isAdmin', $this->isAdmin());
+     //   dd($this->routeInfo());
+    }
 
+    public function routeInfo()
+    {
+        $route = request()->route();
+        return [
+        //    'getController'   => get_class($route->getController()),
+            'getName'         => $route->getName(),
+            'getActionName'   => $route->getActionName(),
+            'getActionMethod' => $route->getActionMethod(),
+        ];
     }
 
     public function isAdmin()
@@ -70,5 +81,10 @@ class SiteController extends Controller{
     public function getViewVariables(): array
     {
         return $this->viewVariablesArray;
+    }
+
+    public function getLanguageSwitcherLinks()
+    {
+
     }
 }

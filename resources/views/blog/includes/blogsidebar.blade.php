@@ -20,7 +20,7 @@
                     <ul class="list-group list-group-flush mb-0">
                         @foreach ($categories as $category)
 
-                            <li class="list-group-item"><a @if(request()->url() == route('category.post.index', $category->uri)) class="categories-widget-link-active" @else class="categories-widget-link" @endif href="{{ route('category.post.index', $category->uri) }}">{{ $category->title }}</a></li>
+                            <li class="list-group-item"><a @if(request()->url() == route('blog.category.post.index', $category->uri)) class="categories-widget-link-active" @else class="categories-widget-link" @endif href="{{ route('blog.category.post.index', $category->uri) }}">{{ $category->title }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="col-sm-12 tags-widget">
                     <ul class="list-inline mb-0">
                     @foreach ($tags as $tag)
-                        <li class="list-inline-item"><a class="badge text-decoration-none link-light" style="background-color: {{ $tag->color }}; opacity: 0.9" href="{{ route('tag.post.index', $tag->uri) }}">{{ $tag->title }}</a></li>
+                        <li class="list-inline-item"><a class="badge text-decoration-none link-light" style="background-color: {{ $tag->color }}; opacity: 0.9" href="{{ route('blog.tag.post.index', $tag->uri) }}">{{ $tag->title }}</a></li>
                     @endforeach
                     </ul>
                 </div>

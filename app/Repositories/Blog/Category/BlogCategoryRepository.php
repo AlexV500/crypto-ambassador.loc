@@ -17,7 +17,7 @@ class BlogCategoryRepository implements BlogCategoryRepositoryInterface
         return Category::locale($lang)->get();
     }
 
-    public function countCategoryPosts(Category $category, $paginate, $publishedOnly = false)
+    public function countCategoryPosts(Category $category, $publishedOnly = false)
     {
         if ($publishedOnly) {
             return $category->categoryPosts()->published()->count();
@@ -31,6 +31,10 @@ class BlogCategoryRepository implements BlogCategoryRepositoryInterface
             return $category->categoryPosts()->published()->paginate($paginate);
         }
         return $category->categoryPosts()->paginate($paginate);
+    }
+
+    public function getTranslatedURIs(){
+        
     }
 
 }

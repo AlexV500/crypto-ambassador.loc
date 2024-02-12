@@ -6,7 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\App;
 
-class Site{
+class Site
+{
 
     private $domain;
     private $locale;
@@ -24,34 +25,17 @@ class Site{
 
     }
 
-    public function getLocalizedURL($index, $cname){
+    public function getLocalizedURL($index, $cname)
+    {
 
-//        $url = request()->fullUrl();
-//
-//        if($index == $this->getDefaultLocale()){
-//            if($cname == ''){
-//                $url = url('/');
-//            } else {
-//                $url = url('/'.$cname);
-//            }
-//
-//        } else {
-//            if($cname == ''){
-//                $url = url('/'.$index);
-//            } else {
-//                $url = url('/'.$index.'/'.$cname);
-//            }
-//        }
 
         $localePrefix = $index === $this->getDefaultLocale() ? '' : '/' . $index;
         $cnameSegment = $cname !== '' ? '/' . $cname : '';
 
 
-
 //        $url = request()->fullUrl();
 //        $url = url()->current();
 //        $parsed_url = parse_url($url);
-
 
 
 //        $lengthLocale = 2;
@@ -114,34 +98,36 @@ class Site{
         }
 
         $url = '';
-        $url .= isset($parsed_url['scheme']) ? $parsed_url['scheme'].'://' : '';
+        $url .= isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
         $url .= $parsed_url['host'] ?? '';
-        $url .= isset($parsed_url['port']) ? ':'.$parsed_url['port'] : '';
+        $url .= isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
         $user = $parsed_url['user'] ?? '';
-        $pass = isset($parsed_url['pass']) ? ':'.$parsed_url['pass'] : '';
-        $url .= $user.(($user || $pass) ? "$pass@" : '');
+        $pass = isset($parsed_url['pass']) ? ':' . $parsed_url['pass'] : '';
+        $url .= $user . (($user || $pass) ? "$pass@" : '');
 
         if (!empty($url)) {
-            $url .= isset($parsed_url['path']) ? '/'.ltrim($parsed_url['path'], '/') : '';
+            $url .= isset($parsed_url['path']) ? '/' . ltrim($parsed_url['path'], '/') : '';
         } else {
             $url .= $parsed_url['path'] ?? '';
         }
 
-        $url .= isset($parsed_url['query']) ? '?'.$parsed_url['query'] : '';
-        $url .= isset($parsed_url['fragment']) ? '#'.$parsed_url['fragment'] : '';
+        $url .= isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
+        $url .= isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 
         return $url;
     }
 
 
-    public static function isAdmin(){
+    public static function isAdmin()
+    {
 //        if(auth()->user()->role == USER::ROLE_ADMIN){
 //            return true;
 //        } return false;
         return false;
     }
 
-    public function setlocale() : self{
+    public function setlocale(): self
+    {
 
         $this->locale = '';
         $requestedLocale = request()->segment('1', '');
@@ -154,15 +140,20 @@ class Site{
         return $this;
 
     }
-    public function setCurrentlocale() : self{
+
+    public function setCurrentlocale(): self
+    {
 
         $this->currentLocale = $this->getDefaultLocale();
         $locale = request()->segment('1', '');
-        if($locale && array_key_exists($locale, $this->getAllLocalizations()) && $locale !== $this->getDefaultLocale()){
+        if ($locale && array_key_exists($locale, $this->getAllLocalizations()) && $locale !== $this->getDefaultLocale()) {
             $this->currentLocale = $locale;
-        } return $this;
+        }
+        return $this;
     }
-    public function setAllLocalizations(){
+
+    public function setAllLocalizations()
+    {
 
 //        $array = $this->getConfigLocales();
 //        $keyToFind = $this->getConfigLocale();
@@ -187,69 +178,97 @@ class Site{
     }
 
 
-
-    public function setCurrentLocaleName(){
+    public function setCurrentLocaleName()
+    {
 
         $locale = $this->getCurrentLocale();
-        if(trim(empty($locale))){
-            $this->currentLocaleName =  $this->getAllLocalizations()[$locale];
+        if (trim(empty($locale))) {
+            $this->currentLocaleName = $this->getAllLocalizations()[$locale];
         }
-        $this->currentLocaleName =  $this->getAllLocalizations()[$this->getCurrentLocale()];
+        $this->currentLocaleName = $this->getAllLocalizations()[$this->getCurrentLocale()];
 
         return $this;
     }
 
-    public function getLocale(){
+    public function getLocale()
+    {
         return $this->locale;
     }
-    public function getAllLocalizations(){
+
+    public function getAllLocalizations()
+    {
 
         return $this->allLocalizations;
     }
-    public function getCurrentLocale(){
+
+    public function getCurrentLocale()
+    {
 
         return $this->currentLocale;
     }
-    public function getCurrentLocaleName(){
+
+    public function getCurrentLocaleName()
+    {
 
         return $this->currentLocaleName;
     }
 
-    public function getConfigLocale(){
+    public function getConfigLocale()
+    {
 
         return config('app.locale');
     }
-    public function getConfigLocales(){
+
+    public function getConfigLocales()
+    {
 
         return config('app.locales');
     }
-    public function getDefaultLocale(){
+
+    public function getDefaultLocale()
+    {
 
         return config('app.defaultLocale');
     }
 
-    public function checkDefaultLocale() : bool{
+    public function checkDefaultLocale(): bool
+    {
 
         return $this->getCurrentLocale() === $this->getDefaultLocale();
     }
 
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         if ($name === 'getConfigLocales') {
             return $this->getConfigLocalesNonStatic();
         }
     }
 
-    public static function __callStatic($name, $arguments) {
+    public static function __callStatic($name, $arguments)
+    {
         if ($name === 'getConfigLocales') {
             return self::getConfigLocalesStatic();
         }
     }
-    public static function getConfigLocalesStatic(){
+
+    public static function getConfigLocalesStatic()
+    {
 
         return config('app.locales');
     }
-    public function getConfigLocalesNonStatic(){
+
+    public function getConfigLocalesNonStatic()
+    {
 
         return config('app.locales');
+    }
+
+    public function getRepositoryesByRouteName() : array{
+        return [
+            'blog.post.show' => 'App\Repositories\Blog\Post\BlogPostRepository',
+            'blog.category.post.index' => 'App\Repositories\Blog\Category\BlogCategoryRepository',
+            'blog.tag.post.index' => 'App\Http\Controllers\Blog\Tag\BlogTagRepository',
+        ];
     }
 }
+
