@@ -21,6 +21,6 @@ class CreatePost
      */
     public function handle(CreatePostEvent $event): void
     {
-        //
+      //  dd($event->post->id);
     }
 }

@@ -14,8 +14,6 @@ class CreatedMenuItemEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $menuItem;
-
     /**
      * Create a new event instance.
      */

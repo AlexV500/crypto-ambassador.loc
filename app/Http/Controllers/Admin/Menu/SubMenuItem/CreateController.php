@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Menu\SubMenuItem;
 
-class CreateController extends BaseSubController{
+class CreateController extends BaseController{
 
     public function __invoke($widgetId, $parentId){
 

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin\Menu\SubMenuColumnItem;
 
 use App\Models\Menu\MenuItem;
-use App\Models\Menu\MenuWidget;
 
-class ShowController extends BaseSubController{
+class ShowController extends BaseController{
 
     public function __invoke(MenuItem $menuItem){
 

@@ -26,7 +26,7 @@ class LanguageSwitcher extends Component
         return view('components.languageswitcher');
     }
 
-    public function getTranlationLinks($content){
+    public function getTranslationLinks($content){
 
         foreach($this->siteEntity->getAllLocalizations() as $index => $localeName){
 

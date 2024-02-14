@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Menu\MenuItem;
 use App\Http\Requests\Admin\Menu\MenuItem\UpdateRequest;
 use App\Models\Menu\MenuItem;
 
-class UpdateController extends BaseSubController{
+class UpdateController extends BaseController{
 
     public function __invoke(UpdateRequest $request, MenuItem $menuItem){
 

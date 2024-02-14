@@ -263,12 +263,12 @@ class Site
         return config('app.locales');
     }
 
-    public function getRepositoryesByRouteName() : array{
-        return [
+    public function getRepositoriesByRouteName() : object{
+        return collect([
             'blog.post.show' => 'App\Repositories\Blog\Post\BlogPostRepository',
             'blog.category.post.index' => 'App\Repositories\Blog\Category\BlogCategoryRepository',
             'blog.tag.post.index' => 'App\Http\Controllers\Blog\Tag\BlogTagRepository',
-        ];
+        ]);
     }
 }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Menu\MenuWidget;
 use App\Http\Requests\Admin\Menu\MenuWidget\UpdateRequest;
 use App\Models\Menu\MenuWidget;
 
-class UpdateController extends BaseSubController{
+class UpdateController extends BaseController{
 
     public function __invoke(UpdateRequest $request, MenuWidget $menuWidget){
 

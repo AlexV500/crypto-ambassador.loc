@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Menu\MenuWidget;
 
 use App\Models\Menu\MenuWidget;
 
-class EditController extends BaseSubController{
+class EditController extends BaseController{
 
     public function __invoke(MenuWidget $menuWidget){
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Menu\SubMenuColumnItem;
 use App\Models\Menu\MenuItem;
 use App\Models\Menu\MenuWidget;
 
-class IndexController extends BaseSubController{
+class IndexController extends BaseController{
 
     public function __invoke(MenuWidget $menuWidget, MenuItem $parentItem){
 

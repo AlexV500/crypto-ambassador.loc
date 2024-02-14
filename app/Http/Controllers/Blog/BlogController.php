@@ -22,6 +22,7 @@ class BlogController extends SiteController
         $this->blogPostRepository = $blogPostRepository;
         $this->blogTagRepository = $blogTagRepository;
         parent::__construct();
+
     }
 
     public function getCarbon()

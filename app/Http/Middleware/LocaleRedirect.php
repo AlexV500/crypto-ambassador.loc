@@ -27,7 +27,7 @@ class LocaleRedirect
                 }
                 //    dd($segments);
                 array_unshift($segments, $userLocale);
-                //    dd($segments);
+
                 return redirect()->to(implode('/', $segments));
             }
 

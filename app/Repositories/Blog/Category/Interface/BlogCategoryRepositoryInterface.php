@@ -10,7 +10,7 @@ interface BlogCategoryRepositoryInterface
 
     public function countCategories(string $lang, bool $publishedOnly = false);
 
-    public function countCategoryPosts(Category $category, bool $publishedOnly = false);
+    public function countCategoryPosts(Category $category, int $paginate, bool $publishedOnly = false);
 
     public function getCategoryPosts(Category $category, int $paginate, bool $publishedOnly = false);
 }

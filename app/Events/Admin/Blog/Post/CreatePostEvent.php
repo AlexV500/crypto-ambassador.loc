@@ -14,12 +14,14 @@ class CreatePostEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $post;
+
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
