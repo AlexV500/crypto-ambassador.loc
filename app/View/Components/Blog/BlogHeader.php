@@ -2,27 +2,32 @@
 
 namespace App\View\Components\Blog;
 
+use App\Services\LanguageSwitcherService;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Http\Entities\Site;
 
-class Header extends Component
+class BlogHeader extends Component
 {
     public $localization;
     public $siteEntity;
     public $isAdmin;
     public $getLocaleName;
     public $locales;
+
+    protected object $languageSwitcherService;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(LanguageSwitcherService $languageSwitcherService)
     {
         $this->siteEntity = new Site();
         $this->isAdmin = $this->isAdmin();
         $this->getLocaleName = $this->getLocaleName();
         $this->locales = $this->getAllLocalizations();
+        $this->languageSwitcherService = $languageSwitcherService;
+        dd($languageSwitcherService->getLanguageSwitcherLinks($this->siteEntity));
     }
 
     /**
@@ -30,7 +35,7 @@ class Header extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.header');
+        return view('components.blog.blog-header');
     }
 
     public function isAdmin(){

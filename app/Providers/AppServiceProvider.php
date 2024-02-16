@@ -6,6 +6,7 @@ use App\View\Components\Admin\MenuBreadcrumbs;
 use App\View\Components\Admin\MenuWidgetItems;
 use App\View\Components\Admin\AdminNavbar;
 use App\View\Components\Admin\LanguageSelector;
+use App\View\Components\Blog\BlogHeader;
 use App\View\Components\Blog\Posts;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component(AdminNavbar::class, 'admin-navbar');
         Blade::component(LanguageSelector::class, 'language-selector');
         Blade::component(Posts::class, 'posts');
+        Blade::component(BlogHeader::class, 'blog-header');
 
         Paginator::useBootstrapFive();
     }

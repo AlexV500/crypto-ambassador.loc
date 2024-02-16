@@ -3,7 +3,7 @@
 namespace App\Services\Admin;
 
 use Illuminate\Support\Facades\Session;
-use App\Http\Entities\Site;
+use Illuminate\Support\Str;
 
 class TranslateContentCreationService {
 
@@ -17,9 +17,9 @@ class TranslateContentCreationService {
         } return $originalContentTitle;
     }
 
-    public function getOriginalContentId($siteEntity): int  {
+    public function getOriginalContentId($siteEntity): string  {
 
-        $originalContentId = 0;
+        $originalContentId = Str::uuid();
         if (!$siteEntity->checkDefaultLocale()) {
             if (Session::has('originalContentId')) {
                 $originalContentId = Session::get('originalContentId');

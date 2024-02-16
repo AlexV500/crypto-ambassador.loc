@@ -52,7 +52,7 @@
                                         <td>{{$post->title}}</td>
                                         <td>{{$post->custom_date}}</td>
                                         <td>@if($post->published == '1') <span class="badge bg-success">Опубліковано</span> @else <span class="badge bg-warning">Не опубліковано</span> @endif</td>
-                                        <td><x-language-selector :contentId="$post->id" :contentTitle="$post->title" :route="'admin.blog.post.create'"></x-language-selector></td>
+                                        <td><x-language-selector :contentId="$post->original_content_id" :contentTitle="$post->title" :route="'admin.blog.post.create'"></x-language-selector></td>
                                         <td class="text-center"><a href="{{route('admin.blog.post.show', $post->id)}}"><i class="far fa-eye"></i></a></td>
                                         <td class="text-center"><a href="{{route('admin.blog.post.edit', $post->id)}}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                         <td class="text-center">

@@ -22,7 +22,7 @@ class TranslateContentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'contentId' => 'required|integer',
+            'contentId' => 'required|string',
             'contentTitle' => 'required|string',
             'route' => 'required|string',
             'locale' => 'required|string',

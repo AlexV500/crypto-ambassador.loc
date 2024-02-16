@@ -4,6 +4,7 @@ namespace App\Repositories\Blog\Post;
 
 use App\Models\Blog\Post;
 use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
+use Illuminate\Support\Str;
 
 class BlogPostRepository implements BlogPostRepositoryInterface
 {
@@ -44,5 +45,17 @@ class BlogPostRepository implements BlogPostRepositoryInterface
             ->where('id', '!=', $post->id)->locale($lang)
             ->get()
             ->take($take);
+    }
+
+    public function getTranslatedArticles($uri)
+    {
+        $originalPost = Post::where('uri', $uri)->firstOrFail();
+        $translatedPosts = Post::where('original_content_id', $originalPost->original_content_id);
+        return $translatedPosts;
+    }
+
+    public function getTranslatedArticle($translatedPosts, $lang)
+    {
+        return $translatedPosts->where('lang', $lang)->firstOrFail();
     }
 }
