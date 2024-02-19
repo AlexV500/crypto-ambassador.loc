@@ -49,13 +49,26 @@ class BlogPostRepository implements BlogPostRepositoryInterface
 
     public function getTranslatedArticles($uri)
     {
+       // dd($uri);
         $originalPost = Post::where('uri', $uri)->firstOrFail();
         $translatedPosts = Post::where('original_content_id', $originalPost->original_content_id);
         return $translatedPosts;
     }
 
-    public function getTranslatedArticle($translatedPosts, $lang)
+    public function getOriginalContentId($uri)
     {
-        return $translatedPosts->where('lang', $lang)->firstOrFail();
+        // dd($uri);
+        $post = Post::where('uri', $uri)->firstOrFail();
+        return $post->original_content_id;
+    }
+
+    public function countTranslatedArticle($originalContentId, $lang)
+    {
+        return Post::where('original_content_id', $originalContentId)->locale($lang)->count();
+    }
+
+    public function getTranslatedArticle($originalContentId, $lang)
+    {
+        return Post::where('original_content_id', $originalContentId)->locale($lang)->first();
     }
 }

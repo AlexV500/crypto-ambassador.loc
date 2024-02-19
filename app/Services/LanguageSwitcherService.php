@@ -14,9 +14,17 @@ class LanguageSwitcherService{
     {
         $this->siteEntity = $siteEntity;
         $this->routeName = request()->route()->getName();
-        $this->segments = request()->segments();
+        $this->segments = $this->prepSegments(request()->segments());
+
     //    return $this->getTranslatedArticlesFromRepository();
          return $this->createLanguageSwitcherLinks();
+
+    }
+
+    private function prepSegments($segments){
+        if($this->siteEntity->checkDefaultLocale()){
+            array_unshift($segments, $this->siteEntity->getDefaultLocale());
+        } return $segments;
     }
 
     private function getRepository()
@@ -34,54 +42,71 @@ class LanguageSwitcherService{
     {
         $locales = $this->siteEntity->getConfigLocales();
         $segments = $this->segments;
+
         $repoCollection = $this->siteEntity->getRepositoriesByRouteName();
+        $urls = [];
 
         if ($this->checkRepoCollection($repoCollection)) {
             $repositoryClass = $repoCollection->get($this->routeName);
             $repository = new $repositoryClass();
+            $originalContentId = $repository->getOriginalContentId($this->getURIfromSegments($this->segments));
+        //    dd( $originalContentId);
         }
-
-        $translatedArticlesFromRepository = $repository->getTranslatedArticles($this->getURIfromSegments($this->segments));
-
         foreach ($locales as $locale => $nameOfLang) {
 
 //            $translatedArticle = $translatedArticlesFromRepository->filter(function ($translatedArticles) use ($locale) {
 //                return $translatedArticles->lang == $locale;
 //            });
+
             if ($this->checkRepoCollection($repoCollection)) {
-                $translatedArticle = $repository->getTranslatedArticle($translatedArticlesFromRepository, $locale);
 
-                //   $translatedArticle = $translatedArticle->get();
+                $count = $repository->countTranslatedArticle($originalContentId, $locale);
+                if($count > 0){
+                    $larr[$locale] = $locale.' '.$count;
+                    $translatedArticle = $repository->getTranslatedArticle($originalContentId, $locale);
+                    echo $translatedArticle->uri.' ';
+                    $segments = $this->changeURI($segments, $translatedArticle->uri);
 
-
-                $segments = $this->changeURI($segments, $translatedArticle->uri);
-
+                } else {
+                    continue;
+                }
             }
-            if ($locale !== $this->siteEntity->getDefaultLocale()) {
-                array_shift($segments);
-            }
-
+            array_shift($segments);
             array_unshift($segments, $locale);
-            $urls[] = implode('/', $segments);
-        }
 
-            dd($segments);
+            $urls[$locale] = implode('/', $segments);
+        }
+        $urls = $this->cutDefaultLanguage($urls);
+    //   dd($larr);
         return collect($urls);
     }
 
-    private function checkRepoCollection($repoCollection){
+    private function cutDefaultLanguage($urls)
+    {
+        $defaultLocale = $this->siteEntity->getDefaultLocale();
+        if (isset($urls[$defaultLocale])) {
+            $defaultLangUrlExploded = explode('/', $urls[$defaultLocale]);
+            array_shift($defaultLangUrlExploded);
+            $urls[$defaultLocale] = implode('/', $defaultLangUrlExploded);
+        }
+        return $urls;
+    }
+
+    private function checkRepoCollection($repoCollection)
+    {
         return $repoCollection->isNotEmpty() && $repoCollection->has($this->routeName);
     }
 
-    private function changeURI($segments, $uri) : array
-    {
-        $this->getURIfromSegments($segments);
+    private function changeURI($segments, $uri): array    {
+
+        array_pop($segments);
         $segments[] = $uri;
         return $segments;
     }
 
     private function getURIfromSegments($segments)
     {
-        return array_pop($segments);
+        $uri = array_pop($segments);
+        return $uri;
     }
 }
