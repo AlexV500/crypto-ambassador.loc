@@ -17,12 +17,12 @@ class LanguageSelector extends Component
     public $getLocaleName;
     public $getCurrentLocale;
     public $getDefaultLocale;
-    public function __construct($contentId, $contentTitle, $route)
+    public function __construct($siteEntity, $contentId, $contentTitle, $route)
     {
         $this->contentId = $contentId;
         $this->contentTitle = $contentTitle;
         $this->route = $route;
-        $this->siteEntity = new Site();
+        $this->siteEntity = $siteEntity;
         $this->getLocaleName = $this->getLocaleName();
         $this->getCurrentLocale = $this->getCurrentLocale();
         $this->getDefaultLocale = $this->getDefaultLocale();

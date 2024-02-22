@@ -4,9 +4,10 @@ namespace App\Repositories\Blog\Post;
 
 use App\Models\Blog\Post;
 use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
+use App\Repositories\Blog\Interface\GetTranslatedArticlesInterface;
 use Illuminate\Support\Str;
 
-class BlogPostRepository implements BlogPostRepositoryInterface
+class BlogPostRepository implements BlogPostRepositoryInterface, GetTranslatedArticlesInterface
 {
 
     public function countPosts($lang, $publishedOnly = false){
@@ -47,7 +48,7 @@ class BlogPostRepository implements BlogPostRepositoryInterface
             ->take($take);
     }
 
-    public function getTranslatedArticles($uri)
+    public function getAllTranslatedArticles($uri)
     {
        // dd($uri);
         $originalPost = Post::where('uri', $uri)->firstOrFail();

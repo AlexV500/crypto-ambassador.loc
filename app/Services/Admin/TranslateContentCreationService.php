@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use Illuminate\Support\Facades\Session;
+use App\Http\Entities\Site;
 use Illuminate\Support\Str;
 
 class TranslateContentCreationService {
@@ -17,7 +18,7 @@ class TranslateContentCreationService {
         } return $originalContentTitle;
     }
 
-    public function getOriginalContentId($siteEntity): string  {
+    public function getOriginalContentId($siteEntity): int  {
 
         $originalContentId = Str::uuid();
         if (!$siteEntity->checkDefaultLocale()) {

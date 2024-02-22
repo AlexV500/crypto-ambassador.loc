@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Blog;
 
 use App\Http\Entities\Site;
 use App\Services\LanguageSwitcherService;
@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LanguageSwitcher extends Component
+class BlogLanguageSwitcher extends Component
 {
     public $localization;
     public $siteEntity;
@@ -17,15 +17,14 @@ class LanguageSwitcher extends Component
 
     public function __construct(LanguageSwitcherService $languageSwitcherService, $siteEntity){
 
-        $this->getLocaleName = $this->getLocaleName();
-        $this->locales = $this->getAllLocalizations();
         $this->siteEntity = $siteEntity;
-        $languageSwitcherService->getLanguageSwitcherLinks($this->siteEntity);
+        $this->getLocaleName = $this->getLocaleName();
+        $this->locales = $languageSwitcherService->getLanguageSwitcherLinks($siteEntity);
     }
 
     public function render(): View|Closure|string
     {
-        return view('components.language-switcher');
+        return view('components.blog.header.blog-language-switcher');
     }
 
     public function getAllLocalizations(){
