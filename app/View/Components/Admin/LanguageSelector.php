@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Admin;
 
+use App\Helpers\Localization\TranslRepositoryHelper;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -9,7 +10,7 @@ use App\Http\Entities\Site;
 
 class LanguageSelector extends Component
 {
-    public $contentId;
+    public $originalContentId;
     public $contentTitle;
     public $route;
     public $siteEntity;
@@ -17,16 +18,17 @@ class LanguageSelector extends Component
     public $getLocaleName;
     public $getCurrentLocale;
     public $getDefaultLocale;
-    public function __construct($siteEntity, $contentId, $contentTitle, $route)
+    public function __construct($siteEntity, $originalContentId, $contentTitle, $route, $publicRoute)
     {
-        $this->contentId = $contentId;
+        $this->originalContentId = $originalContentId;
         $this->contentTitle = $contentTitle;
         $this->route = $route;
+        $this->publicRoute = $publicRoute;
         $this->siteEntity = $siteEntity;
-        $this->getLocaleName = $this->getLocaleName();
-        $this->getCurrentLocale = $this->getCurrentLocale();
-        $this->getDefaultLocale = $this->getDefaultLocale();
-        $this->locales = $this->getAllLocalizations();
+        $this->getLocaleName = $siteEntity->getLocaleName();
+        $this->getCurrentLocale = $siteEntity->getCurrentLocale();
+        $this->getDefaultLocale = $siteEntity->getDefaultLocale();
+        $this->locales = $this->getAllLocalizations($siteEntity->getAllLocalizations());
     }
 
     public function render(): View|Closure|string
@@ -34,29 +36,22 @@ class LanguageSelector extends Component
         return view('components.admin.language-selector');
     }
 
-    public function getAllLocalizations(){
+    public function getAllLocalizations($locales){
 
-        return $this->cutCurrentLocale($this->siteEntity->getAllLocalizations());
+        return $this->disableReadyTranslations($this->cutCurrentLocale($locales));
     }
 
-    public function getLocaleName(){
+    private function disableReadyTranslations($locales){
 
-        return $this->siteEntity->getCurrentLocaleName();
-    }
+        $filtered = [];
+        $repository = TranslRepositoryHelper::initTranslationsRepository($this->siteEntity, $this->publicRoute);
 
-    public function getCurrentLocale(){
-
-        return $this->siteEntity->getCurrentLocale();
-    }
-
-    public function getDefaultLocale(){
-
-        return $this->siteEntity->getDefaultLocale();
-    }
-
-    public function getRoute(){
-
-        return $this->route;
+        foreach ($locales as $locale => $localeName){
+            $count = $repository->countTranslatedArticle($this->originalContentId, $locale);
+            if($count == 0){
+                $filtered[$locale] = $localeName;
+            }
+        } return $filtered;
     }
 
     private function cutCurrentLocale($locales){

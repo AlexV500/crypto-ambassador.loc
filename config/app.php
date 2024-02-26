@@ -191,6 +191,7 @@ return [
         App\Providers\BreadcrumbsServiceProvider::class,
         App\Providers\TranslateContentCreationServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\TranslRepositoryHelperServiceProvider::class,
         App\Providers\LanguageSwitcherServiceProvider::class,
     ])->toArray(),
 
@@ -211,6 +212,7 @@ return [
         'LocalizationService' => App\Services\Localization\LocalizationServiceProvider::class,
         'UrlLocal' => App\Helpers\Localization\UrlLocal::class,
         'Snippet' => App\Helpers\Localization\Snippet::class,
+        'TranslRepositoryHelper' => App\Helpers\Localization\TranslRepositoryHelper::class,
         'MenuService' => App\Services\Admin\MenuService::class,
         'LanguageSwitcherService' => App\Services\LanguageSwitcherService::class,
         'TranslateContentCreationService' => App\Services\Admin\TranslateContentCreationService::class,

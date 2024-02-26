@@ -2,141 +2,97 @@
 
 namespace App\Services;
 
-use App\Repositories\Blog\Interface\GetTranslatedArticlesInterface;
+use App\Helpers\Localization\TranslRepositoryHelper;
+use App\Helpers\Localization\UrlLocal;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use stdClass;
 
-class LanguageSwitcherService{
+class LanguageSwitcherService
+{
 
     private $siteEntity;
     private $routeName;
     private $segments;
-    public function getLanguageSwitcherLinks($siteEntity) : Collection
+    private $defaultLocale;
+    private $repository;
+
+
+    public function getLanguageSwitcherLinks($siteEntity): Collection
+    {
+        $this->initialize($siteEntity);
+        return $this->createLanguageSwitcherLinks();
+    }
+
+    private function initialize($siteEntity)
     {
         $this->siteEntity = $siteEntity;
         $this->routeName = request()->route()->getName();
         $this->segments = $this->prepSegments(request()->segments());
-        return $this->createLanguageSwitcherLinks();
+        $this->locales = $siteEntity->getConfigLocales();
+        $this->defaultLocale = $this->siteEntity->getDefaultLocale();
+        $this->repository = TranslRepositoryHelper::initTranslationsRepository($this->siteEntity, $this->routeName);
     }
 
-    private function prepSegments($segments){
-        if($this->siteEntity->checkDefaultLocale()){
+    private function prepSegments($segments)
+    {
+        if ($this->siteEntity->checkDefaultLocale()) {
             array_unshift($segments, $this->siteEntity->getDefaultLocale());
-        } return $segments;
+        }
+        return $segments;
     }
 
     private function createLanguageSwitcherLinks(): Collection
     {
-        $urls = [];
-        $locales = $this->siteEntity->getConfigLocales();
         $segments = $this->segments;
-        $repoCollection = $this->siteEntity->getRepositoriesByRouteName();
-        $repository = $this->initRepositoryClass($repoCollection);
-
-        $originalContentId = $this->getOriginalContentId($repository, $segments);
+        $originalContentId = TranslRepositoryHelper::getOriginalContentId($this->repository,
+            UrlLocal::getURIfromSegments($segments));
 
         if (!$this->checkEmptyOriginalContentId($originalContentId)) {
-
-            $urls = $this->getTrContentURLs($locales, $segments, $repository, $originalContentId);
+            $urls = $this->getTrContentURLs($segments, $originalContentId);
         } else {
-            $urls = $this->getTrURLs($locales, $segments);
+            $urls = $this->getTrURLs($segments);
         }
-      //  $urls = $this->cutDefaultLanguage($urls);
+        //  $urls = $this->removeDefaultLanguagePrefix($urls);
+        return collect($urls);
+
+    }
+
+    private function getTrURLs($segments)
+    {
+        foreach ($this->locales as $locale => $nameOfLang) {
+            $urls[$nameOfLang] = url(UrlLocal::removeDefaultLanguagePrefix($locale, $this->defaultLocale, UrlLocal::getURLs($segments, $locale)));
+        }
         return collect($urls);
     }
 
-
-    private function getTrURLs($locales, $segments)
+    private function getTrContentURLs($segments, $originalContentId)
     {
-        foreach ($locales as $locale => $nameOfLang) {
-            $urls[$nameOfLang] = url($this->cutDefaultLanguage($locale, $this->getURLs($segments, $locale)));
-        }
-        return collect($urls);
-    }
+        foreach ($this->locales as $locale => $nameOfLang) {
 
-    private function getTrContentURLs($locales, $segments, $repository, $originalContentId)
-    {
-
-        foreach ($locales as $locale => $nameOfLang) {
-
-            $count = $repository->countTranslatedArticle($originalContentId, $locale);
+            $count = $this->repository->countTranslatedArticle($originalContentId, $locale);
             $larr[$nameOfLang] = $count;
             if ($count > 0) {
-                $translatedArticle = $repository->getTranslatedArticle($originalContentId, $locale);
-                $segments = $this->changeURI($segments, $translatedArticle->uri);
+                $translatedArticle = $this->repository->getTranslatedArticle($originalContentId, $locale);
+                $segments = UrlLocal::changeURI($segments, $translatedArticle->uri);
             } else {
                 continue;
             }
-            $urls[$nameOfLang] = url($this->cutDefaultLanguage($locale, $this->getURLs($segments, $locale)));
-        } // dd($larr);
+            $urls[$nameOfLang] = url(UrlLocal::removeDefaultLanguagePrefix($locale, $this->defaultLocale, UrlLocal::getURLs($segments, $locale)));
+        }
         return collect($urls);
     }
 
 
-    private function getURLs($segments, $locale) : string{
-        array_shift($segments);
-        array_unshift($segments, $locale);
-        return implode('/', $segments);
-    }
 
 
-    private function initRepositoryClass($repoCollection)
-    {
-        if ($this->checkRepoCollection($repoCollection)) {
-            $repositoryClass = $repoCollection->get($this->routeName);
-            return new $repositoryClass();
-        }
-        return false;
-    }
-
-    private function getOriginalContentId($repository, $segments): string
-    {
-        if ($repository instanceof GetTranslatedArticlesInterface) {
-        //    dd($repository->getOriginalContentId($this->getURIfromSegments($segments)));
-            return $repository->getOriginalContentId($this->getURIfromSegments($segments));
-        }
-        return '';
-    }
-
-    private function cutDefaultLanguage($locale, $url)
-    {
-        if ($locale == $this->siteEntity->getDefaultLocale()) {
-            $defaultLangUrlExploded = explode('/', $url);
-            array_shift($defaultLangUrlExploded);
-            $url = implode('/', $defaultLangUrlExploded);
-        }
-        return $url;
-    }
-
-    private function checkRepoCollection($repoCollection) : bool
-    {
-        return $repoCollection->isNotEmpty() && $repoCollection->has($this->routeName);
-    }
-
-    private function checkEmptyRepositoryClass($repository) : bool
+    private function checkEmptyRepositoryClass($repository): bool
     {
         return $repository == false;
     }
 
-    private function checkEmptyOriginalContentId($originalContentId) : bool
+    private function checkEmptyOriginalContentId($originalContentId): bool
     {
-        if(strlen($originalContentId) == 0){
-            return true;
-        }
-        return false;
+        return $originalContentId === '' ? true : false;
     }
 
-    private function changeURI($segments, $uri): array    {
 
-        array_pop($segments);
-        $segments[] = $uri;
-        return $segments;
-    }
-
-    private function getURIfromSegments($segments)
-    {
-        $uri = array_pop($segments);
-        return $uri;
-    }
 }

@@ -34,5 +34,9 @@ class TranslateContentCreationService {
         Session::forget(['originalContentTitle', 'originalContentId']);
     }
 
+    public function getRepositoryFromRoute($route){
+
+    }
+
 
 }
