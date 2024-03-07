@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin\Blog\Tag;
 
-use App\Http\Controllers\Admin\Blog\AdminBlogController;
 
-class CreateController extends AdminBlogController{
+class CreateController extends BaseController{
 
     public function __invoke(){
 
-        return view('admin.blog.tag.create', $this->getViewVariables());
+        $addViewVariables = [
+            'originalContentId' => $this->createTranslationService->getOriginalContentId($this->getSiteEntity()),
+            'originalContentTitle' => $this->createTranslationService->getOriginalContentTitle($this->getSiteEntity()),
+        ];
+
+        return view('admin.blog.tag.create', $this->mergeViewVariables($addViewVariables));
     }
 }

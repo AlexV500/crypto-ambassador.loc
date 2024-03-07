@@ -18,7 +18,7 @@ class TranslateContentCreationService {
         } return $originalContentTitle;
     }
 
-    public function getOriginalContentId($siteEntity): int  {
+    public function getOriginalContentId($siteEntity): string  {
 
         $originalContentId = Str::uuid();
         if (!$siteEntity->checkDefaultLocale()) {

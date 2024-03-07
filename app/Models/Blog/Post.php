@@ -3,6 +3,7 @@
 namespace App\Models\Blog;
 
 use App\Events\Admin\Blog\Post\CreatePostEvent;
+use App\Models\Media\Images;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,14 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model implements HasMedia
+use Spatie\Image\Manipulations;
+
+
+class Post extends Model
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'posts';
     protected $guarded = false;
@@ -79,7 +79,9 @@ class Post extends Model implements HasMedia
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
-
+    public function images(){
+        return $this->morphMany(Images::class, 'transaction');
+    }
 
 
 
@@ -98,18 +100,6 @@ class Post extends Model implements HasMedia
         return Carbon::parse($this->custom_date);
     }
 
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('post-images');
-    }
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 300, 300)
-            ->nonQueued();
-    }
 
     public function toSitemapTag(): Url | string | array
     {

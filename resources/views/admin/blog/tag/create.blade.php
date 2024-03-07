@@ -32,6 +32,7 @@
                         <div class="form-group">
                             <div class="form-group w-25">
                                 <input type="hidden" name="lang" value="{{ $getCurrentLocale }}">
+                                <input type="hidden" name="original_content_id" value="{{ $originalContentId }}">
                             </div>
                         </div>
                          <div class="form-group">

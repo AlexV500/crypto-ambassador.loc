@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Blog\Post;
-
-use App\Http\Controllers\Admin\Blog\AdminBlogController;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
 
 class CreateController extends BaseController{
 

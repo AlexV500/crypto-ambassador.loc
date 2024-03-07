@@ -158,7 +158,7 @@ class Site
         return collect([
             'blog.post.show' => 'App\Repositories\Blog\Post\BlogPostRepository',
             'blog.category.post.index' => 'App\Repositories\Blog\Category\BlogCategoryRepository',
-            'blog.tag.post.index' => 'App\Http\Controllers\Blog\Tag\BlogTagRepository',
+            'blog.tag.post.index' => 'App\Repositories\Blog\Tag\BlogTagRepository',
         ]);
     }
 }

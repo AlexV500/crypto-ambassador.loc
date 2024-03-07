@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                     <div class="card">
 
                         <div class="card-body table-responsive p-0">
@@ -38,9 +38,10 @@
                                 <thead>
                                 <tr>
                                     <th width="5%">ID</th>
-                                    <th width="40%">Назва</th>
+                                    <th width="36%">Назва</th>
                                     <th width="35%">URI</th>
-                                    <th width="20%" colspan="3" class="text-center">Дія</th>
+                                    <th width="14%">+ Переклад</th>
+                                    <th width="10%" colspan="3" class="text-center">Дія</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +50,11 @@
                                         <td>{{$category->id}}</td>
                                         <td>{{$category->title}}</td>
                                         <td>{{$category->uri}}</td>
+                                        <td><x-language-selector :siteEntity="$siteEntity" :originalContentId="$category->original_content_id"
+                                                                 :contentTitle="$category->title"
+                                                                 :route="'admin.blog.category.create'"
+                                                                 :publicRoute="'blog.category.post.index'"
+                                            ></x-language-selector></td>
                                         <td class="text-center"><a href="{{route('admin.blog.category.show', $category->id)}}"><i class="far fa-eye"></i></a></td>
                                         <td class="text-center"><a href="{{route('admin.blog.category.edit', $category->id)}}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                         <td class="text-center">
