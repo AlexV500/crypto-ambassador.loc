@@ -3,7 +3,7 @@
 namespace App\Models\Blog;
 
 use App\Events\Admin\Blog\Post\CreatePostEvent;
-use App\Models\Media\Images;
+use App\Models\Media\Image;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -80,7 +80,7 @@ class Post extends Model
     }
 
     public function images(){
-        return $this->morphMany(Images::class, 'transaction');
+        return $this->morphMany(Image::class, 'transaction');
     }
 
 

@@ -9,98 +9,60 @@ use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ImageUploader extends Component
 {
     use WithFileUploads;
-    public $rawImages;
+
+    public $post;
+    public $path;
+    public $fullpath;
+    public $folder;
     public $images = [];
     public $imagesName = [];
-    public $oldImages, $multiple, $name, $size;
+    public  $name, $size;
 
-    protected $messages = [
-        'rawImages.*.image' => 'The images format must be type of image.',
-        'rawImages.*.mimes' => 'The images format must be :mimes.',
-        'rawImages.*.max' => 'The images must not be greater than :max KB.',
-        'rawImages.image' => 'The image format must be type of image.',
-        'rawImages.mimes' => 'The image format must be :mimes.',
-        'rawImages.max' => 'The image must not be greater than :max KB.',
-    ];
+    #[Validate(['images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'])]
 
-    public function mount(string $name, bool $multiple = false, int $size=1024, array $old = null)
+    public function mount($post, $path, $folder)
     {
-        $this->name = $name;
-        $this->size = $size;
-        $this->multiple = $multiple;
-        $multiple ? $this->rawImages=[] : $this->rawImages = null;
-        $old ? $this->oldImages = $old : $this->oldImages = null;
+        $this->post = $post;
+        $this->path = public_path($path);
+        $this->folder = $folder;
+        $this->fullpath = public_path($path.$folder);
     }
 
-    public function updatingRawImages()
+    public function checkFolder() : void
     {
-        $this->multiple ? $this->rawImages=[] : $this->rawImages = null;
-        $this->images = array();
-    }
-
-    public function updatedRawImages($value)
-    {
-        if ($this->multiple) {
-            $this->validate(
-                ['rawImages.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$this->size.'\''],
-            );
-        }
-
-        if (!$this->multiple) {
-            $this->validate(
-                ['rawImages' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$this->size.'\''],
-                []
-            );
-        }
-
-        // $this->images = $value;
-        $this->multiple ? $this->images = $value : $this->images = array($value);
-
-        $this->uploadImages();
-    }
-
-
-    public function uploadImages()
-    {
-        if (!empty($this->imagesName)) {
-            foreach ($this->imagesName as $image) {
-                Storage::delete('public/image-uploader/' . $image);
+        try {
+            if (!File::exists($this->fullpath)) {
+                File::makeDirectory($this->fullpath, 0755, true, true);
             }
-            $this->imagesName = array();
+        } catch (\Exception $exception){
+            abort(500);
         }
+    }
 
+    public function save()
+    {
+        $this->checkFolder();
         foreach ($this->images as $image) {
-            $image->store('public/image-uploader');
+            $image->store($this->fullpath);
             array_push($this->imagesName, $image->hashName());
         }
-        return $this->handleImagesUpdated();
+        $this->dispatch('image-added');
     }
 
-    public function handleRemoveImage($index, $old = false)
+    public function removeImage($index)
     {
-        if ($old) {
-            $this->emitUp('deleteImage', $this->oldImages[$index]);
-            // $this->oldImages[$index]->delete();
-            unset($this->oldImages[$index]);
-        } else {
-            Storage::delete("public/image-uploader/" . $this->imagesName[$index]);
-            unset($this->images[$index]);
-            unset($this->imagesName[$index]);
-            return $this->handleImagesUpdated();
-        }
+        Storage::delete($this->fullpath .'/'. $this->imagesName[$index]);
+        unset($this->images[$index]);
+        unset($this->imagesName[$index]);
+        $this->dispatch('image-added');
     }
-
-    public function handleImagesUpdated()
-    {
-        $this->emit('imagesUpdated', $this->name, $this->imagesName);
-    }
-
     public function render()
     {
-        return view('livewire-image-uploader::livewire.image-uploader');
+        return view('livewire.admin.media.images.image-uploader');
     }
 }

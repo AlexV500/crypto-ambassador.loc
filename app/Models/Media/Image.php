@@ -11,7 +11,7 @@ Relation::morphMap([
    'Post' => 'App\Models\Blog\Post'
 ]);
 
-class Images extends Model{
+class Image extends Model{
 
     use HasFactory, SoftDeletes;
 
