@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Blog\AdminBlogController;
 use App\Repositories\Blog\Category\Interface\BlogCategoryRepositoryInterface;
 use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
 use App\Repositories\Blog\Tag\Interface\BlogTagRepositoryInterface;
+use App\Repositories\Media\Images\Interface\ImageRepositoryInterface;
 use App\Services\Admin\Blog\PostService;
 use App\Services\Admin\TranslateContentCreationService;
 
@@ -16,10 +17,11 @@ class BaseController extends AdminBlogController
                                 TranslateContentCreationService $createTranslationService,
                                 BlogCategoryRepositoryInterface $blogCategoryRepository,
                                 BlogPostRepositoryInterface     $blogPostRepository,
-                                BlogTagRepositoryInterface      $blogTagRepository
+                                BlogTagRepositoryInterface      $blogTagRepository,
+                                ImageRepositoryInterface        $imageRepository,
     )
     {
         $this->service = $service;
-        parent::__construct($createTranslationService, $blogCategoryRepository, $blogPostRepository, $blogTagRepository);
+        parent::__construct($createTranslationService, $blogCategoryRepository, $blogPostRepository, $blogTagRepository, $imageRepository);
     }
 }

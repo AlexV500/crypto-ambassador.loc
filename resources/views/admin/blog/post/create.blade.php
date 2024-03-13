@@ -184,6 +184,13 @@
             </div>
             <!-- /.row -->
 
+
+            <livewire:admin.media.images.image-uploader :siteEntity="$siteEntity"
+                                                        :imageRepository="$imageRepository"
+                                                        :imagePath="$imagePath"
+                                                        :imageFolder="$originalContentId"
+                                                        :postType="$postType"/>
+
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

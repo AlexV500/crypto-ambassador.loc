@@ -10,14 +10,16 @@ class AdminBlogController extends SiteController{
     protected object $blogCategoryRepository;
     protected object $blogPostRepository;
     protected object $blogTagRepository;
+    protected object $imageRepository;
 
-    public function __construct($createTranslationService, $blogCategoryRepository, $blogPostRepository, $blogTagRepository){
+    public function __construct($createTranslationService, $blogCategoryRepository, $blogPostRepository, $blogTagRepository, $imageRepository){
 
         parent::__construct();
         $this->createTranslationService = $createTranslationService;
         $this->blogCategoryRepository = $blogCategoryRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogTagRepository = $blogTagRepository;
+        $this->imageRepository = $imageRepository;
     }
 
     public function getCategories()

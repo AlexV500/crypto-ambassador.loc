@@ -2,105 +2,100 @@
 
 namespace App\Livewire\Admin\Media\Images;
 
-use App\Models\Blog\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ImageUploader extends Component
 {
-    use WithFileUploads;
-    public $rawImages;
+    use WithFileUploads, WithPagination;
+
+    public $defaultLocale;
+    public $currentLocale;
+    public $imageRepository;
+    public $imagePath;
+    public $fullpath;
+    public $imageFolder;
+    public $postType;
+
+    #[Validate(['images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'])]
     public $images = [];
     public $imagesName = [];
-    public $oldImages, $multiple, $name, $size;
 
-    protected $messages = [
-        'rawImages.*.image' => 'The images format must be type of image.',
-        'rawImages.*.mimes' => 'The images format must be :mimes.',
-        'rawImages.*.max' => 'The images must not be greater than :max KB.',
-        'rawImages.image' => 'The image format must be type of image.',
-        'rawImages.mimes' => 'The image format must be :mimes.',
-        'rawImages.max' => 'The image must not be greater than :max KB.',
-    ];
 
-    public function mount(string $name, bool $multiple = false, int $size=1024, array $old = null)
+
+    public function mount($siteEntity, $imageRepository, $imagePath, $imageFolder, $postType)
     {
-        $this->name = $name;
-        $this->size = $size;
-        $this->multiple = $multiple;
-        $multiple ? $this->rawImages=[] : $this->rawImages = null;
-        $old ? $this->oldImages = $old : $this->oldImages = null;
+        $this->defaultLocale = $siteEntity->getDefaultLocale();
+        $this->currentLocale = $siteEntity->getCurrentLocale();
+        $this->imageRepository = $imageRepository;
+        $this->imagePath = public_path($imagePath);
+        $this->imageFolder = $imageFolder;
+        $this->postType = $postType;
+        $this->fullpath = public_path($imagePath.$imageFolder);
     }
 
-    public function updatingRawImages()
+    public function checkFolder() : void
     {
-        $this->multiple ? $this->rawImages=[] : $this->rawImages = null;
-        $this->images = array();
-    }
-
-    public function updatedRawImages($value)
-    {
-        if ($this->multiple) {
-            $this->validate(
-                ['rawImages.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$this->size.'\''],
-            );
-        }
-
-        if (!$this->multiple) {
-            $this->validate(
-                ['rawImages' => 'image|mimes:jpeg,png,jpg,gif,svg|max:'.$this->size.'\''],
-                []
-            );
-        }
-
-        // $this->images = $value;
-        $this->multiple ? $this->images = $value : $this->images = array($value);
-
-        $this->uploadImages();
-    }
-
-
-    public function uploadImages()
-    {
-        if (!empty($this->imagesName)) {
-            foreach ($this->imagesName as $image) {
-                Storage::delete('public/image-uploader/' . $image);
+        try {
+            if (!File::exists($this->fullpath)) {
+                File::makeDirectory($this->fullpath, 0755, true, true);
             }
-            $this->imagesName = array();
+        } catch (\Exception $exception){
+            abort(500);
         }
-
-        foreach ($this->images as $image) {
-            $image->store('public/image-uploader');
-            array_push($this->imagesName, $image->hashName());
-        }
-        return $this->handleImagesUpdated();
     }
 
-    public function handleRemoveImage($index, $old = false)
+    public function save()
     {
-        if ($old) {
-            $this->emitUp('deleteImage', $this->oldImages[$index]);
-            // $this->oldImages[$index]->delete();
-            unset($this->oldImages[$index]);
-        } else {
-            Storage::delete("public/image-uploader/" . $this->imagesName[$index]);
+        $this->checkFolder();
+        foreach ($this->images as $image) {
+            try{
+                $data['image'] = $image->hashName();
+                $data['folder'] = $this->imageFolder;
+                $data['path'] = $this->imagePath;
+                $data['post_type'] = $this->postType;
+                $data['lang'] = $this->currentLocale;
+                //    dd($data);
+                $this->imageRepository->recordImage($data);
+                $image->store($this->fullpath);
+                $this->imagesName[] = $image->hashName();
+            }catch (\Exception $e){
+                request()->session()->flash('error', 'Oops Something went wrong!');
+            }
+        }
+        $this->refreshImages();
+    }
+
+    public function removeImage($index)
+    {
+        try{
+            $this->imageRepository->removeImageRecord($this->imagesName[$index]);
+            Storage::delete($this->fullpath .'/'. $this->imagesName[$index]);
             unset($this->images[$index]);
             unset($this->imagesName[$index]);
-            return $this->handleImagesUpdated();
+            $this->refreshImages();
+        }catch (\Exception $e){
+            request()->session()->flash('error', 'Oops Something went wrong!');
         }
     }
 
-    public function handleImagesUpdated()
+    public function refreshImages()
     {
-        $this->emit('imagesUpdated', $this->name, $this->imagesName);
+        return $this->imageRepository->getImages($this->imageFolder)
+            ->simplePaginate(8, pageName: 'images-page');
     }
 
     public function render()
     {
-        return view('livewire-image-uploader::livewire.image-uploader');
+        $images = $this->refreshImages();
+        $fullpath = $this->fullpath;
+
+        return view('livewire.admin.media.images.image-uploader',
+            compact('images','fullpath'));
     }
 }

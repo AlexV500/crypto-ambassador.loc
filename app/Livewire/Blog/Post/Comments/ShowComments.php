@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Blog\Post\Comments;
 
-use App\Models\Blog\Comment;
-use App\Models\Blog\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
@@ -24,7 +22,6 @@ class ShowComments extends Component
         return $this->post->comments()->orderBy('created_at', 'DESC')
             ->simplePaginate(4, pageName: 'comments-page');
     }
-
 
     public function placeholder(): string
     {
