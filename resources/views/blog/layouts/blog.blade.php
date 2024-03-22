@@ -23,8 +23,6 @@
 
 <x-blog-header :siteEntity="$siteEntity"></x-blog-header>
 
-
-
 <section id="home" class="hero-section">
     <div class="shapes">
         <div class="shape shape-1"></div>

@@ -37,8 +37,8 @@ class PostService{
                 $post->tags()->attach($tagIds);
             }
 
-            $post->addMediaFromRequest('main_image')
-                 ->toMediaCollection();
+//            $post->addMediaFromRequest('main_image')
+//                 ->toMediaCollection();
             DB::commit();
         } catch (\Exception $exception){
             DB::rollBack();
@@ -73,11 +73,11 @@ class PostService{
             if( isset($tagIds)) {
                 $post->tags()->sync($tagIds);
             }
-            $post->addMediaFromRequest('main_image')
-                ->toMediaCollection('post-images');
-
-            $post->addMediaFromRequest('preview_image')
-                ->toMediaCollection('post-images');
+//            $post->addMediaFromRequest('main_image')
+//                ->toMediaCollection('post-images');
+//
+//            $post->addMediaFromRequest('preview_image')
+//                ->toMediaCollection('post-images');
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();

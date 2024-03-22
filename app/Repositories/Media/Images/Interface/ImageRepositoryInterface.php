@@ -4,14 +4,14 @@ namespace App\Repositories\Media\Images\Interface;
 
 interface ImageRepositoryInterface
 {
-    public function countImages(string $folder,string $lang);
+    public static function countImages(string $folder, string $lang);
 
-    public function getImages(string $folder,string $lang);
+    public static function getImages(string $folder,string $lang);
 
-    public function takeImages(string $folder, int $take);
+    public static function takeImages(string $folder, int $take);
 
-    public function recordImage(array $data);
+    public static function recordImage(array $data);
 
-    public function removeImageRecord(string $imageName);
+    public static function removeImageRecord(string $imageName);
 
 }

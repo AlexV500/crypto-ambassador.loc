@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Blog\Post;
 
+use App\Http\Controllers\SiteController;
 use App\Http\Requests\Admin\Blog\Post\UpdateRequest;
 use App\Models\Blog\Post;
+use App\Services\Admin\Blog\PostService;
 
-class UpdateController extends BaseController{
+class UpdateController extends SiteController{
 
-    public function __invoke(UpdateRequest $request, Post $post){
-//        dd($request);
+    public function __invoke(UpdateRequest $request, Post $post, PostService $postService){
+    //    dd($request);
+    //    dump($postService);
         $data = $request->validated();
-        $post = $this->service->update($data, $post);
+        $post = $postService->update($data, $post);
         $getLocaleName = $this->getLocaleName();
         $locales = $this->getAllLocalizations();
 

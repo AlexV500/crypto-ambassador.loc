@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Media\Images;
 
+use App\Repositories\Media\Images\ImageRepository;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
@@ -21,22 +22,26 @@ class ImageUploader extends Component
     public $fullpath;
     public $imageFolder;
     public $postType;
+    public $oldImages;
+    public $countOldImages;
+    public $oldImagesName = [];
 
-    #[Validate(['images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'])]
+ //   #[Validate(['images.*' => 'image|max:2048'])]
     public $images = [];
     public $imagesName = [];
 
 
 
-    public function mount($siteEntity, $imageRepository, $imagePath, $imageFolder, $postType)
+    public function mount($siteEntity, $imagePath, $imageFolder, $postType)
     {
         $this->defaultLocale = $siteEntity->getDefaultLocale();
         $this->currentLocale = $siteEntity->getCurrentLocale();
-        $this->imageRepository = $imageRepository;
+
         $this->imagePath = public_path($imagePath);
         $this->imageFolder = $imageFolder;
         $this->postType = $postType;
         $this->fullpath = public_path($imagePath.$imageFolder);
+
     }
 
     public function checkFolder() : void
@@ -50,9 +55,12 @@ class ImageUploader extends Component
         }
     }
 
-    public function save()
+    public function saveImages()
     {
         $this->checkFolder();
+        $this->validate([
+            'images.*' => 'required|mimes:png,jpg,jpeg,webp|max:2048', // 2MB Max
+        ]);
         foreach ($this->images as $image) {
             try{
                 $data['image'] = $image->hashName();
@@ -63,39 +71,41 @@ class ImageUploader extends Component
                 //    dd($data);
                 $this->imageRepository->recordImage($data);
                 $image->store($this->fullpath);
-                $this->imagesName[] = $image->hashName();
+                $this->oldImagesName[] = $image->hashName();
             }catch (\Exception $e){
                 request()->session()->flash('error', 'Oops Something went wrong!');
             }
         }
-        $this->refreshImages();
+        $this->dispatch('imagesUpdated');
     }
 
     public function removeImage($index)
     {
         try{
-            $this->imageRepository->removeImageRecord($this->imagesName[$index]);
-            Storage::delete($this->fullpath .'/'. $this->imagesName[$index]);
-            unset($this->images[$index]);
-            unset($this->imagesName[$index]);
+            ImageRepository::removeImageRecord($this->oldImagesName[$index]);
+            Storage::delete($this->fullpath .'/'. $this->oldImagesName[$index]);
+            unset($this->oldImages[$index]);
+            unset($this->oldImagesName[$index]);
             $this->refreshImages();
         }catch (\Exception $e){
             request()->session()->flash('error', 'Oops Something went wrong!');
         }
     }
 
+    #[On('imagesUpdated')]
     public function refreshImages()
     {
-        return $this->imageRepository->getImages($this->imageFolder)
-            ->simplePaginate(8, pageName: 'images-page');
+        return ImageRepository::getImages($this->imageFolder)
+        ->simplePaginate(8, pageName: 'images-page');
     }
 
     public function render()
     {
-        $images = $this->refreshImages();
+        $countOldImages = ImageRepository::countImages($this->imageFolder);
+        $oldImages = $this->refreshImages();
         $fullpath = $this->fullpath;
 
         return view('livewire.admin.media.images.image-uploader',
-            compact('images','fullpath'));
+            compact('oldImages', 'countOldImages', 'fullpath'));
     }
 }

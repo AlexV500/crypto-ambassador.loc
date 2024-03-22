@@ -1,19 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Blog\Post;
+use App\Repositories\Media\Images\ImageRepository;
+use App\Services\Admin\Media\ImagesGalleryUploadService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 
 class CreateController extends BaseController{
 
     public function __invoke(){
 
+        $originalContentId = $this->createTranslationService->getOriginalContentId($this->getSiteEntity());
+
         $addViewVariables = [
             'categories' => $this->getCategories(),
             'tags' => $this->getTags(),
             'customDate' => Carbon::now(),
-            'originalContentId' => $this->createTranslationService->getOriginalContentId($this->getSiteEntity()),
+            'originalContentId' => $originalContentId,
             'originalContentTitle' => $this->createTranslationService->getOriginalContentTitle($this->getSiteEntity()),
-            'imageRepository' => $this->imageRepository,
             'imagePath' => 'media/images/',
             'postType' => 'blog'
         ];

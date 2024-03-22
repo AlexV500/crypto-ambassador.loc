@@ -11,7 +11,7 @@ class TranslateContentCreationServiceProvider extends ServiceProvider {
      */
     public function register(): void
     {
-        require_once app_path() . '/Services/Admin/TranslateContentCreationService.php';
+        $this->app->bind('TranslateContentCreationService', 'App\Services\Admin\TranslateContentCreationService.php');
     }
 
     /**

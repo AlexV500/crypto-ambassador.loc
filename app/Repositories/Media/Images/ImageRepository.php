@@ -7,27 +7,28 @@ use App\Repositories\Media\Images\Interface\ImageRepositoryInterface;
 
 class ImageRepository implements ImageRepositoryInterface
 {
-    public function countImages($folder, $lang = false)
+
+    public function __construct(){}
+    public static function countImages($folder, $lang = '')
     {
         return Image::where('folder', '=', $folder)->count();
     }
-
-    public function getImages($folder, $lang = false)
+    public static function getImages($folder, $paginate, $lang = '')
     {
-        return Image::where('folder', '=', $folder)->orderBy('created_at', 'DESC');
+        return Image::where('folder', '=', $folder)->orderBy('created_at', 'DESC')->paginate($paginate);
     }
 
-    public function takeImages($folder, $take)
+    public static function takeImages($folder, $take)
     {
         return Image::where('folder', '=', $folder)->get()->take($take);
     }
 
-    public function recordImage($data)
+    public static function recordImage($data)
     {
         Image::create($data);
     }
 
-    public function removeImageRecord($imageName){
+    public static function removeImageRecord($imageName){
 
         Image::where('image', '=', $imageName)->delete();
     }

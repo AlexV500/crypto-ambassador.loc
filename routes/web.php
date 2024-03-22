@@ -113,6 +113,11 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
                 Route::post('/', 'TranslateContentController')->name('admin.translate.content');
             });
 
+            Route::group(['namespace' => 'Media\Images', 'prefix' => 'images'], function () {
+                Route::post('/', 'UploadController')->name('admin.media.images.upload');
+                Route::delete('/{image}', 'DeleteController')->name('admin.media.images.delete');
+            });
+
             Route::group(['namespace' => 'Snippets', 'prefix' => 'snippets'], function () {
                 Route::get('/', 'IndexController')->name('admin.snippets.index');
                 Route::get('/create', 'CreateController')->name('admin.snippets.create');
