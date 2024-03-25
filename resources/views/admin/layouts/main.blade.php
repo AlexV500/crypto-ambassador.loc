@@ -144,7 +144,7 @@
 
         });
         $('#summernote_m_d').summernote({
-            height: 300,
+            height: 180,
             lang: 'ru-RU',
              toolbar: [
             //     [groupName, [list of button]]
@@ -152,7 +152,7 @@
             //     ['font', ['strikethrough', 'superscript', 'subscript']],
             //     ['fontsize', ['fontsize']],
             //     ['color', ['color']],
-                 ['para', ['ul', 'ol', 'paragraph']],
+            //     ['para', ['ul', 'ol', 'paragraph']],
             //     ['height', ['height']]
              ]
         });

@@ -19,21 +19,20 @@ class ImagesGalleryUploadService
         }
     }
 
-    public function saveImages($request)
+    public function saveImages($request, $originalContentId, $mediaFolderPath, $originalContentType, $lang)
     {
-        $fullpath = public_path($request['image_path'].$request['folder']);
+        $fullpath = public_path($mediaFolderPath.$originalContentId);
         $this->checkFolder($fullpath);
 
-        if($request->hasFile("images")){
-            $files=$request->file("images");
-            foreach($files as $file){
-                $imageName=time().'_'.$file->getClientOriginalName();
+        if(count($request) > 0){
+            foreach($request as $key => $image){
+                $imageName=time().'_'.$image->getClientOriginalName();
                 $data['image']=$imageName;
-                $data['folder'] = $request['folder'];
-                $data['image_path'] = $request['image_path'];
-                $data['post_type'] = $request['post_type'];
-                $data['lang'] = $request['lang'];
-                $file->move($fullpath, $imageName);
+                $data['media_folder_path'] = $mediaFolderPath;
+                $data['original_content_id'] = $originalContentId;
+                $data['original_content_type'] = $originalContentType;
+                $data['lang'] = $lang;
+                $image->move($fullpath, $imageName);
                 ImageRepository::recordImage($data);
             }
         }

@@ -13,29 +13,26 @@ class ImagesGalleryUploader extends Component
     public $imagePath;
     public $fullpath;
     public $imageFolder;
-    public $postType;
-    public $redirectImgGallContrRoute;
-    public function __construct($siteEntity, $imagePath, $imageFolder, $postType){
+
+
+    public function __construct($siteEntity, $imageFolder){
 
         $this->defaultLocale = $siteEntity->getDefaultLocale();
         $this->currentLocale = $siteEntity->getCurrentLocale();
-        $this->imagePath = public_path($imagePath);
         $this->imageFolder = $imageFolder;
-        $this->postType = $postType;
-        $this->fullpath = public_path($imagePath.$imageFolder);
+
     }
 
     public function render(): View|Closure|string
     {
         $countImages = ImageRepository::countImages($this->imageFolder);
         $images = ImageRepository::getImages($this->imageFolder, 8);
-        $fullpath = $this->fullpath;
-        $currentLocale = $this->currentLocale;
+    //    $fullpath = public_path($this->imagePath.$this->imageFolder);
 
         return view('components.admin.media.images-gallery-uploader',
-            compact('images',
+            compact(
                 'countImages',
-                'fullpath',
-                'currentLocale'));
+                'images',
+                ));
     }
 }

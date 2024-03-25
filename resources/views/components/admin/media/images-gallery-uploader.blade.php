@@ -7,8 +7,8 @@
                     <thead>
                     <tr>
                         <th width="5%">ID</th>
-                        <th width="30%">Зображення</th>
-                        <th width="55%">URL</th>
+                        <th width="20%">Зображення</th>
+                        <th width="65%">URL</th>
                         <th width="10%" colspan="3" class="text-center">Дія</th>
                     </tr>
                     </thead>
@@ -17,8 +17,8 @@
                     @foreach ($images as $index => $image)
                         <tr>
                             <td>{{$image->id}}</td>
-                            <td><img src="{{ asset($fullpath . $image) }}"></td>
-                            <td>{{asset($fullpath . $image)}}</td>
+                            <td><img width="100px" src="{{ asset($image->media_folder_path . $image->original_content_id .'/'. $image->image) }}"></td>
+                            <td>{{asset($image->media_folder_path . $image->original_content_id .'/'. $image->image)}}</td>
                             <td>
                                 <form action="{{route('admin.media.images.delete', $image->id)}}" method="POST">
                                     @csrf
@@ -38,19 +38,5 @@
             {{ $images->links() }}
         </div>
     @endif
-
-
-    <form action="{{route('admin.media.images.upload')}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" name="image_path" value="{{ $imagePath }}">
-        <input type="hidden" name="post_type" value="{{ $postType }}">
-        <input type="hidden" name="lang" value="{{ $currentLocale }}">
-        <div class="form-group">
-            <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="images[]" multiple>
-        </div>
-        <div class="form-group mt-3 mb-3">
-            <button id="submit" type="submit" class="">Додати</button>
-        </div>
-    </form>
 
 </div>

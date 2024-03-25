@@ -11,8 +11,8 @@ class UploadController extends Controller
 {
     public function __invoke(StoreRequest $request, ImagesGalleryUploadService $imagesGalleryUploadService){
 
-        $data = $request->validated();
-        $imagesGalleryUploadService->saveImages($data);
+    //    $data = $request->validated();
+        $imagesGalleryUploadService->saveImages($request);
         return Redirect::back();
     }
 }

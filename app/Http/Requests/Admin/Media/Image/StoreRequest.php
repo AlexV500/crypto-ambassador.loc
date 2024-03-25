@@ -23,6 +23,11 @@ class StoreRequest extends FormRequest
     {
         return [
             'images.*' => 'required|mimes:png,jpg,jpeg,webp|max:2048',
+            'media_folder_path' => 'required|string',
+            'original_content_id' => 'required|string',
+            'original_content_type' => 'required|string',
+            'lang' => 'required|string',
+            'cover' => 'nullable|integer',
         ];
     }
 

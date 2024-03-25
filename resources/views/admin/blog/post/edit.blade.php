@@ -26,40 +26,89 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-12">
+                <div class="col-10">
                     <form action="{{route('admin.blog.post.update', $post->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
-                        <div class="form-group w-25">
-                            <div class="form-group w-25">
-                                <input type="hidden" name="lang" value="{{ $getCurrentLocale }}">
+                        <input type="hidden" name="lang" value="{{ $getCurrentLocale }}">
+                        <input type="hidden" name="original_content_id" value="{{ $post->original_content_id }}">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputFile">Назва</label>
+                                <input type="input" class="form-control" name="title" value="{{ $post->title }}"
+                                       placeholder="Назва поста">
+                                @error('title')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputFile">URI</label>
+                                <input type="input" class="form-control" name="uri" value="{{ $post->uri }}"
+                                       placeholder="URI">
+                                @error('uri')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
                             </div>
                         </div>
-                        <div class="form-group w-25">
-                            <label for="exampleInputFile">Назва</label>
-                            <input type="input" class="form-control" name="title" value="{{ $post->title }}" placeholder="Назва поста">
-                            @error('title')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
-                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Вибрати категорії</label>
+                                <select class="select2" name="category_ids[]" multiple="multiple"
+                                        data-placeholder="Вибрати категорії" style="width: 100%;">
 
-                        <div class="form-group w-25">
-                            <label for="exampleInputFile">URI</label>
-                            <input type="input" class="form-control" name="uri" value="{{ $post->uri }}"
-                                   placeholder="URI">
-                            @error('uri')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
+                                    @foreach($categories as $category)
+                                        <option
+                                            {{ is_array( $post->categories->pluck('id')->toArray() ) && in_array($category->id, $post->categories->pluck('id')->toArray() ) ? ' selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_ids')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Вибрати основну категорію</label>
+                                <select name="category_id" class="form-control">
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ $category->id == $post->category_id ? ' selected' : '' }}
+                                        >{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
+                            </div>
                         </div>
-                        <div class="form-group w-25">
-                            <label for="exampleInputFile">Дата</label>
-                            <input type="input" class="form-control" name="custom_date" value="{{$post->custom_date }}"
-                                   placeholder="Дата">
-                            @error('custom_date')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Теги</label>
+                                <select class="select2" name="tag_ids[]" multiple="multiple"
+                                        data-placeholder="Вибрати теги" style="width: 100%;">
+
+                                    @foreach($tags as $tag)
+                                        <option
+                                            {{ is_array( $post->tags->pluck('id')->toArray() ) && in_array($tag->id, $post->tags->pluck('id')->toArray() ) ? ' selected' : '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('tag_ids')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputFile">Дата</label>
+                                <input type="input" class="form-control" name="custom_date"
+                                       value="{{$post->custom_date }}"
+                                       placeholder="Дата">
+                                @error('custom_date')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
+                            </div>
+
                         </div>
-                        <div class="form-group w-25">
+                        <div class="form-group">
                             <label for="exampleInputFile">Meta Keywords</label>
                             <input type="input" class="form-control" name="meta_keywords"
                                    value="{{ $post->meta_keywords }}" placeholder="Meta Keywords">
@@ -67,7 +116,7 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror()
                         </div>
-                        <div class="form-group w-75">
+                        <div class="form-group">
                             <label for="exampleInputFile">Meta Description</label>
                             <textarea id="summernote_m_d" name="meta_description">
                                  {{ $post->meta_description }}
@@ -76,7 +125,7 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror()
                         </div>
-                        <div class="form-group w-75">
+                        <div class="form-group">
                             <label for="exampleInputFile">Контент</label>
                             <textarea id="summernote" name="content">
                                  {{ $post->content }}
@@ -85,78 +134,9 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror()
                         </div>
-                        <div class="form-group w-50">
-                            <label for="exampleInputFile">Змінити Превью</label>
-                            <div class="w-50 mb-2">
-                                <img src="{{ asset(Storage::url($post->preview_image)) }}" alt="preview_image" class="w-50">
-                            </div>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="preview_image">
-                                    <label class="custom-file-label">Вибрати Зображення</label>
-                                </div>
-
-                            </div>
-                            @error('preview_image')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
+                        <div class="form-group">
+                            <input type="file" id="input-file-now-custom-3" class="form-control" name="images[]" multiple>
                         </div>
-                        <div class="form-group w-50">
-                            <label for="exampleInputFile">Змінити Головне Зображення</label>
-                            <div class="w-50 mb-2">
-                                <img src="{{ asset(Storage::url($post->main_image)) }}" alt="main_image" class="w-50">
-                            </div>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="main_image">
-                                    <label class="custom-file-label">Вибрати Зображення</label>
-                                </div>
-
-                                @error('main_image')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror()
-                            </div>
-                        </div>
-
-                        <div class="form-group w-50">
-                            <label>Вибрати категорії</label>
-                            <select class="select2" name="category_ids[]" multiple="multiple" data-placeholder="Вибрати категорії" style="width: 100%;">
-
-                                @foreach($categories as $category)
-                                    <option {{ is_array( $post->categories->pluck('id')->toArray() ) && in_array($category->id, $post->categories->pluck('id')->toArray() ) ? ' selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
-                                @endforeach
-                            </select>
-                            @error('tag_ids')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
-                        </div>
-
-                        <div class="form-group w-50">
-                            <label>Вибрати основну категорію</label>
-                            <select name="category_id" class="form-control">
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ $category->id == $post->category_id ? ' selected' : '' }}
-                                    >{{ $category->title }}</option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
-                        </div>
-                        <div class="form-group w-50">
-                            <label>Теги</label>
-                            <select class="select2" name="tag_ids[]" multiple="multiple" data-placeholder="Вибрати теги" style="width: 100%;">
-
-                                @foreach($tags as $tag)
-                                    <option {{ is_array( $post->tags->pluck('id')->toArray() ) && in_array($tag->id, $post->tags->pluck('id')->toArray() ) ? ' selected' : '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
-                                @endforeach
-                            </select>
-                            @error('tag_ids')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror()
-                        </div>
-
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" id="published" name="published" value="1" @if($post->published == '1') checked="" @endif>
@@ -174,7 +154,9 @@
                 </div>
             </div>
             <!-- /.row -->
-
+            <x-images-gallery-uploader :siteEntity="$siteEntity"
+                                       :imageFolder="$post->original_content_id"                                       >
+            </x-images-gallery-uploader>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

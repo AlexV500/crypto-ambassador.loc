@@ -18,8 +18,6 @@ class CreateController extends BaseController{
             'customDate' => Carbon::now(),
             'originalContentId' => $originalContentId,
             'originalContentTitle' => $this->createTranslationService->getOriginalContentTitle($this->getSiteEntity()),
-            'imagePath' => 'media/images/',
-            'postType' => 'blog'
         ];
         return view('admin.blog.post.create', $this->mergeViewVariables($addViewVariables));
     }

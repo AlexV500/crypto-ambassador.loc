@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image')->nullable();
-            $table->string('folder')->nullable();
-            $table->string('path')->nullable();
-            $table->string('post_type')->nullable();
+            $table->string('media_folder_path')->nullable();
+            $table->string('original_content_id')->nullable();
+            $table->string('original_content_type')->nullable();
+            $table->integer('cover')->default(0);;
             $table->string('lang')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -37,7 +37,7 @@ class ImageUploader extends Component
         $this->defaultLocale = $siteEntity->getDefaultLocale();
         $this->currentLocale = $siteEntity->getCurrentLocale();
 
-        $this->imagePath = public_path($imagePath);
+        $this->imagePath = $imagePath;
         $this->imageFolder = $imageFolder;
         $this->postType = $postType;
         $this->fullpath = public_path($imagePath.$imageFolder);
@@ -95,7 +95,7 @@ class ImageUploader extends Component
     #[On('imagesUpdated')]
     public function refreshImages()
     {
-        return ImageRepository::getImages($this->imageFolder)
+        return ImageRepository::getImagesNoPag($this->imageFolder)
         ->simplePaginate(8, pageName: 'images-page');
     }
 
