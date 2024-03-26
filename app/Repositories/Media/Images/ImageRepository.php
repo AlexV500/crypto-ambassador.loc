@@ -13,6 +13,11 @@ class ImageRepository implements ImageRepositoryInterface
     {
         return Image::where('original_content_id', '=', $folder)->count();
     }
+
+    public static function getImage($id)
+    {
+        return Image::find($id);
+    }
     public static function getImages($folder, $paginate, $lang = '')
     {
         return Image::where('original_content_id', '=', $folder)->orderBy('created_at', 'DESC')->paginate($paginate);
@@ -33,7 +38,11 @@ class ImageRepository implements ImageRepositoryInterface
         Image::create($data);
     }
 
-    public static function removeImageRecord($imageName){
+    public static function removeImageRecordById($id){
+
+        Image::find($id)->delete();
+    }
+    public static function removeImageRecordByName($imageName){
 
         Image::where('image', '=', $imageName)->delete();
     }

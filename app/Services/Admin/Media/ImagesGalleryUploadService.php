@@ -40,15 +40,7 @@ class ImagesGalleryUploadService
 
     public function removeImage($index)
     {
-        try{
-            ImageRepository::removeImageRecord($this->oldImagesName[$index]);
-            Storage::delete($this->fullpath .'/'. $this->oldImagesName[$index]);
-            unset($this->oldImages[$index]);
-            unset($this->oldImagesName[$index]);
-            $this->refreshImages();
-        }catch (\Exception $e){
-            request()->session()->flash('error', 'Oops Something went wrong!');
-        }
+
     }
 
 }

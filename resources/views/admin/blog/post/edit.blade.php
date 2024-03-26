@@ -151,12 +151,17 @@
                             <input type="submit" class="btn btn-primary" value="Змінити">
                         </div>
                     </form>
-                </div>
-            </div>
+
+
             <!-- /.row -->
-            <x-images-gallery-uploader :siteEntity="$siteEntity"
-                                       :imageFolder="$post->original_content_id"                                       >
-            </x-images-gallery-uploader>
+{{--            <x-images-gallery-uploader :siteEntity="$siteEntity"--}}
+{{--                                       :imageFolder="$post->original_content_id"                                       >--}}
+{{--            </x-images-gallery-uploader>--}}
+
+            <livewire:admin.media.images.images-gallery :siteEntity="$siteEntity"
+                                                        :imageFolder="$post->original_content_id"/>
+            </div>
+            </div>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
