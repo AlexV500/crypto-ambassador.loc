@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin\Media\Images;
 
 use App\Repositories\Media\Images\ImageRepository;
+use App\Services\Admin\Media\ImagesGalleryUploadService;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
@@ -18,7 +20,12 @@ class ImagesGallery extends Component
     public $defaultLocale;
     public $currentLocale;
     public $imageFolder;
+    public $imagesGalleryUploadService;
 
+//    public function boot(ImagesGalleryUploadService $imagesGalleryUploadService)
+//    {
+//
+//    }
     public function mount($siteEntity, $imageFolder)
     {
         $this->defaultLocale = $siteEntity->getDefaultLocale();
@@ -26,22 +33,26 @@ class ImagesGallery extends Component
         $this->imageFolder = $imageFolder;
     }
 
+//    public function __construct()
+//    {
+//        $this->imagesGalleryUploadService = App::make(ImagesGalleryUploadService::class);
+//    }
+
+
+    public function toggleCoverImage($id, $folder, $cover)
+    {
+        $imagesGalleryUploadService = App::make(ImagesGalleryUploadService::class);
+        $imagesGalleryUploadService->toggleCoverImage($id, $folder, $cover);
+        $this->dispatch('imagesChanged');
+    }
     public function removeImage($id, $path)
     {
-        $path = public_path($path);
-    //    request()->session()->flash('error', $path);
-        try{
-            ImageRepository::removeImageRecordById($id);
-            if(File::exists($path)) {
-                File::delete($path);
-            }
-        }catch (\Exception $e){
-            request()->session()->flash('error', 'Oops Something went wrong!');
-        }
-        $this->dispatch('imageRemoved');
+        $imagesGalleryUploadService = App::make(ImagesGalleryUploadService::class);
+        $imagesGalleryUploadService->removeImage($id, $path);
+        $this->dispatch('imagesChanged');
     }
 
-    #[On('imageRemoved')]
+    #[On('imagesChanged')]
     public function refreshImages()
     {
         return ImageRepository::getImagesNoPag($this->imageFolder)

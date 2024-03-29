@@ -29,7 +29,28 @@
                             <td><input type="text" class="form-control attachment-details-copy-link" id="attachment-details-two-column-copy-link"
                                        value="{{$asset}}" readonly="">
                             </td>
-                            <td>
+
+                            @if($image->cover == '1')
+                                <td class="text-center">
+                                    <button type="button" class="border-0 bg-transparent"
+                                            wire:loading.attr="disabled"
+                                            wire:target="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')"
+                                            wire:click.prevent="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')">
+                                        <i class="fa-solid fa-toggle-on text-success" role="button"></i>
+                                    </button>
+                                </td>
+                            @endif
+                            @if($image->cover == '0')
+                                <td class="text-center">
+                                    <button type="button" class="border-0 bg-transparent"
+                                            wire:loading.attr="disabled"
+                                            wire:target="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')"
+                                            wire:click.prevent="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')">
+                                        <i class="fa-solid fa-toggle-off text-secondary" role="button"></i>
+                                    </button>
+                                </td>
+                            @endif
+                            <td class="text-center">
                                 <button type="button" class="border-0 bg-transparent"
                                         wire:loading.attr="disabled"
                                         wire:target="removeImage('{{ $image->id }}', '{{ $path }}')"
@@ -50,3 +71,8 @@
 {{--    @endif--}}
 
 </div>
+@pushOnce('scripts')
+    <script>
+        alert('Test');
+    </script>
+@endPushOnce

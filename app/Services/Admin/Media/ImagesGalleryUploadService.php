@@ -3,11 +3,19 @@
 namespace App\Services\Admin\Media;
 
 use App\Repositories\Media\Images\ImageRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ImagesGalleryUploadService
 {
+    public string $name;
+
+    public function __construct()
+    {
+        $this->name = 'ImagesGalleryUploadService';
+    }
+
     private function checkFolder($fullpath) : void
     {
         try {
@@ -35,12 +43,43 @@ class ImagesGalleryUploadService
                 $image->move($fullpath, $imageName);
                 ImageRepository::recordImage($data);
             }
+            $this->makeCoverImage($originalContentId);
         }
     }
 
-    public function removeImage($index)
+    private function makeCoverImage($originalContentId)
     {
-
+        $countCoverImages = ImageRepository::countCoverImages($originalContentId, $lang = '');
+        if ($countCoverImages == 0) {
+            $image = ImageRepository::takeImages($originalContentId, 1);
+            ImageRepository::toggleCoverImage($image->id, $image->cover);
+        }
     }
 
+    public function toggleCoverImage($id, $folder, $cover)
+    {
+        $countCoverImages = ImageRepository::countCoverImages($folder);
+        if ($countCoverImages == 0) {
+            ImageRepository::toggleCoverImage($id, $cover);
+        }
+        if ($countCoverImages == 1) {
+            $coverImage = ImageRepository::getCoverImage($folder);
+            ImageRepository::toggleCoverImage($coverImage->id, $coverImage->cover);
+            ImageRepository::toggleCoverImage($id, $cover);
+        }
+    }
+
+    public function removeImage($id, $path)
+    {
+        $path = public_path($path);
+        //    request()->session()->flash('error', $path);
+        try{
+            ImageRepository::removeImageRecordById($id);
+            if(File::exists($path)) {
+                File::delete($path);
+            }
+        }catch (\Exception $e){
+            request()->session()->flash('error', 'Oops Something went wrong!');
+        }
+    }
 }

@@ -159,7 +159,8 @@
 {{--            </x-images-gallery-uploader>--}}
 
             <livewire:admin.media.images.images-gallery :siteEntity="$siteEntity"
-                                                        :imageFolder="$post->original_content_id"/>
+                                                        :imageFolder="$post->original_content_id"
+                                                        />
             </div>
             </div>
         </div><!-- /.container-fluid -->
