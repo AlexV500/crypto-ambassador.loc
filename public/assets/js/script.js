@@ -1,5 +1,5 @@
 /* Template	:	AppsLand v1.3.1 */
-;(function($){
+(function($){
 	'use strict';
 	var $win = $(window), $body = $('body');
 	// Smooth scrolling using jQuery easing
@@ -15,26 +15,26 @@
 		  }
 		}
 	});
-	
+
 	// Nav collapse
 	$('.nav-item').on("click",function() {
 		$('.navbar-collapse').collapse('hide');
 		$('.dropdown').removeClass('open').children('.dropdown-menu').removeAttr('style');
 	});
-	
-	// Bootstrap Dropdown 
-	var $dropdown_menu = $('.dropdown');	
+
+	// Bootstrap Dropdown
+	var $dropdown_menu = $('.dropdown');
 	if ($dropdown_menu.length > 0 ) {
 		$dropdown_menu.on("mouseover",function(){
 			if ($win.width() > 991) {
 				$('.dropdown-menu', this).not('.in .dropdown-menu').stop().fadeIn("400");
-				$(this).addClass('open'); 
+				$(this).addClass('open');
 			}
 		});
 		$dropdown_menu.on("mouseleave",function(){
 			if ($win.width() > 991) {
 				$('.dropdown-menu', this).not('.in .dropdown-menu').stop().fadeOut("400");
-				$(this).removeClass('open'); 
+				$(this).removeClass('open');
 			}
 		});
 		$dropdown_menu.on("click",function(){
@@ -48,13 +48,13 @@
 		$('.navbar-collapse').removeClass('in');
 		$dropdown_menu.children('.dropdown-menu').fadeOut("400");
 	});
-	
+
 	// navigation ScrolSpy
 	$body.scrollspy({
 		target: '#navigation',
 		offset: 90
 	});
-	
+
 	//magnificPopup	Video
 	var $video_play = $('.video-play');
 	if ($video_play.length > 0 ) {
@@ -65,7 +65,7 @@
 			fixedContentPos: false
 		});
 	}
-	
+
 	//magnificPopup	Content
 	var $content_popup = $('.content-popup');
 	if ($content_popup.length > 0 ) {
@@ -76,8 +76,8 @@
 			mainClass: 'mfp-fade bg-gradiant'
 		});
 	}
-	
-	
+
+
 	//Carousel
 	var $has_carousel = $('.has-carousel');
 	if ($has_carousel.length > 0 ) {
@@ -96,8 +96,8 @@
 		  var c_animateOut = ($self.data('animateOut')) ? $self.data('animateOut') : 'fadeOut';
 		  $self.owlCarousel({
 			navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-			items: c_item, loop: c_loop, nav: c_navs, dots: c_dots, margin: c_mgn, center: c_ctr, animateOut: c_animateOut, 
-			autoplay: c_auto, autoplayTimeout: c_delay, autoplaySpeed: 300, 
+			items: c_item, loop: c_loop, nav: c_navs, dots: c_dots, margin: c_mgn, center: c_ctr, animateOut: c_animateOut,
+			autoplay: c_auto, autoplayTimeout: c_delay, autoplaySpeed: 300,
 			responsive:{ 0:{ items:1 }, 480:{ items: c_item_m }, 768:{ items: c_item_t }, 1170:{ items: c_item } }
 		  });
 		});
@@ -107,12 +107,12 @@
 	var $imageBG = $('.imagebg');
 	if ($imageBG.length > 0) {
 		$imageBG.each(function(){
-			var $this = $(this), 
+			var $this = $(this),
 				$that = $this.parent(),
 				overlay = $this.data('overlay'),
 				image = $this.children('img').attr('src');
 			var olaytyp = (typeof overlay!=='undefined' && overlay!=='') ? overlay.split('-') : false;
-			
+
 			// If image found
 			if (typeof image!=='undefined' && image !==''){
 				if (!$that.hasClass('has-bg-image')) {
@@ -127,18 +127,18 @@
 			}
 		});
 	}
-	
+
 	// Video Bg Class Add
 	var $videoBG = $('.video-background');
 	if ($videoBG.length > 0) {
 		$videoBG.each(function(){
-			var $this = $(this), 
+			var $this = $(this),
 				$that = $this.parent();
 			$that.addClass('has-bg-video');
 		});
 	}
-	
-	
+
+
 
 	// FORMS
 	var quoteForm = $('#contact-form');
@@ -149,7 +149,7 @@
 	  }
 	  // Quote Form - home page
 	  if (quoteForm.length > 0) {
-		  var selectRec = quoteForm.find('select.required'), 
+		  var selectRec = quoteForm.find('select.required'),
 		  qf_results = quoteForm.find('.form-results');
 		  quoteForm.validate({
 			invalidHandler: function () { qf_results.slideUp(400); },
@@ -168,7 +168,7 @@
 		  selectRec.on('change', function() { $(this).valid(); });
 	  }
 	}
-	
+
 	// Preloader
 	var $preload = $('#preloader');
 	if ($preload.length > 0) {
@@ -178,10 +178,10 @@
 		  $('body').delay(100).css({'overflow':'visible'});
 		});
 	}
-	
+
 	//WOW init
 	new WOW().init();
-	
+
 	// particlesJS
 	var $particles_js = $('#particles-js');
 	if ($particles_js.length > 0 ) {
@@ -300,7 +300,7 @@
 		// Stop here.
       );
 	}
-	
+
 	// Active page menu when click ( only for demo )
 	var url = window.location.href;
 	var $nav_link = $(".dropdown li a");
@@ -309,9 +309,9 @@
 			$(this).closest("li").addClass("active");
 		}
 	});
-	
+
 	// Color Switcher ( only for demo )
 	$body.append('<div id="themes_panel"><div id="toggle_button"> <a class="toggle-theme-panel" href="#"> <i class="fa fa-gear"></i> </a> <a class="buy-this-template" target="_blank" href="https://themeforest.net/item/appsland-app-landing-html-template/21131010?ref=softnio"> <i class="fa fa-shopping-cart"></i> </a></div><div id="themes_menu"><h4 style="text-transform:uppercase;padding-left:15px;color:#fff;">Color Switcher</h4><div class="segment"><ul class="theme cookie_layout_style"><li> <a class="theme-defalt" title="theme" href="#"></a></li><li> <a class="theme-blue" title="theme-blue" href="#"></a></li><li> <a class="theme-dark-blue" title="theme-dark-blue" href="#"></a></li><li> <a class="theme-orange" title="theme-orange" href="#"></a></li><li> <a class="theme-blue-green" title="theme-blue-green" href="#"></a></li><li> <a class="theme-purple-red" title="theme-purple-red" href="#"></a></li><li> <a class="theme-purple" title="theme-purple" href="#"></a></li><li> <a class="theme-royel-teal" title="theme-royel-teal" href="#"></a></li><li> <a class="theme-pink-orange" title="theme-pink-orange" href="#"></a></li><li> <a class="theme-green-blue" title="theme-green-blue" href="#"></a></li></ul></div><div class="clearfix"><h4 style="text-transform:uppercase;padding-left:15px;color:#fff;">Landing page Demos</h4><ul class="theme cookie_demo_list list-1"><li> <strong>Style 1</strong></li><li> <a href="index.html">Default</a></li><li> <a href="index-particles.html">Particles</a></li><li> <a href="index-gradient.html">Gradient</a></li><li> <a href="index-slider.html">Slider</a></li><li> <a href="index-video.html">Video</a></li><li> <a href="index-image.html">Image</a></li><li> <a href="index-typing.html">Typing</a></li><li> <a href="index-iphone7.html">iPhone7</a></li><li> <a href="index-half-header.html">Half Header</a></li></ul><ul class="theme cookie_demo_list"><li> <strong>Style 2</strong></li><li> <a href="index-x1.html">Default</a></li><li> <a href="index-x1-particles.html">Particles</a></li><li> <a href="index-x1-gradient.html">Gradient</a></li><li> <a href="index-x1-slider.html">Slider</a></li><li> <a href="index-x1-video.html">Video</a></li><li> <a href="index-x1-image.html">Image</a></li><li> <a href="index-x1-typing.html">Typing</a></li><li> <a href="index-x1-iphone7.html">iPhone7</a></li><li> <a href="index-x1-half-header.html">Half Header</a></li></ul><ul class="theme cookie_demo_list list-1"><li> <strong>Style 3</strong></li><li> <a href="index-x2.html">Default</a></li><li> <a href="index-x2-particles.html">Particles</a></li><li> <a href="index-x2-gradient.html">Gradient</a></li><li> <a href="index-x2-slider.html">Slider</a></li><li> <a href="index-x2-video.html">Video</a></li><li> <a href="index-x2-image.html">Image</a></li><li> <a href="index-x2-typing.html">Typing</a></li><li> <a href="index-x2-flat.html">Flat</a></li><li> <a href="index-x2-half-header.html">Half Header</a></li></ul><ul class="theme cookie_demo_list"><li> <strong>Style 4</strong></li><li> <a href="index-x3.html">Default</a></li><li> <a href="index-x3-particles.html">Particles</a></li><li> <a href="index-x3-gradient.html">Gradient</a></li><li> <a href="index-x3-slider.html">Slider</a></li><li> <a href="index-x3-video.html">Video</a></li><li> <a href="index-x3-image.html">Image</a></li><li> <a href="index-x3-typing.html">Typing</a></li><li> <a href="index-x3-flat.html">Flat</a></li><li> <a href="index-x3-half-header.html">Half Header</a></li></ul><ul class="theme cookie_demo_list list-1"><li> <strong>Style 5</strong></li><li> <a href="index-x4.html">Default</a></li><li> <a href="index-x4-particles.html">Particles</a></li><li> <a href="index-x4-gradient.html">Gradient</a></li><li> <a href="index-x4-slider.html">Slider</a></li><li> <a href="index-x4-video.html">Video</a></li><li> <a href="index-x4-image.html">Image</a></li><li> <a href="index-x4-typing.html">Typing</a></li><li> <a href="index-x4-flat.html">Flat</a></li><li> <a href="index-x4-half-header.html">Half Header</a></li></ul></div></div></div>');
 	// End Demo
-	
+
 })(jQuery);
