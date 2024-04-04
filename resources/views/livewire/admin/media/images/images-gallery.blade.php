@@ -12,8 +12,8 @@
                     <thead>
                     <tr>
                         <th width="4%">ID</th>
-                        <th width="12%">Зображення</th>
-                        <th width="73%">URL</th>
+                        <th width="10%">Зображення</th>
+                        <th width="75%">URL</th>
                         <th width="10%" colspan="3" class="text-center">Дія</th>
                     </tr>
                     </thead>
@@ -24,11 +24,11 @@
                          $asset = asset($image->media_folder_path . $image->original_content_id .'/'. $image->image);
                          @endphp
                         <tr>
-                            <td>{{$image->id}}</td>
+                            <td class="text-center">{{$image->id}}</td>
                             <td><img width="100px" src="{{ $asset }}"></td>
-                            <td><input type="text" class="form-control attachment-details-copy-link" id="copy-link_{{$index}}"
+                            <td class="text-center"><input type="text" class="form-control attachment-details-copy-link" id="copy-link_{{$index}}"
                                        value="{{$asset}}" readonly="">
-                                <div id="writeln"></div>
+                                <div id="writeln_{{$index}}"></div>
                             </td>
 
                             <td class="text-center">
@@ -81,7 +81,6 @@
     <script>
         document.addEventListener('livewire:initialized', () => {
             let container = document.getElementById('media-gallery-table');
-            const writeln = document.querySelector('.writeln');
             let buttonId;
             container.onclick = function (event) {
                 if (event.target.id == 'copy-link-icon') {
@@ -94,24 +93,14 @@
                     //    console.log(buttonId);
                 }
                 let copyLink = document.getElementById('copy-link_' + buttonId);
-
-                if (copyLink) {
-                    navigator.clipboard.writeText(copyLink.value.trim())
-                        .then(() => {
-                            copyLink.value = '';
-                            if (writeln.innerText !== 'Copied!') {
-                                const originalText = writeBtn.innerText;
-                                writeln.innerText = 'Copied!';
-                                setTimeout(() => {
-                                    writeBtn.innerText = originalText;
-                                }, 1500);
-                            }
-                        })
-                        .catch(err => {
-                            console.log('Something went wrong', err);
-                        })
+                let writeln = document.getElementById('writeln_' + buttonId);
+                const textCopied = ClipboardJS.copy(copyLink.value);
+                if(textCopied == copyLink.value){
+                    writeln.innerHTML = 'Copied!';
+                    setTimeout(() => {
+                        writeln.innerHTML = '';
+                    }, 1500);
                 }
-
             }
         });
     </script>

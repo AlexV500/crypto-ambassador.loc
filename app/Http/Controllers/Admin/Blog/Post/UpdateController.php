@@ -10,7 +10,10 @@ use App\Services\Admin\Media\ImagesGalleryUploadService;
 
 class UpdateController extends SiteController{
 
-    public function __invoke(UpdateRequest $request, Post $post, PostService $postService, ImagesGalleryUploadService $imagesGalleryUploadService){
+    public function __invoke(UpdateRequest $request,
+                             Post $post,
+                             PostService $postService,
+                             ImagesGalleryUploadService $imagesGalleryUploadService){
     //    dd($request);
     //    dump($postService);
         $dataImages = [];

@@ -16,10 +16,14 @@ class StoreController extends SiteController{
                              TranslateContentCreationService $createTranslationService,
                              ImagesGalleryUploadService $imagesGalleryUploadService)
     {
-
+        $dataImages = [];
         $data = $request->validated();
-        $postService->store($data);
-        $imagesGalleryUploadService->saveImages($data, 'blog', 'media/images/blog');
-        return redirect()->route('admin.blog.post.index');
+        if(isset($data['images'])){
+            $dataImages = $data['images'];
+            unset($data['images']);
+        }
+        $post = $postService->store($data);
+        $imagesGalleryUploadService->saveImages($dataImages, $data['original_content_id'],'media/images/blog/', 'blog', $data['lang']);
+        return redirect()->route('admin.blog.post.edit', $post->id);
     }
 }

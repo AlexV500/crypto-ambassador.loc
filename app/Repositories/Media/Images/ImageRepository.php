@@ -77,4 +77,8 @@ class ImageRepository implements ImageRepositoryInterface
         Image::where('image', '=', $imageName)->delete();
     }
 
+    public static function removePostImages($folder, $lang = ''){
+        return Image::where('original_content_id', '=', $folder)->delete();
+    }
+
 }

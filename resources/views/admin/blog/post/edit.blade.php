@@ -149,6 +149,7 @@
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Змінити">
+                            <a class="btn btn-secondary" href="{{route('admin.blog.post.index')}}" role="button">Вийти</a>
                         </div>
                     </form>
 

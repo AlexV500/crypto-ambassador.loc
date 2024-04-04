@@ -166,21 +166,22 @@
 
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Додати">
+                            <a class="btn btn-secondary" href="{{route('admin.blog.post.index')}}" role="button">Вийти</a>
                         </div>
 
                     </form>
+                    <livewire:admin.media.images.images-gallery :siteEntity="$siteEntity"
+                                                                :imageFolder="$originalContentId"
+                    />
                 </div>
             </div>
             <!-- /.row -->
 
-            <x-images-gallery-uploader :siteEntity="$siteEntity"
-                                       :imageFolder="$originalContentId">
-            </x-images-gallery-uploader>
+{{--            <x-images-gallery-uploader :siteEntity="$siteEntity"--}}
+{{--                                       :imageFolder="$originalContentId">--}}
+{{--            </x-images-gallery-uploader>--}}
 
-{{--            <livewire:admin.media.images.image-uploader :siteEntity="$siteEntity"--}}
-{{--                                                        :imagePath="$imagePath"--}}
-{{--                                                        :imageFolder="$originalContentId"--}}
-{{--                                                        :postType="$postType"/>--}}
+
 
         </div><!-- /.container-fluid -->
     </section>

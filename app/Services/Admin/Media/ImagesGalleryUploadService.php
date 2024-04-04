@@ -3,9 +3,7 @@
 namespace App\Services\Admin\Media;
 
 use App\Repositories\Media\Images\ImageRepository;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class ImagesGalleryUploadService
 {
@@ -43,7 +41,7 @@ class ImagesGalleryUploadService
                 $image->move($fullpath, $imageName);
                 ImageRepository::recordImage($data);
             }
-            $this->makeCoverImage($originalContentId);
+        //    $this->makeCoverImage($originalContentId);
         }
     }
 
@@ -52,6 +50,7 @@ class ImagesGalleryUploadService
         $countCoverImages = ImageRepository::countCoverImages($originalContentId, $lang = '');
         if ($countCoverImages == 0) {
             $image = ImageRepository::takeImages($originalContentId, 1);
+            dd($image);
             ImageRepository::toggleCoverImage($image->id, $image->cover);
         }
     }
@@ -79,7 +78,24 @@ class ImagesGalleryUploadService
                 File::delete($path);
             }
         }catch (\Exception $e){
-            request()->session()->flash('error', 'Oops Something went wrong!');
+            abort(500);
         }
     }
+
+    public function removePostImages(string $originalContentId, string $mediaFolderPath): void
+    {
+        $dir = public_path($mediaFolderPath . $originalContentId);
+        $files = array_diff(scandir($dir), ['.', '..']);
+        try {
+            foreach ($files as $file) {
+                $filePath = "$dir/$file";
+                is_dir($filePath) ? delFolder($filePath) : unlink($filePath);
+            }
+            rmdir($dir);
+        } catch (\Exception $e) {
+            abort(500);
+        }
+        ImageRepository::removePostImages($originalContentId);
+    }
+
 }

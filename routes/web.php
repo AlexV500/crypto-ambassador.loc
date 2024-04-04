@@ -3,6 +3,7 @@
 use App\Services\Localization\LocalizationService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLocale', 'LocaleRedirect']], function () {
+
+  //  Livewire::setScriptRoute(function ($handle) { return Route::get('/livewire.js', $handle); });
+
+    Livewire::setUpdateRoute(function ($handle) { return Route::post('/livewire/update', $handle); });
 
     Route::get('/', 'App\Livewire\ContactForm');
  //   Route::post('/', 'App\Livewire\ContactForm');
@@ -221,6 +226,12 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
 Route::get('/storage-link', function() {
     Artisan::call('storage:link');
 });
+
+
+
+
+
+
 
 //Route::get('/auth/redirect', function () {
 //    return Socialite::driver('github')->redirect();

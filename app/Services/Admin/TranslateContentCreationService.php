@@ -29,10 +29,10 @@ class TranslateContentCreationService {
         return $originalContentId;
     }
 
-    public function forgetSessionData() : void{
-
-        Session::forget(['originalContentTitle', 'originalContentId']);
-    }
+//    public function forgetSessionData() : void{
+//
+//        Session::forget(['originalContentTitle', 'originalContentId']);
+//    }
 
     public function getRepositoryFromRoute($route){
 
