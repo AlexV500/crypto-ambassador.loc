@@ -50,11 +50,14 @@
                                         <td>{{$tag->id}}</td>
                                         <td>{{$tag->title}}</td>
                                         <td>{{$tag->uri}}</td>
-                                        <td><x-language-selector :siteEntity="$siteEntity" :originalContentId="$tag->original_content_id"
-                                                                 :contentTitle="$tag->title"
+                                        <td>
+                                            <x-language-selector :siteEntity="$siteEntity"
+                                                                 :contentItemRepository="$blogTagRepository"
+                                                                 :contentItem="$tag"
                                                                  :route="'admin.blog.tag.create'"
                                                                  :publicRoute="'blog.tag.post.index'"
-                                            ></x-language-selector></td>
+                                            ></x-language-selector>
+                                        </td>
                                         <td class="text-center"><a href="{{route('admin.blog.tag.show', $tag->id)}}"><i class="far fa-eye"></i></a></td>
                                         <td class="text-center"><a href="{{route('admin.blog.tag.edit', $tag->id)}}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                         <td class="text-center">

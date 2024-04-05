@@ -52,8 +52,9 @@
                                         <td>{{$post->title}}</td>
                                         <td>{{$post->custom_date}}</td>
                                         <td>@if($post->published == '1') <span class="badge bg-success">Опубліковано</span> @else <span class="badge bg-warning">Не опубліковано</span> @endif</td>
-                                        <td><x-language-selector :siteEntity="$siteEntity" :originalContentId="$post->original_content_id"
-                                                                 :contentTitle="$post->title"
+                                        <td><x-language-selector :siteEntity="$siteEntity"
+                                                                 :contentItemRepository="$blogPostRepository"
+                                                                 :contentItem="$post"
                                                                  :route="'admin.blog.post.create'"
                                                                  :publicRoute="'blog.post.show'"
                                             ></x-language-selector></td>

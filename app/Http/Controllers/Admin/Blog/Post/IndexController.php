@@ -9,6 +9,7 @@ class IndexController extends BaseController{
 
         $addViewVariables = [
             'posts' => $this->getPosts(),
+            'blogPostRepository' => $this->blogPostRepository,
         ];
         return view('admin.blog.post.index', $this->mergeViewVariables($addViewVariables));
     }

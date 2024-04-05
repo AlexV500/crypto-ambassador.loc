@@ -81,9 +81,6 @@ class LanguageSwitcherService
         return collect($urls);
     }
 
-
-
-
     private function checkEmptyRepositoryClass($repository): bool
     {
         return $repository == false;
@@ -93,6 +90,5 @@ class LanguageSwitcherService
     {
         return $originalContentId === '' ? true : false;
     }
-
 
 }

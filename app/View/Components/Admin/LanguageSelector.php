@@ -10,30 +10,44 @@ use App\Http\Entities\Site;
 
 class LanguageSelector extends Component
 {
+    public $siteEntity;
+    public $contentItemRepository;
     public $originalContentId;
     public $contentTitle;
     public $route;
-    public $siteEntity;
+    public $publicRoute;
     public $locales;
     public $getLocaleName;
     public $getCurrentLocale;
     public $getDefaultLocale;
-    public function __construct($siteEntity, $originalContentId, $contentTitle, $route, $publicRoute)
+    public function __construct($siteEntity, $contentItemRepository, $contentItem, $route, $publicRoute)
     {
-        $this->originalContentId = $originalContentId;
-        $this->contentTitle = $contentTitle;
+        $this->siteEntity = $siteEntity;
+        $this->contentItemRepository = $contentItemRepository;
         $this->route = $route;
         $this->publicRoute = $publicRoute;
-        $this->siteEntity = $siteEntity;
         $this->getLocaleName = $siteEntity->getLocaleName();
         $this->getCurrentLocale = $siteEntity->getCurrentLocale();
         $this->getDefaultLocale = $siteEntity->getDefaultLocale();
+        $this->originalContentId = $this->getOriginalContentId($contentItem);
+        $this->contentTitle = $this->getOriginalContentTitle($contentItem);
         $this->locales = $this->getAllLocalizations($siteEntity->getAllLocalizations());
     }
 
     public function render(): View|Closure|string
     {
         return view('components.admin.language-selector');
+    }
+
+    public function getOriginalContentId($post) : string
+    {
+        return $post->original_content_id;
+    }
+
+    public function getOriginalContentTitle($post)
+    {
+        $post = $this->contentItemRepository->getTranslatedArticle($post->original_content_id, $this->getDefaultLocale);
+        return $post->title;
     }
 
     public function getAllLocalizations($locales){
@@ -44,10 +58,10 @@ class LanguageSelector extends Component
     private function disableReadyTranslations($locales){
 
         $filtered = [];
-        $repository = TranslRepositoryHelper::initTranslationsRepository($this->siteEntity, $this->publicRoute);
+   //     $repository = TranslRepositoryHelper::initTranslationsRepository($this->siteEntity, $this->publicRoute);
 
         foreach ($locales as $locale => $localeName){
-            $count = $repository->countTranslatedArticle($this->originalContentId, $locale);
+            $count = $this->contentItemRepository->countTranslatedArticle($this->originalContentId, $locale);
             if($count == 0){
                 $filtered[$locale] = $localeName;
             }

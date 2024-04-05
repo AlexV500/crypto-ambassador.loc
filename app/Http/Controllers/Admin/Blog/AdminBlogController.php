@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
-use App\Http\Controllers\SiteController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Repositories\Blog\Category\Interface\BlogCategoryRepositoryInterface;
 use App\Repositories\Blog\Post\Interface\BlogPostRepositoryInterface;
 use App\Repositories\Blog\Tag\Interface\BlogTagRepositoryInterface;
 use App\Services\Admin\TranslateContentCreationService;
 
-class AdminBlogController extends SiteController{
+class AdminBlogController extends AdminController{
 
-    protected object $createTranslationService;
+
     protected object $blogCategoryRepository;
     protected object $blogPostRepository;
     protected object $blogTagRepository;
 
 
-    public function __construct(TranslateContentCreationService $createTranslationService,
-                                BlogCategoryRepositoryInterface $blogCategoryRepository,
+    public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository,
                                 BlogPostRepositoryInterface     $blogPostRepository,
-                                BlogTagRepositoryInterface      $blogTagRepository,){
+                                BlogTagRepositoryInterface      $blogTagRepository){
 
-        parent::__construct();
-        $this->createTranslationService = $createTranslationService;
+
         $this->blogCategoryRepository = $blogCategoryRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogTagRepository = $blogTagRepository;
+        parent::__construct();
     }
 
     public function getCategories()
