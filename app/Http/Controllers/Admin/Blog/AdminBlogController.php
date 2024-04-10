@@ -10,7 +10,6 @@ use App\Services\Admin\TranslateContentCreationService;
 
 class AdminBlogController extends AdminController{
 
-
     protected object $blogCategoryRepository;
     protected object $blogPostRepository;
     protected object $blogTagRepository;
@@ -18,9 +17,8 @@ class AdminBlogController extends AdminController{
 
     public function __construct(BlogCategoryRepositoryInterface $blogCategoryRepository,
                                 BlogPostRepositoryInterface     $blogPostRepository,
-                                BlogTagRepositoryInterface      $blogTagRepository){
-
-
+                                BlogTagRepositoryInterface      $blogTagRepository)
+    {
         $this->blogCategoryRepository = $blogCategoryRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogTagRepository = $blogTagRepository;

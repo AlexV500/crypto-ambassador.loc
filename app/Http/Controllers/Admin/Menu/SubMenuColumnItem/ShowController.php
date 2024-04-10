@@ -8,11 +8,12 @@ class ShowController extends BaseController{
 
     public function __invoke(MenuItem $menuItem){
 
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $menuWidget = $menuItem->getMenuWidget();
-        $parentItem = $menuItem->getParentItem();
+        $addViewVariables = [
+            'menuItem' => $menuItem,
+            'menuWidget' => $menuItem->getMenuWidget(),
+            'parentItem' => $menuItem->getParentItem(),
+        ];
 
-        return view('admin.menu.submenucolumnitem.show', compact('menuWidget','parentItem', 'menuItem', 'locales', 'getLocaleName'));
+        return view('admin.menu.submenucolumnitem.show', $this->mergeViewVariables($addViewVariables));
     }
 }

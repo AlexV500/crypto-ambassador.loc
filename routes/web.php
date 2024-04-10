@@ -227,11 +227,8 @@ Route::get('/storage-link', function() {
     Artisan::call('storage:link');
 });
 
-
 Route::post('/transliterate-uri', function() {
-    $content = request()->json()->all();
-    $ready = Str::slug($content['title']);
-    return response()->json(['title' => $ready]);
+    return URIHelper::transliterateUri();
 });
 
 

@@ -9,19 +9,12 @@ class IndexController extends BaseController{
 
     public function __invoke(MenuWidget $menuWidget, MenuItem $parentItem){
 
-        $menuItems = $parentItem->child();
-        $menuTypes = $this->getSubMenuColumnItemTypes();
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
+        $addViewVariables = [
+            'menuTypes' => $this->getSubMenuColumnItemTypes(),
+            'menuItems' => $parentItem->child(),
+            'menuWidget' => $menuWidget
+        ];
 
-        return view('admin.menu.submenucolumnitem.index', compact(
-            'menuWidget',
-            'menuItems',
-            'menuTypes',
-            'locales',
-            'getCurrentLocale',
-            'getLocaleName'
-            ));
+        return view('admin.menu.submenucolumnitem.index', $this->mergeViewVariables($addViewVariables));
     }
 }

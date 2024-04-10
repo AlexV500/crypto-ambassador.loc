@@ -8,18 +8,12 @@ class EditController extends BaseController{
 
     public function __invoke(MenuItem $menuItem){
 
-        $menuWidget = $menuItem->getMenuWidget();
-        $menuTypes = $this->getSubMenuColumnItemTypes();
-        $locales = $this->getAllLocalizations();
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
+        $addViewVariables = [
+            'menuItem' => $menuItem,
+            'menuTypes' => $this->getSubMenuColumnItemTypes(),
+            'menuWidget' => $this->getMenuWidget(),
+        ];
 
-        return view('admin.menu.submenucolumnitem.edit', compact(
-            'menuWidget',
-            'menuItem',
-            'menuTypes',
-            'locales',
-            'getCurrentLocale',
-            'getLocaleName'));
+        return view('admin.menu.submenucolumnitem.edit', $this->mergeViewVariables($addViewVariables));
     }
 }

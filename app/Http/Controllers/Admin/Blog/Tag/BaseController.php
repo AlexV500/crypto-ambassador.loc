@@ -10,14 +10,4 @@ use App\Services\Admin\TranslateContentCreationService;
 
 class BaseController extends AdminBlogController{
 
-    protected object $blogTagRepository;
-
-    public function __construct(
-        TranslateContentCreationService $createTranslationService,
-        BlogCategoryRepositoryInterface $blogCategoryRepository,
-        BlogPostRepositoryInterface     $blogPostRepository,
-        BlogTagRepositoryInterface      $blogTagRepository
-    ){
-        parent::__construct($createTranslationService, $blogCategoryRepository, $blogPostRepository, $blogTagRepository);
-    }
 }

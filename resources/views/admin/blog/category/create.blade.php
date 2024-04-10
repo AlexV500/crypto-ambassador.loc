@@ -37,14 +37,14 @@
                         </div>
                         <label>Назва категорії</label>
                         <div class="form-group">
-                            <input type="input" class="form-control" name="title" value="{{ old('title') }}" placeholder="Назва категорії">
+                            <input type="input" onchange="transliterateURI(this.value)" class="form-control" id="form-title" name="title" value="{{ old('title') }}" placeholder="Назва категорії">
                             @error('title')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror()
                         </div>
                         <label>URI</label>
                         <div class="form-group">
-                            <input type="input" class="form-control" name="uri" value="{{ old('uri') }}"
+                            <input type="input" id="uri-form-input" class="form-control" name="uri" value="{{ old('uri') }}"
                                    placeholder="URI">
                             {{--                            <button onclick="convert()" style="margin-top: 0.5rem;">Covert Now</button>--}}
                             @error('uri')
@@ -64,4 +64,6 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script src="{{asset('assets/js/transliterateURI.js')}}"></script>
 @endsection

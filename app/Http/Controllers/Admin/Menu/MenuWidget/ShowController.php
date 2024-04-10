@@ -8,9 +8,10 @@ class ShowController extends BaseController{
 
     public function __invoke(MenuWidget $menuWidget){
 
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $position = $this->getMenuWidgetPositions()[$menuWidget->position]['name'];
-        return view('admin.menu.menuwidget.show', compact('menuWidget', 'locales', 'getLocaleName', 'position'));
+        $addViewVariables = [
+            'position' => $this->getMenuWidgetPositions()[$menuWidget->position]['name'],
+        ];
+
+        return view('admin.menu.menuwidget.show', $this->mergeViewVariables($addViewVariables));
     }
 }

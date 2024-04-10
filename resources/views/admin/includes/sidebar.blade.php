@@ -18,7 +18,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('admin.menu.menuwidget.index')}}" class="nav-link @if(request()->url() == route('admin.menu.menuwidget.index')) active @endif">
+                <a href="{{route('admin.menu.menuwidget.index')}}" class="nav-link @if(($routeName == 'admin.menu.menuwidget.index')
+                          or($routeName == 'admin.menu.menuwidget.create')
+                          or($routeName == 'admin.menu.menuwidget.store')
+                          or($routeName == 'admin.menu.menuwidget.show')
+
+
+                          )
+                    active @endif">
                     <i class="nav-icon fa-solid fa-bars"></i>
                     <p>
                         Меню

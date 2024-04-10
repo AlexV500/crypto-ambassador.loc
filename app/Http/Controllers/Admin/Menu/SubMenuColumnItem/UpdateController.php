@@ -10,19 +10,14 @@ class UpdateController extends BaseSubController{
     public function __invoke(UpdateRequest $request, MenuItem $menuItem){
 
         $data = $request->validated();
-        $menuWidget = $menuItem->getMenuWidget();
-        $parentItem = $menuItem->getParentItem();
         $menuItem->update($data);
-        $locales = $this->getAllLocalizations();
-        $getLocale = $this->getLocale();
-        $getLocaleName = $this->getLocaleName();
 
-        return view('admin.menu.submenucolumnitem.show', compact(
-            'menuWidget',
-            'parentItem',
-            'menuItem',
-            'locales',
-            'getLocale',
-            'getLocaleName'));
+        $addViewVariables = [
+            'menuItem' => $menuItem,
+            'menuWidget' => $menuItem->getMenuWidget(),
+            'parentItem' => $menuItem->getParentItem(),
+        ];
+
+        return view('admin.menu.submenucolumnitem.show', $this->mergeViewVariables($addViewVariables));
     }
 }

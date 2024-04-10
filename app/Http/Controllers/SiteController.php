@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Entities\Site;
+use Illuminate\Support\Facades\Route;
 
 
 class SiteController extends Controller{
@@ -20,6 +21,7 @@ class SiteController extends Controller{
              ->addViewVariables('locales', $this->getAllLocalizations())
              ->addViewVariables('isAdmin', $this->isAdmin());
      //   dd($this->routeInfo());
+        dump(Route::currentRouteAction());
     }
 
     public function routeInfo()

@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\App;
 class AdminController extends SiteController
 {
     protected object $createTranslationService;
-
-
     public function __construct(){
 
         $this->createTranslationService = App::make(TranslateContentCreationService::class);

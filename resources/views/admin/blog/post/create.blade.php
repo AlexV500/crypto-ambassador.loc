@@ -43,7 +43,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="exampleInputFile">Назва</label>
-                                <input type="input" onchange="strSlug(this.value)" class="form-control" id="form-title" name="title" value="{{ old('title') }}"
+                                <input type="input" onchange="transliterateURI(this.value)" class="form-control" id="form-title" name="title" value="{{ old('title') }}"
                                        placeholder="Назва поста">
                                 @error('title')
                                 <div class="text-danger">{{ $message }}</div>
@@ -189,63 +189,6 @@
 </div>
 <!-- /.content-wrapper -->
 
-
-    <script type="text/javascript">
-
-        function strSlug(value){
-            let slug = requestURI(value);
-            let uriFormInput = document.getElementById('uri-form-input');
-            console.log(slug);
-            let parsed = JSON.parse(slug);
-
-            uriFormInput.value = parsed.title;
-        }
-
-        async function requestURI(value) {
-
-            let response = await fetch('/transliterate-uri', {
-                method: 'POST',
-            //    credentials: "same-origin",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'url': '/transliterate-uri',
-                    "X-CSRF-Token": document.querySelector('input[name=_token]').value
-                },
-                body: JSON.stringify({
-                    title: value,
-                }),
-            })
-            let result = await response.json();
-            return result;
-        }
-
-        function slugify(input) {
-            if (!input)
-                return '';
-
-            // make lower case and trim
-            var slug = input.toLowerCase().trim();
-
-            // remove accents from charaters
-            slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-
-            // replace invalid chars with spaces
-            slug = slug.replace(/[^a-z0-9\s-]/g, ' ').trim();
-
-            // replace multiple spaces or hyphens with a single hyphen
-            slug = slug.replace(/[\s-]+/g, '-');
-
-            return slug;
-        }
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-
-            {{--let slug = "{{Str::slug('टेस्ट पोस्ट एक्शन')}}";--}}
-            {{--alert(slug);--}}
-        });
-    </script>
-
-
+<script src="{{asset('assets/js/transliterateURI.js')}}"></script>
 
 @endsection

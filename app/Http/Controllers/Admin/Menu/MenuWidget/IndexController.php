@@ -8,11 +8,11 @@ class IndexController extends BaseController{
 
     public function __invoke(){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $menuWigets = MenuWidget::where('lang', '=', $this->getCurrentLocale())->orderBy("position", "desc")->get();
-        $positions = $this->getMenuWidgetPositions();
-        return view('admin.menu.menuwidget.index', compact( 'locales', 'getCurrentLocale', 'getLocaleName', 'menuWigets', 'positions'));
+        $addViewVariables = [
+            'positions' => $this->getMenuWidgetPositions(),
+            'menuWigets' => MenuWidget::where('lang', '=', $this->getCurrentLocale())->orderBy("position", "desc")->get(),
+        ];
+
+        return view('admin.menu.menuwidget.index', $this->mergeViewVariables($addViewVariables));
     }
 }

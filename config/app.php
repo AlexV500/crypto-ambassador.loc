@@ -193,8 +193,8 @@ return [
         App\Providers\TranslateContentCreationServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\TranslRepositoryHelperServiceProvider::class,
+        App\Providers\URIHelperServiceProvider::class,
         App\Providers\LanguageSwitcherServiceProvider::class,
-        App\Providers\LanguageSwitcherAdminServiceProvider::class,
         App\Providers\ImagesGalleryUploadServiceProvider::class,
     ])->toArray(),
 
@@ -219,10 +219,10 @@ return [
         'TranslRepositoryHelper' => App\Helpers\Localization\TranslRepositoryHelper::class,
         'MenuService' => App\Services\Admin\MenuService::class,
         'LanguageSwitcherService' => App\Services\LanguageSwitcherService::class,
-        'LanguageSwitcherAdminService' => App\Services\Admin\LanguageSwitcherAdminService::class,
         'ImagesGalleryUploadService' => App\Services\Admin\Media\ImagesGalleryUploadService::class,
         'TranslateContentCreationService' => App\Services\Admin\TranslateContentCreationService::class,
         'MenuHelper' => App\Helpers\Menu\MenuHelper::class,
+        'URIHelper' => App\Helpers\URI\URIHelper::class,
         'BreadcrumbsHelper' => App\Helpers\Breadcrumbs\BreadcrumbsHelper::class,
     ])->toArray(),
 
