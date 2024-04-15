@@ -6,9 +6,9 @@ use App\Http\Controllers\Admin\Menu\AdminMenuController;
 
 class BaseController extends AdminMenuController{
 
-    public function getSubMenuItemTypes(){
+    public function getSubMenuBindItemTypes(){
 
-        return config('menu.subMenuItemTypes');
+        return config('menu.subMenuBindItemTypes');
     }
 }
 

@@ -10,7 +10,7 @@ class EditController extends BaseController{
 
         $addViewVariables = [
             'menuItem' => $menuItem,
-            'menuTypes' => $this->getSubMenuColumnItemTypes(),
+            'subMenuBindItemTypes' => $this->getSubMenuBindItemTypes(),
             'menuWidget' => $this->getMenuWidget(),
         ];
 

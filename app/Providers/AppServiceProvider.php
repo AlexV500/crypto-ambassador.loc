@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\View\Components\Admin\Media\ImagesGalleryUploader;
+use App\View\Components\Admin\Menu\ExternalURL;
 use App\View\Components\Admin\MenuBreadcrumbs;
 use App\View\Components\Admin\MenuWidgetItems;
 use App\View\Components\Admin\AdminNavbar;
@@ -39,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component(BlogHeader::class, 'blog-header');
         Blade::component(BlogLanguageSwitcher::class, 'blog-language-switcher');
         Blade::component(ImagesGalleryUploader::class, 'images-gallery-uploader');
+        Blade::component(ExternalURL::class, 'external-url');
 
         Paginator::useBootstrapFive();
     }

@@ -14,7 +14,7 @@ class IndexController extends BaseController{
 
         $menuBreadcrumbs = BreadcrumbsHelper::treeMenuBreadcrumbs($parentItem);
         $menuItems = $parentItem->getMenuItemsChild();
-        $menuTypes = $this->getSubMenuItemTypes();
+        $menuTypes = $this->getSubMenuBindItemTypes();
         $locales = $this->getAllLocalizations();
         $getCurrentLocale = $this->getCurrentLocale();
         $getLocaleName = $this->getLocaleName();

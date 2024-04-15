@@ -41,28 +41,38 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>
-                            <label>URL зовнішньої сторінки</label>
-                            <div class="form-group">
-                                <input type="input" class="form-control" name="url" value="{{ old('url') }}" placeholder="URL зовнішньої сторінки">
-                                @error('url')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror()
-                            </div>
-
                             <div class="form-group w-100">
                                 <label>Вибрати Тип Пункта Меню</label>
-                                <select name="type" class="form-control">
+
+                                <select name="menu_item_bind_type" class="form-control">
                                     @foreach($menuTypes as $systemName => $name)
                                         <option value="{{ $systemName }}"
                                             {{ old('type') == $systemName ? ' selected' : '' }}
                                         >{{ $name }}</option>
                                     @endforeach
                                 </select>
+
                                 @error('type')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>
 
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="menu_item_type" value="list"
+                                           id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Випадаючий список
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="menu_item_type" value="column"
+                                           id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Випадаюча колонка
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Додати">
                             </div>

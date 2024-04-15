@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Menu\SubMenuColumnItem;
 
-use App\Models\Menu\MenuItem;
-use App\Models\Menu\MenuWidget;
-
 class CreateController extends BaseController{
 
     public function __invoke($widgetId, $parentId){
 
         $addViewVariables = [
             'parentItem' => $this->getParentItem($parentId),
-            'menuTypes' => $this->getMenuItemTypes(),
+            'subMenuBindItemTypes' => $this->getSubMenuBindItemTypes(),
             'menuWidget' => $this->getMenuWidget($widgetId),
         ];
 

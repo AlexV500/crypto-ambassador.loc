@@ -26,6 +26,21 @@ class BlogPostRepository implements BlogPostRepositoryInterface, GetTranslatedAr
         return Post::locale($lang)->get()->take($take);
     }
 
+    public function getPostsByCategoryId($categoryId, $lang, $paginate = null, $publishedOnly = false)
+    {
+        $return = Post::locale($lang)->where('category_id', $categoryId);
+        if ($publishedOnly) {
+            $return = $return->published();
+        }
+        $return = $return->orderBy('created_at', 'DESC');
+
+        if ($paginate !== null) {
+            $return = $return->paginate($paginate);
+        }
+        return $return;
+    }
+
+
     public function getLikedPosts($lang, $take, $publishedOnly = false)
     {
         if ($publishedOnly) {

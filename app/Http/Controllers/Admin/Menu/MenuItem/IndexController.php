@@ -9,6 +9,7 @@ class IndexController extends BaseController{
     public function __invoke(MenuWidget $menuWidget){
 
         $addViewVariables = [
+            'menuBindTypes' => $this->getMenuItemBindTypes(),
             'menuTypes' => $this->getMenuItemTypes(),
             'menuItems' => $menuWidget->getItems(),
             'menuWidget' => $menuWidget

@@ -7,21 +7,37 @@ return [
         'mainFooter' => ['name' => 'Головна Позиція У Футері', 'order' => '2'],
     ],
 
-    'menuItemTypes' => [
-        'menuItem' => 'Пункт меню на внутрішні сторінки',
-        'mainMultiLevel' => 'Головний пункт меню випадаючого списку (multi level)',
-        'mainMultiColumn' => 'Головний пункт меню випадаючого списку (multi column)',
-        'link' => 'Ссилка на стронній сайт',
+    'menuItemBindTypes' => [
+        'menuItemPage' => 'Внутрішня сторінка',
+        'menuItemBlogPost' => 'Пост блога',
+        'menuItemBlog' => 'Блог',
+        'menuItemContacts' => 'Контакти',
+        'menuItemInternalLink' => 'Внутрішня ссилка',
+        'menuItemExternalLink' => 'Зовнішня ссилка',
     ],
 
-    'subMenuItemTypes' => [
-        'menuItem' => 'Пункт меню на внутрішні сторінки',
-        'mainMultiLevel' => 'Головний пункт меню випадаючого списку (multi level)',
-        'link' => 'Ссилка на стронній сайт',
+    'subMenuItemBindTypes' => [
+        'menuItemPage' => 'Внутрішня сторінка',
+        'menuItemBlogPost' => 'Пост блога',
+        'menuItemBlog' => 'Блог',
+        'menuItemContacts' => 'Контакти',
+        'menuItemInternalLink' => 'Внутрішня ссилка',
+        'menuItemExternalLink' => 'Зовнішня ссилка',
     ],
 
-    'subMenuColumnItemTypes' => [
+    'subMenuColumnItemBindTypes' => [
+        'menuItemPage' => 'Внутрішня сторінка',
+        'menuItemBlogPost' => 'Пост блога',
+        'menuItemBlog' => 'Блог',
+        'menuItemContacts' => 'Контакти',
+        'menuItemInternalLink' => 'Внутрішня ссилка',
+        'menuItemExternalLink' => 'Зовнішня ссилка',
         'menuColumnItem' => 'Пункт меню на внутрішні сторінки',
         'menuColumnlink' => 'Ссилка на стронній сайт',
+    ],
+
+    'menuItemTypes' => [
+        'list' => 'Випадаючий список',
+        'column' => 'Випадаюча колонка',
     ],
 ];

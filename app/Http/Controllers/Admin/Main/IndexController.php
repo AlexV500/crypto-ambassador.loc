@@ -23,7 +23,6 @@ class IndexController extends SiteController{
         $getLocaleName = $this->getLocaleName();
         $locales = $this->getAllLocalizations();
 
-
 //        $array = [$getLocale, $this->siteEntity->getConfigLocale()];
 //        dd($array);
 

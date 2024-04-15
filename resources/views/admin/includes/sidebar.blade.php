@@ -22,8 +22,22 @@
                           or($routeName == 'admin.menu.menuwidget.create')
                           or($routeName == 'admin.menu.menuwidget.store')
                           or($routeName == 'admin.menu.menuwidget.show')
-
-
+                          or($routeName == 'admin.menu.menuwidget.edit')
+                          or($routeName == 'admin.menu.menuwidget.update')
+                          or($routeName == 'admin.menu.menuwidget.delete')
+                          or($routeName == 'admin.menu.menuitem.index')
+                          or($routeName == 'admin.menu.menuitem.create')
+                          or($routeName == 'admin.menu.menuitem.store')
+                          or($routeName == 'admin.menu.menuitem.show')
+                          or($routeName == 'admin.menu.menuitem.edit')
+                          or($routeName == 'admin.menu.menuitem.update')
+                          or($routeName == 'admin.menu.menuitem.delete')
+                          or($routeName == 'admin.menu.submenuitem.index')
+                          or($routeName == 'admin.menu.submenuitem.create')
+                          or($routeName == 'admin.menu.submenuitem.store')
+                          or($routeName == 'admin.menu.submenuitem.show')
+                          or($routeName == 'admin.menu.submenuitem.edit')
+                          or($routeName == 'admin.menu.submenuitem.visible')
                           )
                     active @endif">
                     <i class="nav-icon fa-solid fa-bars"></i>
@@ -74,6 +88,7 @@
                          @if(($routeName == 'admin.blog.category.index')
                           or($routeName == 'admin.blog.category.create')
                           or($routeName == 'admin.blog.category.edit')
+                          or($routeName == 'admin.blog.category.update')
                           or($routeName == 'admin.blog.category.show'))
                           active @endif">
                             <i class="nav-icon far fa-circle"></i>
@@ -87,6 +102,7 @@
                          @if(($routeName == 'admin.blog.tag.index')
                           or($routeName == 'admin.blog.tag.create')
                           or($routeName == 'admin.blog.tag.edit')
+                          or($routeName == 'admin.blog.tag.update')
                           or($routeName == 'admin.blog.tag.show'))
                           active @endif">
                             <i class="nav-icon far fa-circle"></i>

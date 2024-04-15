@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>{{$menuItem->id}}</td>
                                             <td>{{$menuItem->label}}</td>
-                                            <td>{{$menuTypes[$menuItem->type]}}</td>
+                                            <td>{{$menuTypes[$menuItem->menu_item_type]}}</td>
                                             <td>{{$menuItem->url}}</td>
                                             <td>{{$menuItem->position}}</td>
 

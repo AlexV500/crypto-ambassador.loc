@@ -11,7 +11,7 @@ class StoreController extends Controller{
     public function __invoke(StoreRequest $request){
 
         $data = $request->validated();
-        MenuItem::create($data);
-        return redirect()->route('admin.menu.menuitem.index', $request->input('menu_widget_id'));
+        $menuItem = MenuItem::create($data);
+        return redirect()->route('admin.menu.menuitem.binding', [$request->input('menu_widget_id'), $menuItem]);
     }
 }

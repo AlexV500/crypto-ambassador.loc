@@ -189,6 +189,8 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
                     Route::post('/', 'StoreController')->name('admin.menu.menuitem.store');
                     Route::get('/{menuItem}/show', 'ShowController')->name('admin.menu.menuitem.show');
                     Route::get('/{menuItem}/edit', 'EditController')->name('admin.menu.menuitem.edit');
+                    Route::get('/{menuItem}/binding', 'BindingController')->name('admin.menu.menuitem.binding');
+                    Route::patch('/{menuItem}/bindItem', 'BindItemController')->name('admin.menu.menuitem.binditem');
                     Route::get('/{menuWidget}/{menuItem}/positionUp', 'PositionUpController')->name('admin.menu.menuitem.positionUp');
                     Route::get('/{menuWidget}/{menuItem}/positionDown', 'PositionDownController')->name('admin.menu.menuitem.positionDown');
                     Route::patch('/{menuItem}', 'UpdateController')->name('admin.menu.menuitem.update');

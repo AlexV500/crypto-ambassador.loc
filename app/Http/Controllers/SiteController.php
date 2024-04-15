@@ -21,7 +21,6 @@ class SiteController extends Controller{
              ->addViewVariables('locales', $this->getAllLocalizations())
              ->addViewVariables('isAdmin', $this->isAdmin());
      //   dd($this->routeInfo());
-        dump(Route::currentRouteAction());
     }
 
     public function routeInfo()

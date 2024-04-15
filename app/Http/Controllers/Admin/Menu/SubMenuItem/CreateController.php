@@ -6,18 +6,12 @@ class CreateController extends BaseController{
 
     public function __invoke($widgetId, $parentId){
 
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $menuTypes = $this->getSubMenuItemTypes();
-        $menuWidget = $this->getMenuWidget($widgetId);
-        $parentItem = $this->getParentItem($parentId);
-        return view('admin.menu.submenuitem.create', compact(
-            'menuWidget',
-            'parentItem',
-            'menuTypes',
-            'locales',
-            'getCurrentLocale',
-            'getLocaleName'));
+        $addViewVariables = [
+            'parentItem' => $this->getParentItem($parentId),
+            'subMenuBindItemTypes' => $this->getSubMenuBindItemTypes(),
+            'menuWidget' => $this->getMenuWidget($widgetId),
+        ];
+
+        return view('admin.menu.submenuitem.create', $this->mergeViewVariables($addViewVariables));
     }
 }

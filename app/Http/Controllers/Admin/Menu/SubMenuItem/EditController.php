@@ -15,23 +15,15 @@ class EditController extends BaseController{
 
     //    dd(BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem));
 
-        $treeMenuItems = MenuHelper::treeMenuItems();
-        $menuBreadcrumbs = BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem);
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
-        $locales = $this->getAllLocalizations();
-        $menuTypes = $this->getSubMenuItemTypes();
-        $parentItem = $menuItem->getParentItem();
+        $addViewVariables = [
+            'treeMenuItems' => MenuHelper::treeMenuItems(),
+            'menuItem' => $menuItem,
+            'menuBreadcrumbs' => BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem),
+            'subMenuBindItemTypes' => $this->getSubMenuBindItemTypes(),
+            'menuWidget' => $menuWidget,
+            'parentItem' => $menuItem->getParentItem(),
+        ];
 
-        return view('admin.menu.submenuitem.edit', compact(
-            'menuWidget',
-            'parentItem',
-            'menuBreadcrumbs',
-            'treeMenuItems',
-            'menuItem',
-            'menuTypes',
-            'locales',
-            'getCurrentLocale',
-            'getLocaleName'));
+        return view('admin.menu.submenuitem.edit', $this->mergeViewVariables($addViewVariables));
     }
 }
