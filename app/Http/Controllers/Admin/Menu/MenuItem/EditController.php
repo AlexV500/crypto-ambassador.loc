@@ -9,7 +9,8 @@ class EditController extends BaseController{
     public function __invoke(MenuItem $menuItem){
 
         $addViewVariables = [
-            'menuBindTypes' => $this->getMenuItemBindTypes(),
+            'menuBindItemTypes' => $this->getMenuItemBindTypes(),
+            'menuItemTypes' => $this->getMenuItemTypes(),
             'menuWidget' => $menuItem->getMenuWidget(),
             'menuItem' => $menuItem,
         ];

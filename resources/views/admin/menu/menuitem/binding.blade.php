@@ -32,7 +32,7 @@
                         <h5>Прив'язка Пункта Меню: {{ $menuBindType }}</h5>
                         <hr>
                             @if($menuItem->menu_item_bind_type == 'menuItemExternalLink')
-                                <x-external-url></x-external-url>
+                                <x-external-url :menuItemId="$menuItem->id"></x-external-url>
                             @endif
 
                     </div>

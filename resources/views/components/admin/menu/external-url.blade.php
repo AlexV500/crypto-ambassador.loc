@@ -1,5 +1,5 @@
 <div>
-    <form action="{{route('admin.menu.menuitem.binditem', $menuItem->id)}}" method="POST" class="w-25">
+    <form action="{{route('admin.menu.menuitem.binditem', $menuItemId)}}" method="POST" class="w-25">
         @csrf
     <label>URL зовнішньої сторінки</label>
     <div class="form-group">

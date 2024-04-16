@@ -9,10 +9,10 @@ use Illuminate\View\Component;
 class ExternalURL extends Component
 {
 
-    public $menuItem;
-    public function __construct()
+    public $menuItemId;
+    public function __construct($menuItemId)
     {
-    //    $this->menuItem = $menuItem;
+        $this->menuItemId = $menuItemId;
     }
     public function render(): View|Closure|string
     {
