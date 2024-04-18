@@ -14,7 +14,11 @@
                         <th width="4%">ID</th>
                         <th width="10%">Зображення</th>
                         <th width="75%">URL</th>
-                        <th width="10%" colspan="3" class="text-center">Дія</th>
+                        @if($mainImageShowStatus)
+                            <th width="10%" colspan="3" class="text-center">Дія</th>
+                        @else
+                            <th width="10%" colspan="2" class="text-center">Дія</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -36,25 +40,27 @@
                                     <i class="fa-solid fa-copy text-primary" id="copy-link-icon"></i>
                                 </button>
                             </td>
-                            @if($image->cover == '1')
-                                <td class="text-center">
-                                    <button type="button" class="border-0 bg-transparent"
-                                            wire:loading.attr="disabled"
-                                            wire:target="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')"
-                                            wire:click.prevent="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')">
-                                        <i class="fa-solid fa-toggle-on text-success" role="button"></i>
-                                    </button>
-                                </td>
-                            @endif
-                            @if($image->cover == '0')
-                                <td class="text-center">
-                                    <button type="button" class="border-0 bg-transparent"
-                                            wire:loading.attr="disabled"
-                                            wire:target="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')"
-                                            wire:click.prevent="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')">
-                                        <i class="fa-solid fa-toggle-off text-secondary" role="button"></i>
-                                    </button>
-                                </td>
+                            @if($mainImageShowStatus)
+                                @if($image->cover == '1')
+                                    <td class="text-center">
+                                        <button type="button" class="border-0 bg-transparent"
+                                                wire:loading.attr="disabled"
+                                                wire:target="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')"
+                                                wire:click.prevent="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')">
+                                            <i class="fa-solid fa-toggle-on text-success" role="button"></i>
+                                        </button>
+                                    </td>
+                                @endif
+                                @if($image->cover == '0')
+                                    <td class="text-center">
+                                        <button type="button" class="border-0 bg-transparent"
+                                                wire:loading.attr="disabled"
+                                                wire:target="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')"
+                                                wire:click.prevent="toggleCoverImage('{{ $image->id }}', '{{ $image->original_content_id }}', '{{ $image->cover }}')">
+                                            <i class="fa-solid fa-toggle-off text-secondary" role="button"></i>
+                                        </button>
+                                    </td>
+                                @endif
                             @endif
                             <td class="text-center">
                                 <button type="button" class="border-0 bg-transparent"
@@ -71,6 +77,7 @@
 
             </div>
         </div>
+
     {{ $images->links(data: ['scrollTo' => false]) }}
 
 

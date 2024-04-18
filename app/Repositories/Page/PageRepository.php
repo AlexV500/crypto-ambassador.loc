@@ -12,12 +12,18 @@ class PageRepository implements PageRepositoryInterface, GetTranslatedArticlesIn
         return Page::locale($lang)->count();
     }
 
-    public function getPages($lang, $paginate, $publishedOnly = false)
+    public function getPages($lang, $paginate = null, $publishedOnly = false)
     {
         if ($publishedOnly) {
-            return Page::locale($lang)->published()->orderBy('created_at', 'DESC')->paginate($paginate);
+            $return = Page::locale($lang)->published()->orderBy('created_at', 'DESC');
+        } else {
+            $return = Page::locale($lang)->orderBy('created_at', 'DESC');
         }
-        return Page::locale($lang)->orderBy('created_at', 'DESC')->paginate($paginate);
+
+        if(!is_null($paginate)){
+            $return = $return->paginate($paginate);
+        }
+        return $return;
     }
 
     public function getAllTranslatedArticles($uri)

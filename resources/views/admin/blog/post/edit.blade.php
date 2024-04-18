@@ -161,6 +161,7 @@
 
             <livewire:admin.media.images.images-gallery :siteEntity="$siteEntity"
                                                         :imageFolder="$post->original_content_id"
+                                                        :mainImageShowStatus="$mainImageShowStatus"
                                                         />
             </div>
             </div>

@@ -172,6 +172,7 @@
                     </form>
                     <livewire:admin.media.images.images-gallery :siteEntity="$siteEntity"
                                                                 :imageFolder="$originalContentId"
+                                                                :mainImageShowStatus="$mainImageShowStatus"
                     />
                 </div>
             </div>

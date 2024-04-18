@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin\Page;
 
 use App\Http\Controllers\SiteController;
-use App\Http\Requests\Admin\Blog\Post\StoreRequest;
+use App\Http\Requests\Admin\Page\StoreRequest;
 use App\Models\Page;
-use App\Services\Admin\Blog\PostService;
 use App\Services\Admin\Media\ImagesGalleryUploadService;
 use App\Services\Admin\TranslateContentCreationService;
 

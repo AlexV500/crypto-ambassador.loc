@@ -46,6 +46,22 @@
                     </p>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.page.index')}}" class="nav-link
+                   @if(($routeName == 'admin.page.index')
+                    or($routeName == 'admin.page.create')
+                    or($routeName == 'admin.page.edit')
+                    or($routeName == 'admin.page.update')
+                    or($routeName == 'admin.page.show'))
+                    active @endif">
+                    <i class="nav-icon fa-regular fa-file-lines"></i>
+                      <p>
+                          Сторінки
+                      </p>
+                </a>
+             </li>
+
             <li class="nav-item">
                 <a href="#" class="nav-link
                  @if(($routeName == 'admin.blog.post.index')

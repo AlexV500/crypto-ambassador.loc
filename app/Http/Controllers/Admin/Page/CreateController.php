@@ -11,6 +11,7 @@ class CreateController extends BaseController{
         $addViewVariables = [
             'originalContentId' => $originalContentId,
             'originalContentTitle' => $this->createTranslationService->getOriginalContentTitle($this->getSiteEntity()),
+            'mainImageShowStatus' => false,
         ];
         return view('admin.page.create', $this->mergeViewVariables($addViewVariables));
     }

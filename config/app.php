@@ -217,7 +217,7 @@ return [
         'UrlLocal' => App\Helpers\Localization\UrlLocal::class,
         'Snippet' => App\Helpers\Localization\Snippet::class,
         'TranslRepositoryHelper' => App\Helpers\Localization\TranslRepositoryHelper::class,
-        'MenuService' => App\Services\Admin\MenuService::class,
+        'MenuService' => App\Services\Admin\Menu\MenuService::class,
         'LanguageSwitcherService' => App\Services\LanguageSwitcherService::class,
         'ImagesGalleryUploadService' => App\Services\Admin\Media\ImagesGalleryUploadService::class,
         'TranslateContentCreationService' => App\Services\Admin\TranslateContentCreationService::class,

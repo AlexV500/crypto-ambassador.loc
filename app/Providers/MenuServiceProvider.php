@@ -11,7 +11,7 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        require_once app_path() . '/Services/Admin/MenuService.php';
+        require_once app_path() . '/Services/Admin/Menu/MenuService.php';
     }
 
     /**

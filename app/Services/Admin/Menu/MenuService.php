@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Services\Admin\Menu;
 
 use App\Models\Menu\MenuItem;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +43,43 @@ class MenuService{
         if (($menuItemsData['count'] > 1) && ($menuItemsData['nextOrPrevRow'] !== null)) {
             return $this->setPosition($menuItem,  $menuItemsData['nextOrPrevRow']);
         } else return false;
+    }
+
+
+    public function bindMenuItem($menuItem, $uri, $segment = ""){
+        try {
+            DB::beginTransaction();
+
+            // dd($data);
+            DB::table('menu_items')
+                ->where('id', $menuItem->id)
+                ->update(['url_segments' => $segment, 'url' => $uri]);
+
+            DB::commit();
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            abort(500);
+        }
+        return true;
+    }
+
+    public function unBindMenuItem($menuItem){
+        try {
+            DB::beginTransaction();
+
+            // dd($data);
+            DB::table('menu_items')
+                ->where('id', $menuItem->id)
+                ->update(['url_segments' => '', 'url' => null]);
+
+            DB::commit();
+
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            abort(500);
+        }
+        return true;
     }
 
     protected function initMenuItemsData($menuItem, $direction) : array{

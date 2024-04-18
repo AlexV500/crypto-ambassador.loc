@@ -123,6 +123,16 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
                 Route::delete('/{image}', 'DeleteController')->name('admin.media.images.delete');
             });
 
+            Route::group(['namespace' => 'Page', 'prefix' => 'pages'], function () {
+                Route::get('/', 'IndexController')->name('admin.page.index');
+                Route::get('/create', 'CreateController')->name('admin.page.create');
+                Route::post('/', 'StoreController')->name('admin.page.store');
+                Route::get('/{page}', 'ShowController')->name('admin.page.show');
+                Route::get('/{page}/edit', 'EditController')->name('admin.page.edit');
+                Route::patch('/{page}', 'UpdateController')->name('admin.page.update');
+                Route::delete('/{page}', 'DeleteController')->name('admin.page.delete');
+            });
+
             Route::group(['namespace' => 'Snippets', 'prefix' => 'snippets'], function () {
                 Route::get('/', 'IndexController')->name('admin.snippets.index');
                 Route::get('/create', 'CreateController')->name('admin.snippets.create');

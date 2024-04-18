@@ -16,9 +16,9 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        @foreach ($locales as $index => $localeName)
+                        @foreach ($locales as $localeName => $localeLink)
                             <li class="dropdown-item">
-                                <a class="nav-link" href="{{ UrlLocal::localize($index, 'admin') }}">{{ $localeName }}</a>
+                                <a class="nav-link" href="{{$localeLink}}">{{ $localeName }}</a>
                             </li>
                         @endforeach
                     </ul>

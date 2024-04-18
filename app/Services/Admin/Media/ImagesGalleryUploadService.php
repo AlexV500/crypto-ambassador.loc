@@ -50,7 +50,7 @@ class ImagesGalleryUploadService
         $countCoverImages = ImageRepository::countCoverImages($originalContentId, $lang = '');
         if ($countCoverImages == 0) {
             $image = ImageRepository::takeImages($originalContentId, 1);
-            dd($image);
+//            dd($image);
             ImageRepository::toggleCoverImage($image->id, $image->cover);
         }
     }

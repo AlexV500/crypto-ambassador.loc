@@ -20,17 +20,19 @@ class ImagesGallery extends Component
     public $defaultLocale;
     public $currentLocale;
     public $imageFolder;
+    public $mainImageShowStatus;
     public $imagesGalleryUploadService;
 
 //    public function boot(ImagesGalleryUploadService $imagesGalleryUploadService)
 //    {
 //
 //    }
-    public function mount($siteEntity, $imageFolder)
+    public function mount($siteEntity, string $imageFolder, bool $mainImageShowStatus)
     {
         $this->defaultLocale = $siteEntity->getDefaultLocale();
         $this->currentLocale = $siteEntity->getCurrentLocale();
         $this->imageFolder = $imageFolder;
+        $this->mainImageShowStatus = $mainImageShowStatus;
     }
 
 //    public function __construct()

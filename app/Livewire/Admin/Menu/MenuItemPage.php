@@ -2,19 +2,17 @@
 
 namespace App\Livewire\Admin\Menu;
 
-use App\Repositories\Blog\Category\BlogCategoryRepository;
 use App\Repositories\Blog\Post\BlogPostRepository;
+use App\Repositories\Page\PageRepository;
 use App\Services\Admin\Menu\MenuService;
 use Illuminate\Support\Facades\App;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-class MenuItemBlogPost extends Component
+class MenuItemPage extends Component
 {
     use WithPagination;
 
-    public $categories;
-    public $selectedCategoryId = null;
     public $currentLocale;
     public $menuItem;
 
@@ -23,8 +21,6 @@ class MenuItemBlogPost extends Component
     {
         $this->currentLocale = $siteEntity->getCurrentLocale();
         $this->menuItem = $menuItem;
-        $blogCategoryRepository = App::make(BlogCategoryRepository::class);
-        $this->categories= $blogCategoryRepository->getCategories($siteEntity->getCurrentLocale());
     }
 
     public function bindMenuItem($uri)
@@ -43,20 +39,16 @@ class MenuItemBlogPost extends Component
 
     public function render()
     {
-        $posts = $this->refreshPosts();
-        return view('livewire.admin.menu.menu-item-blog-post',
-            compact('posts'));
+        $pages = $this->refreshPages();
+        return view('livewire.admin.menu.menu-item-page',
+            compact('pages'));
     }
 
     #[On('bindMenuItem')]
-    public function refreshPosts()
+    public function refreshPages()
     {
-        if(!is_null($this->selectedCategoryId)) {
-            $blogPostRepository = App::make(BlogPostRepository::class);
-            return $blogPostRepository->getPostsByCategoryId($this->selectedCategoryId, $this->currentLocale)->simplePaginate(4, pageName: 'images-page');
-        } else return null;
-    }
-    public function updatedSelectedCategoryId(){
-      //  dd($this->selectedCategoryId);
+        $pageRepository = App::make(PageRepository::class);
+        return $pageRepository->getPages($this->currentLocale)->simplePaginate(4, pageName: 'images-page');
+
     }
 }

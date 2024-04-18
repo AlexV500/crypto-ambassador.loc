@@ -15,6 +15,7 @@ class EditController extends BaseController{
             'categories' => $this->getCategories(),
             'tags' => $this->getTags(),
             'post' => $post,
+            'mainImageShowStatus' => true,
         ];
 
         return view('admin.blog.post.edit', $this->mergeViewVariables($addViewVariables));

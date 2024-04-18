@@ -10,6 +10,8 @@ use App\Repositories\Blog\Tag\BlogTagRepository;
 use App\Repositories\Blog\Tag\Interface\BlogTagRepositoryInterface;
 use App\Repositories\Media\Images\ImageRepository;
 use App\Repositories\Media\Images\Interface\ImageRepositoryInterface;
+use App\Repositories\Page\Interface\PageRepositoryInterface;
+use App\Repositories\Page\PageRepository;
 use Illuminate\Support\ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider{
     public function register()
@@ -29,6 +31,10 @@ class RepositoryServiceProvider extends ServiceProvider{
         $this->app->bind(
             ImageRepositoryInterface::class,
             ImageRepository::class
+        );
+        $this->app->bind(
+            PageRepositoryInterface::class,
+            PageRepository::class
         );
     }
 }

@@ -12,8 +12,9 @@ class EditController extends BaseController{
 
         $addViewVariables = [
             'page' => $page,
+            'mainImageShowStatus' => false,
         ];
 
-        return view('admin.blog.post.edit', $this->mergeViewVariables($addViewVariables));
+        return view('admin.page.edit', $this->mergeViewVariables($addViewVariables));
     }
 }

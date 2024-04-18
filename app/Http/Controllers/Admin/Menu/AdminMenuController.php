@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Menu;
 use App\Http\Controllers\SiteController;
 use App\Models\Menu\MenuItem;
 use App\Models\Menu\MenuWidget;
-use App\Services\Admin\MenuService;
+use App\Services\Admin\Menu\MenuService;
 
 
 class AdminMenuController extends SiteController{

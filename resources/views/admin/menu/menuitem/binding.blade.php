@@ -34,6 +34,12 @@
                             @if($menuItem->menu_item_bind_type == 'menuItemExternalLink')
                                 <x-external-url :menuItemId="$menuItem->id"></x-external-url>
                             @endif
+                        @if($menuItem->menu_item_bind_type == 'menuItemBlogPost')
+                            <livewire:admin.menu.menu-item-blog-post :siteEntity="$siteEntity" :menuItem="$menuItem"/>
+                        @endif
+                        @if($menuItem->menu_item_bind_type == 'menuItemPage')
+                            <livewire:admin.menu.menu-item-page :siteEntity="$siteEntity" :menuItem="$menuItem"/>
+                        @endif
 
                     </div>
                 </div>
