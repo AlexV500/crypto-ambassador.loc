@@ -12,21 +12,14 @@ class IndexController extends BaseController{
 
       //  dd($menuWidget);
 
-        $menuBreadcrumbs = BreadcrumbsHelper::treeMenuBreadcrumbs($parentItem);
-        $menuItems = $parentItem->getMenuItemsChild();
-        $menuTypes = $this->getSubMenuBindItemTypes();
-        $locales = $this->getAllLocalizations();
-        $getCurrentLocale = $this->getCurrentLocale();
-        $getLocaleName = $this->getLocaleName();
+        $addViewVariables = [
+            'menuBreadcrumbs' => BreadcrumbsHelper::treeMenuBreadcrumbs($parentItem),
+            'subMenuItemBindType' => $this->getSubMenuItemBindTypes(),
+            'menuItems' => $parentItem->getMenuItemsChild(),
+            'parentItem' => $parentItem,
+            'menuWidget' => $menuWidget
+        ];
 
-        return view('admin.menu.submenuitem.index', compact(
-            'menuWidget',
-            'parentItem',
-            'menuBreadcrumbs',
-            'menuItems',
-            'menuTypes',
-            'locales',
-            'getCurrentLocale',
-            'getLocaleName'));
+        return view('admin.menu.submenuitem.index', $this->mergeViewVariables($addViewVariables));
     }
 }

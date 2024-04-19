@@ -22,10 +22,16 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'uri' => 'required|string|unique:posts',
-            'content' => 'required|string',
             'lang' => 'required|string',
+            'title' => 'required|string',
+            'uri' => 'required|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string',
+            'content' => 'required|string',
+            'original_content_id' => 'required|string',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|file|mimes:png,jpg,jpeg,webp|max:2048',
+            'published' => 'integer',
         ];
     }
 

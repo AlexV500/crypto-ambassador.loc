@@ -33,20 +33,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <div class="card">
 
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
-                                        <th width="5%">ID</th>
-                                        <th width="22%">Назва</th>
-                                        <th width="22%">Тип</th>
-                                        <th width="26%">URL</th>
-                                        <th width="5%">Позиція</th>
-
-                                        <th width="20%" colspan="7" class="text-center">Дія</th>
+                                        <th width="4%">ID</th>
+                                        <th width="27%">Назва</th>
+                                        <th width="39%">URL</th>
+                                        <th width="13%">Прив`язка</th>
+                                        <th width="6%"  colspan="3" class="text-center">Позиція</th>
+                                        <th width="1%"></th>
+                                        <th width="10%" colspan="6" class="text-center">Дія</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -54,19 +54,20 @@
                                         <tr>
                                             <td>{{$menuItem->id}}</td>
                                             <td>{{$menuItem->label}}</td>
-                                            <td>{{$menuTypes[$menuItem->menu_item_type]}}</td>
                                             <td>{{$menuItem->url}}</td>
+                                            <td>{{$subMenuItemBindType[$menuItem->menu_item_bind_type]}}</td>
                                             <td>{{$menuItem->position}}</td>
 
                                             <td class="text-center"><a href="{{route('admin.menu.submenuitem.positionUp', [$menuWidget->id, $menuItem->id])}}" title="Підняти на одну позицію вверх" class="text-info"><i class="fa-solid fa-up-long"></i></a></td>
                                             <td class="text-center"><a href="{{route('admin.menu.submenuitem.positionDown', [$menuWidget->id, $menuItem->id])}}" title="Опустити на одну позицію вниз" class="text-info"><i class="fa-solid fa-down-long"></i></a></td>
-
+                                            <td></td>
                                             @if(($menuItem->type !== 'menuColumnItem') or ($menuItem->type !== 'menuColumnlink'))
-                                                <td class="text-center"><a href="{{route('admin.menu.submenuitem.index', [$menuWidget->id, $menuItem->id])}}" title="Дочірні пункти меню" class="text-secondary"><i class="fa-solid fa-bars"></i></a></td>
+                                                <td class="text-center"><a href="{{route('admin.menu.submenuitem.index', [$menuWidget->id, $menuItem->id])}}" title="Дочірні пункти меню" class="text-secondary"><i class="fa-solid fa-bars-staggered"></i></a></td>
                                             @endif
-                                            @if(($menuItem->type == 'menuColumnItem') or ($menuItem->type == 'menuColumnlink'))
-                                                <td class="text-center"><a href="" title="Дочірні пункти меню" class="text-secondary"><i class="fa-solid fa-table-columns"></i></a></td>
-                                            @endif
+{{--                                            @if(($menuItem->type == 'menuColumnItem') or ($menuItem->type == 'menuColumnlink'))--}}
+{{--                                                <td class="text-center"><a href="" title="Дочірні пункти меню" class="text-secondary"><i class="fa-solid fa-table-columns"></i></a></td>--}}
+{{--                                            @endif--}}
+                                            <td class="text-center"><a href="{{route('admin.menu.submenuitem.binding', [$menuWidget->id, $menuItem->id])}}" title="Прив'язка меню" class="text-secondary"><i class="fa-solid fa-indent"></i></a></td>
                                             @if($menuItem->published == '1')
                                                 <td class="text-center"><a href="{{route('admin.menu.submenuitem.visible', [$menuWidget->id, $menuItem->id])}}" title="Пункт меню видимий" class="text-success"><i class="fa-solid fa-toggle-on"></i></a></td>
                                             @endif

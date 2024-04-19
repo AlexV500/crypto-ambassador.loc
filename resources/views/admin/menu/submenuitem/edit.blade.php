@@ -30,6 +30,7 @@
                     <div class="col-12">
                         <form action="{{route('admin.menu.submenuitem.update', $menuItem->id)}}" method="POST" class="w-25">
                             @csrf
+                            @method('PATCH')
 {{--                            <div class="form-group">--}}
 {{--                                <input type="hidden" name="menu_widget_id" value="{{ $menuWidget->id }}">--}}
 {{--                            </div>--}}
@@ -43,22 +44,15 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>
-                            <label>URL зовнішньої сторінки</label>
-                            <div class="form-group">
-                                <input type="input" class="form-control" name="url" value="{{ $menuItem->url }}" placeholder="URL зовнішньої сторінки">
-                                @error('url')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror()
-                            </div>
 
                             <div class="form-group w-100">
-                                <label>Вибрати Тип Пункта Меню</label>
-                                <select name="type" class="form-control">
+                                <label>Вибрати Прив'язку Пункта Меню</label>
+                                <select name="menu_item_bind_type" class="form-control">
 
-                                    @foreach($menuTypes as $systemName => $name)
-                                        <option value="{{ $systemName }}"
-                                            {{ $menuItem->type == $systemName ? ' selected' : '' }}
-                                        >{{ $name }}</option>
+                                    @foreach($subMenuBindItemTypes as $systemBindItemTypeName => $bindItemTypeName)
+                                        <option value="{{ $systemBindItemTypeName }}"
+                                            {{ $menuItem->type == $systemBindItemTypeName ? ' selected' : '' }}
+                                        >{{ $bindItemTypeName }}</option>
                                     @endforeach
 
                                 </select>

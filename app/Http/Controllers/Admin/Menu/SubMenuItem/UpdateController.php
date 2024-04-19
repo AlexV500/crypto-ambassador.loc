@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Menu\SubMenuItem;
 
-use App\Http\Requests\Admin\Menu\MenuItem\UpdateRequest;
+use App\Http\Requests\Admin\Menu\SubMenuItem\UpdateRequest;
 use App\Models\Menu\MenuItem;
 
 class UpdateController extends BaseController{

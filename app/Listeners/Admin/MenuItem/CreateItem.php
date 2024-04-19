@@ -22,9 +22,9 @@ class CreateItem
     {
         $parentId = request()->input('parent_id');
 
-        $type = request()->input('type');
+        $type = request()->input('menu_item_type');
         if($type == 'menuColumnItem'){
-            $query =  $event->menuItem->where('type', request()->input('column_number'));
+            $query =  $event->menuItem->where('column_number', request()->input('column_number'));
         } else {
             $query =  $event->menuItem;
         }

@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-10">
                         <div class="card">
 
                             <div class="card-body table-responsive p-0">
@@ -40,9 +40,9 @@
                                     <thead>
                                     <tr>
                                         <th width="5%">ID</th>
-                                        <th width="40%">Назва</th>
+                                        <th width="50%">Назва</th>
                                         <th width="35%">Позиція</th>
-                                        <th width="20%" colspan="4" class="text-center">Дія</th>
+                                        <th width="10%" colspan="4" class="text-center">Дія</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -41,9 +41,9 @@
                                     <tr>
                                         <th width="4%">ID</th>
                                         <th width="27%">Назва</th>
-                                        <th width="13%">Тип</th>
-                                        <th width="13%">Привязка</th>
                                         <th width="26%">URL</th>
+                                        <th width="13%">Тип</th>
+                                        <th width="13%">Прив`язка</th>
                                         <th width="6%"  colspan="3" class="text-center">Позиція</th>
                                         <th width="1%"></th>
                                         <th width="10%" colspan="6" class="text-center">Дія</th>
@@ -54,9 +54,9 @@
                                         <tr>
                                             <td scope="row">{{$menuItem->id}}</td>
                                             <td>{{$menuItem->label}}</td>
+                                            <td>{{$menuItem->url}}</td>
                                             <td>{{$menuTypes[$menuItem->menu_item_type]}}</td>
                                             <td>{{$menuBindTypes[$menuItem->menu_item_bind_type]}}</td>
-                                            <td>{{$menuItem->url}}</td>
 
                                             <td>{{$menuItem->position}}</td>
                                             <td class="text-center"><a href="{{route('admin.menu.menuitem.positionUp', [$menuWidget->id, $menuItem->id])}}" title="Підняти на одну позицію вверх" class="text-info"><i class="fa-solid fa-up-long"></i></a></td>
@@ -71,10 +71,10 @@
 
                                             <td class="text-center"><a href="{{route('admin.menu.menuitem.binding', $menuItem->id)}}" title="Прив'язка меню" class="text-secondary"><i class="fa-solid fa-indent"></i></a></td>
                                             @if($menuItem->published == '1')
-                                                <td class="text-center"><a href="" title="Пункт меню видимий" class="text-success"><i class="fa-solid fa-toggle-on"></i></a></td>
+                                                <td class="text-center"><a href="{{route('admin.menu.menuitem.visible', [$menuWidget->id, $menuItem->id])}}" title="Пункт меню видимий" class="text-success"><i class="fa-solid fa-toggle-on"></i></a></td>
                                             @endif
                                             @if($menuItem->published == '0')
-                                                <td class="text-center"><a href="" title="Пункт меню не видимий" class="text-secondary"><i class="fa-solid fa-toggle-off"></i></a></td>
+                                                <td class="text-center"><a href="{{route('admin.menu.menuitem.visible', [$menuWidget->id, $menuItem->id])}}" title="Пункт меню не видимий" class="text-secondary"><i class="fa-solid fa-toggle-off"></i></a></td>
                                             @endif
                                             <td class="text-center"><a href="{{route('admin.menu.menuitem.show', $menuItem->id)}}" title="Переглянути"><i class="far fa-eye"></i></a></td>
                                             <td class="text-center"><a href="{{route('admin.menu.menuitem.edit', $menuItem->id)}}" title="Редагувати" class="text-info"><i class="fas fa-pencil-alt"></i></a></td>

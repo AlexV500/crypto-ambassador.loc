@@ -16,7 +16,7 @@ return [
         'menuItemExternalLink' => 'Зовнішня ссилка',
     ],
 
-    'subMenuItemBindTypes' => [
+    'subMenuItemBindType' => [
         'menuItemPage' => 'Внутрішня сторінка',
         'menuItemBlogPost' => 'Пост блога',
         'menuItemBlog' => 'Блог',

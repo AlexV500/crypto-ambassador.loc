@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
             'menu_widget_id' => 'required|integer',
             'parent_id' => 'required|integer',
             'url' => 'nullable|string',
-            'type' => 'required|string',
+            'menu_item_bind_type' => 'required|string',
         ];
     }
 
@@ -36,8 +36,8 @@ class StoreRequest extends FormRequest
             'label.required' => 'Це поле мусить бути заповнене!',
             'label.string' => 'Данні повинні відповідати строковому типу!',
             'url.string' => 'Данні повинні відповідати строковому типу!',
-            'type.required' => 'Це поле мусить бути заповнене!',
-            'type.string' => 'Данні повинні відповідати строковому типу!',
+            'menu_item_bind_type.required' => 'Це поле мусить бути заповнене!',
+            'menu_item_bind_type.string' => 'Данні повинні відповідати строковому типу!',
         ];
     }
 }

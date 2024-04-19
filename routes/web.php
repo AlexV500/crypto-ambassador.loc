@@ -203,6 +203,7 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
                     Route::patch('/{menuItem}/bindItem', 'BindItemController')->name('admin.menu.menuitem.binditem');
                     Route::get('/{menuWidget}/{menuItem}/positionUp', 'PositionUpController')->name('admin.menu.menuitem.positionUp');
                     Route::get('/{menuWidget}/{menuItem}/positionDown', 'PositionDownController')->name('admin.menu.menuitem.positionDown');
+                    Route::get('/{menuWidget}/{menuItem}/visible', 'VisibleController')->name('admin.menu.menuitem.visible');
                     Route::patch('/{menuItem}', 'UpdateController')->name('admin.menu.menuitem.update');
                     Route::delete('/{menuItem}', 'DeleteController')->name('admin.menu.menuitem.delete');
                 });
@@ -213,6 +214,8 @@ Route::group(['prefix' => LocalizationService::locale(), 'middleware' => ['setLo
                     Route::post('/', 'StoreController')->name('admin.menu.submenuitem.store');
                     Route::get('/{menuWidget}/{menuItem}/show', 'ShowController')->name('admin.menu.submenuitem.show');
                     Route::get('/{menuWidget}/{menuItem}/edit', 'EditController')->name('admin.menu.submenuitem.edit');
+                    Route::get('/{menuWidget}/{menuItem}/binding', 'BindingController')->name('admin.menu.submenuitem.binding');
+                    Route::patch('/{menuWidget}/{menuItem}/bindItem', 'BindItemController')->name('admin.menu.submenuitem.binditem');
                     Route::get('/{menuWidget}/{menuItem}/positionUp', 'PositionUpController')->name('admin.menu.submenuitem.positionUp');
                     Route::get('/{menuWidget}/{menuItem}/positionDown', 'PositionDownController')->name('admin.menu.submenuitem.positionDown');
                     Route::get('/{menuWidget}/{menuItem}/visible', 'VisibleController')->name('admin.menu.submenuitem.visible');

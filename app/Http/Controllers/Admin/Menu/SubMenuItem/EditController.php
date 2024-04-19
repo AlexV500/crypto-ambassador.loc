@@ -19,7 +19,7 @@ class EditController extends BaseController{
             'treeMenuItems' => MenuHelper::treeMenuItems(),
             'menuItem' => $menuItem,
             'menuBreadcrumbs' => BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem),
-            'subMenuBindItemTypes' => $this->getSubMenuBindItemTypes(),
+            'subMenuBindItemTypes' => $this->getSubMenuItemBindTypes(),
             'menuWidget' => $menuWidget,
             'parentItem' => $menuItem->getParentItem(),
         ];

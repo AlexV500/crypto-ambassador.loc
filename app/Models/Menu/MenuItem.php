@@ -32,7 +32,7 @@ class MenuItem extends Model {
 
     public static function getNextSortRoot($menuId, $type)
     {
-        return self::where('menu_widget_id', $menuId)->where('type', $type)->max('position') + 1;
+        return self::where('menu_widget_id', $menuId)->where('menu_item_type', $type)->max('position') + 1;
     }
 
     public function getMenuWidget(){
@@ -58,7 +58,7 @@ class MenuItem extends Model {
     public function getCurrentTypeMenuCount($menuItem) : int
     {
         $widgetMenuId = $this->getMenuWidget()->id;
-        if($menuItem->type == 'multiColumnItem'){
+        if($menuItem->menu_item_type == 'multiColumnItem'){
             return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id, $menuItem->column_number)->get()->count();
         } else return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id)->get()->count();
     }
@@ -66,7 +66,7 @@ class MenuItem extends Model {
     public function getCurrentTypeMenuMaxPosition($menuItem) : int
     {
         $widgetMenuId = $this->getMenuWidget()->id;
-        if($menuItem->type == 'multiColumnItem'){
+        if($menuItem->menu_item_type == 'multiColumnItem'){
             return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id, $menuItem->column_number)->max('position');
         } else return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id)->max('position');
     }
@@ -74,14 +74,14 @@ class MenuItem extends Model {
     public function getCurrentTypeMenuMinPosition($menuItem) : int
     {
         $widgetMenuId = $this->getMenuWidget()->id;
-        if($menuItem->type == 'multiColumnItem'){
+        if($menuItem->menu_item_type == 'multiColumnItem'){
             return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id, $menuItem->column_number)->min('position');
         } else return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id)->min('position');
     }
     public function getPrevRowId($menuItem)
     {
         $widgetMenuId = $this->getMenuWidget()->id;
-        if($menuItem->type == 'multiColumnItem') {
+        if($menuItem->menu_item_type == 'multiColumnItem') {
             $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id, $menuItem->column_number)->max('id');
         }
         else return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id)->max('id');
@@ -90,7 +90,7 @@ class MenuItem extends Model {
     public function getNextRowId($menuItem)
     {
         $widgetMenuId = $this->getMenuWidget()->id;
-        if($menuItem->type == 'multiColumnItem') {
+        if($menuItem->menu_item_type == 'multiColumnItem') {
             $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id, $menuItem->column_number)->min('id');
         }
         else return $this->getMenuQueryAll($widgetMenuId, $menuItem->parent_id)->min('id');
