@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item"><a href="{{ route('admin') }}">Головна</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuwidget.index') }}">Віджети</a></li>
                             @php $title = 'Прив`язка дочірнього пункта меню' @endphp
-                            <x-menu-breadcrumbs :menuBreadcrumbs="$menuBreadcrumbs" :menuWidget="$menuWidget" :menuItem="$menuItem" :title="$title"></x-menu-breadcrumbs>
+                            <x-menu-breadcrumbs :menuWidget="$menuWidget" :menuItem="$menuItem" :title="$title"></x-menu-breadcrumbs>
 
                         </ol>
                     </div><!-- /.col -->

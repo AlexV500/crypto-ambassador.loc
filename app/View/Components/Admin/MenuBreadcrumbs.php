@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Admin;
 
+use App\Helpers\Breadcrumbs\BreadcrumbsHelper;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -17,9 +18,9 @@ class MenuBreadcrumbs extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($menuBreadcrumbs, $menuWidget, $menuItem, $title)
+    public function __construct($menuWidget, $menuItem, $title)
     {
-        $this->menuBreadcrumbs = $menuBreadcrumbs;
+        $menuBreadcrumbs = BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem);
         $this->menuWidget = $menuWidget;
         $this->menuItem = $menuItem;
         $this->title = $title;
@@ -27,29 +28,39 @@ class MenuBreadcrumbs extends Component
     }
 
     public function prepareRender($menuBreadcrumbs){
-      //     dd($menuBreadcrumbs);
+     //   dd($menuBreadcrumbs);
+      //     dd($this->renderCrumbs($menuBreadcrumbs));
         $htmlImp = implode('', array_reverse(explode('@', $this->renderCrumbs($menuBreadcrumbs))));
-     //   dd($html);
+     //   $htmlImp = '';
         return $htmlImp;
     }
 
     private function renderCrumbs($renderCrumbs){
 
         $html = '';
-        if(is_array($renderCrumbs) && (count($renderCrumbs) > 0)){
-            if($renderCrumbs[0]->parent_id == 0){
-                $route = route('admin.menu.menuitem.index', $this->menuWidget->id);
+        $renderCrumbsCount = count($renderCrumbs);
+        for ($count = 0; $count < $renderCrumbsCount; $count++)
+        {
+            if(!is_array($renderCrumbs[$count])){
+                if($renderCrumbs[$count]->parent_id == 0){
+                    $route = route('admin.menu.menuitem.index', $this->menuWidget->id);
+                } else {
+                    $route = route('admin.menu.submenuitem.index', [$this->menuWidget->id, $renderCrumbs[$count]->id]);
+                }
+                if($renderCrumbs[$count]->id !== $this->menuItem->id){
+                    $html .= '<li class="breadcrumb-item"><a href="'.$route.'">'.$renderCrumbs[$count]->label.'</a> </li>@';
+                } else {
+                    $html .= '<li class="breadcrumb-item">'.$this->title.' '.$renderCrumbs[$count]->label.'</li>@';
+                }
             } else {
-                $route = route('admin.menu.submenuitem.index', [$this->menuWidget->id, $renderCrumbs[0]->id]);
+                $html = $this->renderCrumbs($renderCrumbs[$count]);
             }
-        } if($renderCrumbs[0]->id !== $this->menuItem->id){
-            $html .= '<li class="breadcrumb-item"><a href="'.$route.'">'.$renderCrumbs[0]->label.'</a> </li>@';
-        } else {
-            $html .= '<li class="breadcrumb-item">'.$this->title.' '.$renderCrumbs[0]->label.'</li>@';
         }
-        if(isset($renderCrumbs[1])){
-            $html .= $this->renderCrumbs($renderCrumbs[1]);
-        }
+
+
+//        $html .= '<li class="breadcrumb-item"><a href="'.$route.'">'.$renderCrumbs[0]->label.'</a> </li>@';
+//        $html .= '<li class="breadcrumb-item">'.$this->title.' '.$renderCrumbs[0]->label.'</li>@';
+
         return $html;
     }
 

@@ -16,7 +16,6 @@ class EditController extends BaseController{
     //    dd(BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem));
 
         $addViewVariables = [
-            'treeMenuItems' => MenuHelper::treeMenuItems(),
             'menuItem' => $menuItem,
             'menuBreadcrumbs' => BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem),
             'subMenuBindItemTypes' => $this->getSubMenuItemBindTypes(),

@@ -25,7 +25,6 @@ class StoreRequest extends FormRequest
             'label' => 'required|string',
             'menu_widget_id' => 'required|integer',
             'parent_id' => 'required|integer',
-            'url' => 'nullable|string',
             'menu_item_bind_type' => 'required|string',
         ];
     }
@@ -35,7 +34,6 @@ class StoreRequest extends FormRequest
         return [
             'label.required' => 'Це поле мусить бути заповнене!',
             'label.string' => 'Данні повинні відповідати строковому типу!',
-            'url.string' => 'Данні повинні відповідати строковому типу!',
             'menu_item_bind_type.required' => 'Це поле мусить бути заповнене!',
             'menu_item_bind_type.string' => 'Данні повинні відповідати строковому типу!',
         ];

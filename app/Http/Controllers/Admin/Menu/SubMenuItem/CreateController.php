@@ -8,7 +8,7 @@ class CreateController extends BaseController{
 
         $addViewVariables = [
             'parentItem' => $this->getParentItem($parentId),
-            'subMenuBindItemTypes' => $this->getSubMenuBindItemTypes(),
+            'subMenuBindItemTypes' => $this->getSubMenuItemBindTypes(),
             'menuWidget' => $this->getMenuWidget($widgetId),
         ];
 

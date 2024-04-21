@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item"><a href="{{ route('admin') }}">Головна</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuwidget.index') }}">Віджети меню</a></li>
                             @php $title = 'Редагування дочірнього пункта меню' @endphp
-                            <x-menu-breadcrumbs :menuBreadcrumbs="$menuBreadcrumbs" :menuWidget="$menuWidget" :menuItem="$menuItem" :title="$title"></x-menu-breadcrumbs>
+                            <x-menu-breadcrumbs :menuWidget="$menuWidget" :menuItem="$menuItem" :title="$title"></x-menu-breadcrumbs>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -35,7 +35,7 @@
 {{--                                <input type="hidden" name="menu_widget_id" value="{{ $menuWidget->id }}">--}}
 {{--                            </div>--}}
 
-                            <x-menu-widget-items :treeMenuItems="$treeMenuItems" :menuWidget="$menuWidget" :menuItem="$menuItem"></x-menu-widget-items>
+                            <x-menu-widget-items :siteEntity="$siteEntity" :menuWidget="$menuWidget" :menuItem="$menuItem"></x-menu-widget-items>
 
                             <label>Назва Пункта Меню</label>
                             <div class="form-group">

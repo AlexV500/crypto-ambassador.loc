@@ -13,7 +13,6 @@ class IndexController extends BaseController{
       //  dd($menuWidget);
 
         $addViewVariables = [
-            'menuBreadcrumbs' => BreadcrumbsHelper::treeMenuBreadcrumbs($parentItem),
             'subMenuItemBindType' => $this->getSubMenuItemBindTypes(),
             'menuItems' => $parentItem->getMenuItemsChild(),
             'parentItem' => $parentItem,

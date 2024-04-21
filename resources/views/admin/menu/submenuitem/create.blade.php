@@ -15,7 +15,8 @@
                             <li class="breadcrumb-item"><a href="{{ route('admin') }}">Головна</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuwidget.index') }}">Віджети</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuitem.index', $menuWidget->id) }}">Пункти меню</a></li>
-                            <li class="breadcrumb-item active">Створення дочірнього пункта меню</li>
+                            @php $title = 'Створення дочірнього пункта меню' @endphp
+                            <x-menu-breadcrumbs :menuWidget="$menuWidget" :menuItem="$parentItem" :title="$title"></x-menu-breadcrumbs>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -41,24 +42,19 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>
-                            <label>URL зовнішньої сторінки</label>
-                            <div class="form-group">
-                                <input type="input" class="form-control" name="url" value="{{ old('url') }}" placeholder="URL зовнішньої сторінки">
-                                @error('url')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror()
-                            </div>
 
                             <div class="form-group w-100">
-                                <label>Вибрати Тип Пункта Меню</label>
-                                <select name="type" class="form-control">
-                                    @foreach($menuTypes as $systemName => $name)
-                                        <option value="{{ $systemName }}"
-                                            {{ old('type') == $systemName ? ' selected' : '' }}
-                                        >{{ $name }}</option>
+                                <label>Вибрати Прив'язку Пункта Меню</label>
+                                <select name="menu_item_bind_type" class="form-control">
+
+                                    @foreach($subMenuBindItemTypes as $systemBindItemTypeName => $bindItemTypeName)
+                                        <option value="{{ $systemBindItemTypeName }}"
+                                            {{ old('menu_item_bind_type') == $systemBindItemTypeName ? ' selected' : '' }}
+                                        >{{ $bindItemTypeName }}</option>
                                     @endforeach
+
                                 </select>
-                                @error('type')
+                                @error('menu_item_bind_type')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>

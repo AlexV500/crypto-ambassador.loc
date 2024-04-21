@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Helpers\Menu\MenuHelper;
 use App\Services\LanguageSwitcherService;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -25,6 +26,8 @@ class Header extends Component
         $this->locales = $siteEntity->getAllLocalizations();
         $this->languageSwitcherService = $languageSwitcherService;
     //    dd($languageSwitcherService->getLanguageSwitcherLinks($siteEntity));
+
+        dd(MenuHelper::treeMenuItems('mainTop'));
     }
 
     /**

@@ -11,7 +11,6 @@ class BindingController extends BaseController
     public function __invoke(MenuWidget $menuWidget, MenuItem $menuItem){
 
         $addViewVariables = [
-            'menuBreadcrumbs' => BreadcrumbsHelper::treeMenuBreadcrumbs($menuItem),
             'menuItem' => $menuItem,
             'parentItem' => $menuItem->getParentItem(),
             'menuWidget' => $menuItem->getMenuWidget(),

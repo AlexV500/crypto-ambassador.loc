@@ -1,7 +1,8 @@
 <?php
 
-namespace App\View\Components\Admin;
+namespace App\View\Components\Admin\Menu;
 
+use App\Helpers\Menu\MenuHelper;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -9,21 +10,19 @@ use Illuminate\View\Component;
 class MenuWidgetItems extends Component
 {
     public $html;
-    private $treeMenuItems;
-
     private $menuItem;
     private $menuWidget;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($treeMenuItems, $menuWidget, $menuItem)
+    public function __construct($siteEntity, $menuWidget, $menuItem)
     {
-        $this->treeMenuItems = $treeMenuItems;
+        $treeMenuItems = MenuHelper::treeMenuItems($siteEntity->getCurrentLocale());
         $this->menuWidget = $menuWidget;
         $this->menuItem = $menuItem;
         $menuWidgetPosition = $menuWidget->position;
-        $this->html = $this->prepareRender($this->treeMenuItems->$menuWidgetPosition);
+        $this->html = $this->prepareRender($treeMenuItems->$menuWidgetPosition);
     }
 
     public function prepareRender($menuItems){
@@ -73,6 +72,6 @@ class MenuWidgetItems extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin.menu-widget-items');
+        return view('components.admin.menu.menu-widget-items');
     }
 }

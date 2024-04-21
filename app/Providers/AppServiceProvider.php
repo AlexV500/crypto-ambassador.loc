@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\View\Components\Admin\Media\ImagesGalleryUploader;
-use App\View\Components\Admin\Menu\ExternalURL;
-use App\View\Components\Admin\MenuBreadcrumbs;
-use App\View\Components\Admin\MenuWidgetItems;
 use App\View\Components\Admin\AdminNavbar;
 use App\View\Components\Admin\LanguageSelector;
+use App\View\Components\Admin\Media\ImagesGalleryUploader;
+use App\View\Components\Admin\Menu\ExternalURL;
+use App\View\Components\Admin\Menu\MenuWidgetItems;
+use App\View\Components\Admin\MenuBreadcrumbs;
 use App\View\Components\Blog\BlogHeader;
 use App\View\Components\Blog\BlogLanguageSwitcher;
 use App\View\Components\Blog\Posts;

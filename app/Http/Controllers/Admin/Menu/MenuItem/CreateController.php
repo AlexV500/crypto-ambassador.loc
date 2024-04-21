@@ -8,7 +8,8 @@ class CreateController extends BaseController{
     public function __invoke($widgetId){
 
         $addViewVariables = [
-            'menuBindTypes' => $this->getMenuItemBindTypes(),
+            'menuBindItemTypes' => $this->getMenuItemBindTypes(),
+            'menuItemTypes' => $this->getMenuItemTypes(),
             'menuWidget' => $this->getMenuWidget($widgetId),
         ];
 

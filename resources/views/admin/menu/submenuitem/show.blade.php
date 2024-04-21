@@ -22,7 +22,8 @@
                         <li class="breadcrumb-item"><a href="{{ route('admin') }}">Головна</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuwidget.index') }}">Віджети меню</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.menu.submenuitem.index', [$menuWidget->id, $menuItem->id]) }}">Пункти меню</a></li>
-                        <li class="breadcrumb-item active">{{$menuItem->label}}</li>
+                        @php $title = 'Пункт меню' @endphp
+                        <x-menu-breadcrumbs :menuWidget="$menuWidget" :menuItem="$menuItem" :title="$title"></x-menu-breadcrumbs>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

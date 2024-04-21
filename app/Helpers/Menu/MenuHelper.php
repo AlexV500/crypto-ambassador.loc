@@ -2,27 +2,31 @@
 
 namespace App\Helpers\Menu;
 
+use App\Models\Menu\MenuWidget;
+
 class MenuHelper{
 
-    public static function treeMenuItems($widgetPosition = 'All')
+    public static function treeMenuItems($currentLocale, $widgetPosition = 'All')
     {
-        $menuItems = [];
         if($widgetPosition == 'All'){
             $menuWidgetPositions = config('menu.menuWidgetPositions');
             $menuWidgetCollection = collect($menuWidgetPositions);
-            $menuItems = $menuWidgetCollection->map(function ($item, $key) {
-                $widgetMenuItems = self::getWidgetMenuItems($key);
-            //    dd($widgetMenuItems);
+            $menuItems = $menuWidgetCollection->map(function ($item, $key) use ($currentLocale) {
+                $widgetMenuItems = self::getWidgetMenuItems($currentLocale, $key);
                 return self::getTreeMenuItems($widgetMenuItems['rootMenuItems'], $widgetMenuItems['allMenuItems']);
             });
+            $menuItems->toJson();
+            return json_decode($menuItems);
         }
-        $menuItems->toJson();
-    //    dd(json_decode($menuItems));
-        return json_decode($menuItems);
+        else {
+            $widgetMenuItems = self::getWidgetMenuItems($currentLocale, $widgetPosition);
+            $menuItems = self::getTreeMenuItems($widgetMenuItems['rootMenuItems'], $widgetMenuItems['allMenuItems']);
+            return $menuItems;
+        }
     }
 
-    public static function getWidgetMenuItems($position) : array{
-       $widget = \App\Models\Menu\MenuWidget::where('position', '=', $position)->first();
+    public static function getWidgetMenuItems($currentLocale, $position) : array{
+       $widget = MenuWidget::locale($currentLocale)->where('position', '=', $position)->first();
         return ['rootMenuItems' => $widget->getItems(), 'allMenuItems' => $widget->getAllItems()];
     }
 

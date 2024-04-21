@@ -41,38 +41,39 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>
+
                             <div class="form-group w-100">
                                 <label>Вибрати Тип Пункта Меню</label>
+                                <select name="menu_item_type" class="form-control">
 
-                                <select name="menu_item_bind_type" class="form-control">
-                                    @foreach($menuTypes as $systemName => $name)
-                                        <option value="{{ $systemName }}"
-                                            {{ old('type') == $systemName ? ' selected' : '' }}
-                                        >{{ $name }}</option>
+                                    @foreach($menuItemTypes as $systemItemTypeName => $itemTypeName)
+                                        <option value="{{ $systemItemTypeName }}"
+                                            {{ old('menu_item_type') == $systemItemTypeName ? ' selected' : '' }}
+                                        >{{ $itemTypeName }}</option>
                                     @endforeach
-                                </select>
 
-                                @error('type')
+                                </select>
+                                @error('menu_item_type')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror()
                             </div>
 
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="menu_item_type" value="list"
-                                           id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Випадаючий список
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="menu_item_type" value="column"
-                                           id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Випадаюча колонка
-                                    </label>
-                                </div>
+                            <div class="form-group w-100">
+                                <label>Вибрати Прив'язку Пункта Меню</label>
+                                <select name="menu_item_bind_type" class="form-control">
+
+                                    @foreach($menuBindItemTypes as $systemBindItemTypeName => $bindItemTypeName)
+                                        <option value="{{ $systemBindItemTypeName }}"
+                                            {{ old('menu_item_bind_type') == $systemBindItemTypeName ? ' selected' : '' }}
+                                        >{{ $bindItemTypeName }}</option>
+                                    @endforeach
+
+                                </select>
+                                @error('menu_item_bind_type')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror()
                             </div>
+
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Додати">
                             </div>

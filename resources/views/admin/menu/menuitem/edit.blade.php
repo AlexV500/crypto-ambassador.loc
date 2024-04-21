@@ -48,7 +48,7 @@
 
                                     @foreach($menuItemTypes as $systemItemTypeName => $itemTypeName)
                                         <option value="{{ $systemItemTypeName }}"
-                                            {{ $menuItem->type == $systemItemTypeName ? ' selected' : '' }}
+                                            {{ $menuItem->menu_item_type == $systemItemTypeName ? ' selected' : '' }}
                                         >{{ $itemTypeName }}</option>
                                     @endforeach
 
@@ -64,7 +64,7 @@
 
                                     @foreach($menuBindItemTypes as $systemBindItemTypeName => $bindItemTypeName)
                                         <option value="{{ $systemBindItemTypeName }}"
-                                            {{ $menuItem->type == $systemBindItemTypeName ? ' selected' : '' }}
+                                            {{ $menuItem->menu_item_bind_type == $systemBindItemTypeName ? ' selected' : '' }}
                                         >{{ $bindItemTypeName }}</option>
                                     @endforeach
 

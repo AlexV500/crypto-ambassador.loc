@@ -14,8 +14,9 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin') }}">Головна</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuwidget.index') }}">Віджети меню</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.menu.menuitem.index', $menuWidget->id) }}">{{$menuWidget->name}}</a></li>
                             @php $title = 'Дочірні пункти меню' @endphp
-                            <x-menu-breadcrumbs :menuBreadcrumbs="$menuBreadcrumbs" :menuWidget="$menuWidget" :menuItem="$parentItem" :title="$title"></x-menu-breadcrumbs>
+                            <x-menu-breadcrumbs :menuWidget="$menuWidget" :menuItem="$parentItem" :title="$title"></x-menu-breadcrumbs>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

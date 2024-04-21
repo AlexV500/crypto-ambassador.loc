@@ -3,6 +3,7 @@
 namespace App\Models\Menu;
 
 use App\Events\Admin\MenuWidget\CreatedMenuWidgetEvent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,6 +37,11 @@ class MenuWidget extends Model{
     public function getAllItems(){
 
         return $this->hasMany('App\Models\Menu\MenuItem', 'menu_widget_id')->with('child')->get();
+    }
+
+    public function scopeLocale(Builder $query, string $lang)
+    {
+        return $query->where('lang', '=', $lang);
     }
 
 }
