@@ -11,8 +11,8 @@ use Illuminate\View\Component;
 class Header extends Component
 {
     public $isAdmin;
-    public $getLocale;
-    public $getLocaleName;
+    public $currentLocale;
+    public $currentLocaleName;
     public $locales;
     protected object $languageSwitcherService;
     /**
@@ -21,13 +21,12 @@ class Header extends Component
     public function __construct($siteEntity, LanguageSwitcherService $languageSwitcherService)
     {
         $this->isAdmin = $siteEntity->isAdmin();
-        $this->getLocale = $siteEntity->getLocale();
-        $this->getLocaleName = $siteEntity->getCurrentLocaleName();
+        $this->currentLocale = $siteEntity->getCurrentLocale();
+        $this->currentLocaleName = $siteEntity->getCurrentLocaleName();
         $this->locales = $siteEntity->getAllLocalizations();
         $this->languageSwitcherService = $languageSwitcherService;
-    //    dd($languageSwitcherService->getLanguageSwitcherLinks($siteEntity));
+    //    dd(MenuHelper::treeMenuItems($this->currentLocale,'mainTop'));
 
-        dd(MenuHelper::treeMenuItems('mainTop'));
     }
 
     /**

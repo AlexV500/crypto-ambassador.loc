@@ -41,7 +41,7 @@ class TopMenuItems extends Component
 
                 $html .= '<option ' . $option . ' value="' . $menuItem->id . '">' . $depth . $menuItem->label .' '. $description .' '. '</option>';
                 if (count($menuItem->child) > 0) {
-                    $html .= $this->renderOptions($menuItem->child, $menuItem->id);
+                    $html .= $this->renderMenuItems($menuItem->child, $menuItem->id);
                 }
             }
         }

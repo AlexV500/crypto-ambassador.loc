@@ -74,7 +74,7 @@
                             <li class="">
                                 <div class="dropdown">
                                     <a class="btn dropdown-nav-theme-btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{ $getLocaleName }}
+                                        {{ $currentLocaleName }}
                                     </a>
 
                                     <ul class="dropdown-menu">
