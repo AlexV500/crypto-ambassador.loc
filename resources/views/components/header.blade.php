@@ -11,28 +11,32 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+
                         <ul id="nav" class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="page-scroll active" href="#home">{{__('lang.Home')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#about">{{__('lang.About')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#blog">{{__('lang.Blog')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#partnership">{{__('lang.Partnership')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#ambassadors">{{__('lang.Ambassadors')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#roadmap">{{__('lang.Roadmap')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="page-scroll" href="#contact">{{__('lang.Contact')}}</a>
-                            </li>
+                        <x-top-menu-items :siteEntity="$siteEntity" :menuWidgetPosition="'mainTop'"></x-top-menu-items>
+
+
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll active" href="#home">{{__('lang.Home')}}</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll" href="#about">{{__('lang.About')}}</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll" href="#blog">{{__('lang.Blog')}}</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll" href="#partnership">{{__('lang.Partnership')}}</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll" href="#ambassadors">{{__('lang.Ambassadors')}}</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll" href="#roadmap">{{__('lang.Roadmap')}}</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="page-scroll" href="#contact">{{__('lang.Contact')}}</a>--}}
+{{--                            </li>--}}
 
 
                             @guest()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\URI\URIHelper;
 use App\Http\Entities\Site;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ class SiteController extends Controller{
              ->addViewVariables('getCurrentLocale', $this->getCurrentLocale())
              ->addViewVariables('locales', $this->getAllLocalizations())
              ->addViewVariables('isAdmin', $this->isAdmin());
+
+    //    dump(URIHelper::getCurrentResourceUrlPath($this->siteEntity));
      //   dd($this->routeInfo());
     }
 

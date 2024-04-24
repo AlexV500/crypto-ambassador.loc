@@ -3,47 +3,56 @@
 namespace App\View\Components\Menu;
 
 use App\Helpers\Menu\MenuHelper;
+use App\Helpers\URI\URIHelper;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 class TopMenuItems extends Component
 {
-        /**
+    public $html;
+    private $siteEntity;
+
+     /**
      * Create a new component instance.
      */
     public function __construct($siteEntity, $menuWidgetPosition)
     {
-        $treeMenuItems = MenuHelper::treeMenuItems($siteEntity->getCurrentLocale(), $menuWidgetPosition);
+        $this->siteEntity = $siteEntity;
+        $treeMenuItems = MenuHelper::treeMenuItems($siteEntity, $menuWidgetPosition);
+        $this->html = $this->prepareRender($treeMenuItems);
+    }
 
-        }
+    public function prepareRender($menuItems){
 
-    /**
-     * Get the view / contents that represent the component.
-     */
+        $html = '';
+        $html .= $this->renderMenuItems($menuItems);
+        $html .= '';
 
-    private function renderMenuItems($menuItems, $parentId)
+        return $html;
+    }
+
+    private function renderMenuItems($menuItems)
     {
         $html = '';
         foreach ($menuItems as $menuItem) {
-            $option = '';
-            $description = '';
 
-            if ($menuItem->id == $this->menuItem->id) {
-                $option = 'disabled';
-                $description = '(Поточний пункт)';
-            }
-            if ($this->menuItem->parent_id == $menuItem->id){
-                $option = 'selected="selected"';
-                $description = '(Поточний батьківський пункт)';
-            }
-            $depth = ($parentId == 0) ? '' : str_repeat("-", $menuItem->depth);
-            if ($parentId == $menuItem->parent_id) {
+            $dropdown = '';
+            $active = '';
 
-                $html .= '<option ' . $option . ' value="' . $menuItem->id . '">' . $depth . $menuItem->label .' '. $description .' '. '</option>';
-                if (count($menuItem->child) > 0) {
-                    $html .= $this->renderMenuItems($menuItem->child, $menuItem->id);
-                }
+            if(MenuHelper::checkCurrentItemActive($this->siteEntity, $menuItem)){
+                $active = ' active';
             }
+            if ((count($menuItem->child) > 0) or ($menuItem->menu_item_bind_type = 'menuItemDropdownTitle')) {
+                $dropdown = ' dropdown';
+            }
+            $html .= '<li class="nav-item"><a class="nav-link' . $active . $dropdown .'" href="'.$menuItem->url_segments.'/'.$menuItem->url.'">'.$menuItem->label.'</a>';
+            if (count($menuItem->child) > 0) {
+                $html .= '<ul class="dropdown-menu">';
+                $html .= $this->renderMenuItems($menuItem->child);
+                $html .= '</ul>';
+            }
+            $html .= '</li>';
+
         }
         return $html;
     }

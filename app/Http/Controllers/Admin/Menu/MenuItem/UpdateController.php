@@ -10,7 +10,6 @@ class UpdateController extends BaseController{
     public function __invoke(UpdateRequest $request, MenuItem $menuItem){
 
         $data = $request->validated();
-        $oldMenuItemBindType = $menuItem->menu_item_bind_type;
         $menuItem->update($data);
 
         $addViewVariables = [
@@ -18,13 +17,18 @@ class UpdateController extends BaseController{
             'menuItem' => $menuItem
         ];
 
-        if($oldMenuItemBindType == $request->input('menu_item_bind_type')){
+        if($this->isBindTypeChanged($request, $menuItem)){
+            return $this->redirectToBinding($menuItem);
+        } else {
             return view('admin.menu.menuitem.show', $this->mergeViewVariables($addViewVariables));
         }
-        else {
-            return redirect()->route('admin.menu.menuitem.binding', $menuItem);
-        }
+    }
 
-
+    private function redirectToBinding($menuItem){
+        return redirect()->route('admin.menu.menuitem.binding', $menuItem);
+    }
+    private function isBindTypeChanged($request, $menuItem){
+        $oldMenuItemBindType = $menuItem->menu_item_bind_type;
+        return $request->input('menu_item_bind_type') == 'menuItemDropdownTitle' && $oldMenuItemBindType !== $request->input('menu_item_bind_type');
     }
 }

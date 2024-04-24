@@ -8,6 +8,7 @@ return [
     ],
 
     'menuItemBindTypes' => [
+        'menuItemDropdownTitle' => 'Заголовок випадаючого списку',
         'menuItemPage' => 'Внутрішня сторінка',
         'menuItemBlogPost' => 'Пост блога',
         'menuItemBlog' => 'Блог',

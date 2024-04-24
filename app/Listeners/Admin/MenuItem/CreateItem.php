@@ -23,6 +23,11 @@ class CreateItem
         $parentId = request()->input('parent_id');
 
         $type = request()->input('menu_item_type');
+        $bindType = request()->input('menu_item_bind_type');
+
+        if($bindType == 'menuItemDropdownTitle'){
+            $event->menuItem->url = '#';
+        }
         if($type == 'menuColumnItem'){
             $query =  $event->menuItem->where('column_number', request()->input('column_number'));
         } else {
@@ -42,7 +47,6 @@ class CreateItem
                 ->max('depth');
 
             $event->menuItem->depth = $parentDepth + 1;
-
         }
     }
 }

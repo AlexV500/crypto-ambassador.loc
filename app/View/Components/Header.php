@@ -11,6 +11,7 @@ use Illuminate\View\Component;
 class Header extends Component
 {
     public $isAdmin;
+    public $siteEntity;
     public $currentLocale;
     public $currentLocaleName;
     public $locales;
@@ -20,6 +21,7 @@ class Header extends Component
      */
     public function __construct($siteEntity, LanguageSwitcherService $languageSwitcherService)
     {
+        $this->siteEntity = $siteEntity;
         $this->isAdmin = $siteEntity->isAdmin();
         $this->currentLocale = $siteEntity->getCurrentLocale();
         $this->currentLocaleName = $siteEntity->getCurrentLocaleName();

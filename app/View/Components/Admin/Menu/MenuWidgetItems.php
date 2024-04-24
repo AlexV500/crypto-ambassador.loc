@@ -18,7 +18,7 @@ class MenuWidgetItems extends Component
      */
     public function __construct($siteEntity, $menuWidget, $menuItem)
     {
-        $treeMenuItems = MenuHelper::treeMenuItems($siteEntity->getCurrentLocale());
+        $treeMenuItems = MenuHelper::treeMenuItems($siteEntity);
         $this->menuWidget = $menuWidget;
         $this->menuItem = $menuItem;
         $menuWidgetPosition = $menuWidget->position;
@@ -26,8 +26,6 @@ class MenuWidgetItems extends Component
     }
 
     public function prepareRender($menuItems){
-
-     //   dd($menuItems);
 
         $html = '<label>Вибрати батьківські пункти меню</label>';
         $html .= '<div class="form-group">';

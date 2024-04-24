@@ -12,6 +12,7 @@ use App\View\Components\Blog\BlogHeader;
 use App\View\Components\Blog\BlogLanguageSwitcher;
 use App\View\Components\Blog\Posts;
 use App\View\Components\LanguageSwitcher;
+use App\View\Components\Menu\TopMenuItems;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component(MenuBreadcrumbs::class, 'menu-breadcrumbs');
         Blade::component(MenuWidgetItems::class, 'menu-widget-items');
+        Blade::component(TopMenuItems::class, 'top-menu-items');
         Blade::component(AdminNavbar::class, 'admin-navbar');
         Blade::component(LanguageSelector::class, 'language-selector');
         Blade::component(LanguageSwitcher::class, 'language-switcher');

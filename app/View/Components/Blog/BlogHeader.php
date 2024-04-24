@@ -20,7 +20,7 @@ class BlogHeader extends Component
     public function __construct($siteEntity)
     {
         $this->isAdmin = $this->isAdmin();
-        $this->siteEntity = $siteEntity;  
+        $this->siteEntity = $siteEntity;
     }
 
     /**
