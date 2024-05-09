@@ -42,11 +42,14 @@ class MenuBreadcrumbs extends Component
         for ($count = 0; $count < $renderCrumbsCount; $count++)
         {
             if(!is_array($renderCrumbs[$count])){
-                if($renderCrumbs[$count]->parent_id == 0){
-                    $route = route('admin.menu.menuitem.index', $this->menuWidget->id);
-                } else {
-                    $route = route('admin.menu.submenuitem.index', [$this->menuWidget->id, $renderCrumbs[$count]->id]);
-                }
+//                if($renderCrumbs[$count]->parent_id == 0){
+//                    $route = route('admin.menu.menuitem.index', $this->menuWidget->id);
+//                } else {
+//                    $route = route('admin.menu.submenuitem.index', [$this->menuWidget->id, $renderCrumbs[$count]->id]);
+//                }
+
+                $route = route('admin.menu.submenuitem.index', [$this->menuWidget->id, $renderCrumbs[$count]->id]);
+
                 if($renderCrumbs[$count]->id !== $this->menuItem->id){
                     $html .= '<li class="breadcrumb-item"><a href="'.$route.'">'.$renderCrumbs[$count]->label.'</a> </li>@';
                 } else {
